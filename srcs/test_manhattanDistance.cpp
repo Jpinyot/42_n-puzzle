@@ -6,29 +6,11 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:57:58 by jpinyot           #+#    #+#             */
-/*   Updated: 2019/12/10 00:22:43 by jpinyot          ###   ########.fr       */
+/*   Updated: 2019/12/10 22:37:02 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test_manhattanDistance.h"
-
-	/* int		a1[3] = {1, 4, 3}; */
-	/* int		a2[3] = {2, 5, 0}; */
-	/* int		a3[3] = {8, 7, 6}; */
-	/* vector<int>	v1(a1, a1 + 3); */
-	/* vector<int>	v2(a2, a2 + 3); */
-	/* vector<int>	v3(a3, a3 + 3); */
-	/* puzzle_.push_back(v1); */
-	/* puzzle_.push_back(v2); */
-	/* puzzle_.push_back(v3); */
-
-	/* for (int i = 0; i < puzzle_.size(); i++) */
-	/* { */
-	/* 	for (int j = 0; j < puzzle_[i].size(); j++){ */
-	/* 		cout << puzzle_[i][j] << ' '; */
-	/* 	} */
-	/* 	cout << '\n'; */
-	/* } */
 
 void	ManhattanDistance::solve()
 {
@@ -36,22 +18,39 @@ void	ManhattanDistance::solve()
 	/* int			arr[9] = {1, 4, 3, */
 	/* 					  2, 5, 0, */
 	/* 					  8, 7, 6}; */
-	int			arr[9] = {0, 1, 2,
-						  3, 4, 5,
+	int			arr[9] = {0, 1, 5,			//IRRESOLUBLE
+						  4, 3, 2,
 						  6, 7, 8};
+	/* int			arr[9] = {8, 7, 6, */
+	/* 					  5, 4, 3, */
+	/* 					  2, 1, 0}; */
+	/* int			arr[9] = {8, 7, 6, */
+	/* 					  5, 4, 3, */
+	/* 					  0, 2, 1}; */
 	vector<int> test(arr, arr+ 9);
 	puzzle_ = test;
 	iterator_ = 5;		//need to work for difference size
-	getItPos();
+	setItPos();
 	calculateManDist();
 	cout << h_ << "\n\n";
 
 	/* end of need some work */
-//	while (1){		//not work when sorted
-		
-//	}
+	while (h_){
+		for (int i = 0; i < puzzle_.size(); i++){
+			cout << puzzle_[i] << ' ';
+			if ((i + 1) % 3 == 0)
+				cout << '\n';
+		}
+		cout << '\t';
+		cout << lastMove_ << "\n";
+
+		move();
+		g_ += 1;
+	}
 
 	/* PRINT */
+	cout << '\n';
+	/* cout << h_ << "\n\n"; */
 	for (int i = 0; i < puzzle_.size(); i++){
 		cout << puzzle_[i] << ' ';
 		if ((i + 1) % 3 == 0)
@@ -71,40 +70,115 @@ void	ManhattanDistance::calculateManDist()
 	manDist_ = h_ + g_;
 }
 
-void	ManhattanDistance::manDistAfterMove(Moves lastMove)
+int		ManhattanDistance::manDistAfterMove(Moves lastMove)
 {
-	if (lastMove == none){
-		for (int i = 0; i < puzzle_.size(); i++){
-			if (puzzle_[i] != iterator_){
-				int xAxis = abs(( puzzle_[i] - ((puzzle_[i] / size_) * size_)) - (i -((i / size_) * size_)));
-				int	yAxis = abs(puzzle_[i] / size_ - i / size_);
-				h_ += xAxis + yAxis;
-			}		
-		}
-		manDist_ = h_ + g_;
-	}
 	int		tempH = h_;
+	int		pos = 0;
 	switch (lastMove){
 		case N:
-			int pos = itPos - size_;
-			
+			pos = itPos_ - size_;
+			if (pos < 0){
+				return (-1);
+			}
 			break;
 		case E:
-			int pos = itPos + 1;
+			pos = itPos_ + 1;
+			if (pos / size_ != itPos_ / size_){
+				return (-1);
+			}
 			break;
 		case S:
-			int pos = itPos + size_;
+			pos = itPos_ + size_;
+			if (pos >= size_ * size_){
+				return (-1);
+			}
 			break;
 		case W:
-			int pos = itPos - 1;
+			pos = itPos_ - 1;
+			if (pos < 0 || pos / size_ != itPos_ / size_){
+				return (-1);
+			}
 			break;
 		default:
-			break;
-		}
+			cout << "$";
+			return (-1);
+	}
+	int	oldXAxis = abs(( puzzle_[pos] - ((puzzle_[pos] / size_) * size_)) - (pos -((pos / size_) * size_)));
+	int	oldYAxis = abs(puzzle_[pos] / size_ - pos / size_);
+	int	newXAxis = abs(( puzzle_[pos] - ((puzzle_[pos] / size_) * size_)) - (itPos_ -((itPos_ / size_) * size_)));
+	int	newYAxis = abs(puzzle_[pos] / size_ - itPos_ / size_);
+	tempH += (newXAxis + newYAxis) - (oldXAxis + oldYAxis);
 	return tempH;
 }
 
-void	ManhattanDistance::getItPos()
+void	ManhattanDistance::move()
+{
+	Moves	nextMove = none;
+	int		nextMoveH = -1;
+	if (lastMove_ != S){
+		int moveN = manDistAfterMove(N);
+		if (moveN != -1){
+			nextMove = N;
+			nextMoveH = moveN;
+		}
+	}
+	if (lastMove_ != W){
+		int moveE = manDistAfterMove(E);
+		if (moveE != -1 && (nextMove == none || nextMoveH > moveE)){
+			nextMove = E;
+			nextMoveH = moveE;
+		}
+	}
+	if (lastMove_ != N){
+		int moveS = manDistAfterMove(S);
+		if (moveS != -1 && (nextMove == none || nextMoveH > moveS)){
+			nextMove = S;
+			nextMoveH = moveS;
+		}
+	}
+	if (lastMove_ != E){
+		int moveW = manDistAfterMove(W);
+		if (moveW != -1 && (nextMove == none || nextMoveH > moveW)){
+			nextMove = W;
+			nextMoveH = moveW;
+		}
+	}
+	switch (nextMove){
+		case N:
+			puzzle_[itPos_] = puzzle_[itPos_ - size_];
+			puzzle_[itPos_ - size_] = iterator_;
+			h_ = nextMoveH;
+			lastMove_ = N;
+			itPos_ -= size_; 
+			break;
+		case E:
+			puzzle_[itPos_] = puzzle_[itPos_ + 1];
+			puzzle_[itPos_ + 1] = iterator_;
+			h_ = nextMoveH;
+			lastMove_ = E;
+			itPos_ += 1; 
+			break;
+		case S:
+			puzzle_[itPos_] = puzzle_[itPos_ + size_];
+			puzzle_[itPos_ + size_] = iterator_;
+			h_ = nextMoveH;
+			lastMove_ = S;
+			itPos_ += size_; 
+			break;
+		case W:
+			puzzle_[itPos_] = puzzle_[itPos_ - 1];
+			puzzle_[itPos_ - 1] = iterator_;
+			h_ = nextMoveH;
+			lastMove_ = W;
+			itPos_ -= 1; 
+			break;
+		default:
+			cout << "$";
+			break;
+	}
+}
+
+void	ManhattanDistance::setItPos()
 {
 	for (int i = 0; i < puzzle_.size(); i++){
 		if (puzzle_[i] == iterator_){
