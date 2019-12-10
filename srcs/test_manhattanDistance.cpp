@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:57:58 by jpinyot           #+#    #+#             */
-/*   Updated: 2019/12/10 22:37:02 by jpinyot          ###   ########.fr       */
+/*   Updated: 2019/12/10 23:12:51 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,28 @@ void	ManhattanDistance::solve()
 	/* int			arr[9] = {1, 4, 3, */
 	/* 					  2, 5, 0, */
 	/* 					  8, 7, 6}; */
-	int			arr[9] = {0, 1, 5,			//IRRESOLUBLE
-						  4, 3, 2,
-						  6, 7, 8};
+	/* int			arr[9] = {0, 1, 5,			//IRRESOLUBLE */
+	/* 					  4, 3, 2, */
+	/* 					  6, 7, 8}; */
 	/* int			arr[9] = {8, 7, 6, */
 	/* 					  5, 4, 3, */
 	/* 					  2, 1, 0}; */
-	/* int			arr[9] = {8, 7, 6, */
-	/* 					  5, 4, 3, */
-	/* 					  0, 2, 1}; */
+	int			arr[9] = {8, 7, 6,
+						  5, 4, 3,
+						  0, 2, 1};
+	/* int				arr[16] = {12, 14, 9, 2, */
+	/* 						   4, 0, 15, 3, */
+	/* 						   1, 10, 11, 8, */
+	/* 						   13, 6, 7, 5}; */
+	/* int				arr[9] = {1,   5,   0, */  
+	/* 						  7,   6,   4, */ 
+							  /* 2,   3,   8}; */
 	vector<int> test(arr, arr+ 9);
 	puzzle_ = test;
 	iterator_ = 5;		//need to work for difference size
 	setItPos();
 	calculateManDist();
-	cout << h_ << "\n\n";
+	cout << iterator_ << "\n\n";
 
 	/* end of need some work */
 	while (h_){
@@ -50,7 +57,7 @@ void	ManhattanDistance::solve()
 
 	/* PRINT */
 	cout << '\n';
-	/* cout << h_ << "\n\n"; */
+	cout << g_ << "\n\n";
 	for (int i = 0; i < puzzle_.size(); i++){
 		cout << puzzle_[i] << ' ';
 		if ((i + 1) % 3 == 0)
@@ -58,7 +65,7 @@ void	ManhattanDistance::solve()
 	}
 }
 
-void	ManhattanDistance::calculateManDist()
+void	ManhattanDistance::calculateManDist()				//something wrong with changing iterator
 {
 	for (int i = 0; i < puzzle_.size(); i++){
 		if (puzzle_[i] != iterator_){
@@ -145,7 +152,7 @@ void	ManhattanDistance::move()
 	}
 	switch (nextMove){
 		case N:
-			puzzle_[itPos_] = puzzle_[itPos_ - size_];
+			puzzle_[itPos_] = puzzle_[itPos_ - size_];				//create variable to itPos_ - sie_
 			puzzle_[itPos_ - size_] = iterator_;
 			h_ = nextMoveH;
 			lastMove_ = N;
