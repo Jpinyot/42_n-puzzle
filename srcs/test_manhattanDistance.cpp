@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:57:58 by jpinyot           #+#    #+#             */
-/*   Updated: 2019/12/12 01:04:42 by jpinyot          ###   ########.fr       */
+/*   Updated: 2019/12/12 22:31:41 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,32 @@ void	ManhattanDistance::solve()
 {
 	/* need some work */
 	/* int			arr[9] = {1, 4, 3, */
-	/* 					  2, 5, 0, */
-	/* 					  8, 7, 6}; */
+						  /* 2, 5, 0, */
+						  /* 8, 7, 6}; */
 	/* int			arr[9] = {0, 1, 5,			//IRRESOLUBLE */
 	/* 					  4, 3, 2, */
 	/* 					  6, 7, 8}; */
 	/* int			arr[9] = {8, 7, 6, */
 	/* 					  5, 4, 3, */
-	/* 					  2, 1, 0}; */
-	int			arr[9] = {8, 7, 6,
-						  5, 4, 3,
-						  0, 2, 1};
+						  /* 2, 1, 0}; */
+	/* int			arr[9] = {8, 7, 6, */
+	/* 					  5, 4, 3, */
+						  /* 0, 2, 1}; */
 	/* int				arr[16] = {12, 14, 9, 2, */
 	/* 						   4, 0, 15, 3, */
 	/* 						   1, 10, 11, 8, */
 	/* 						   13, 6, 7, 5}; */
-	/* int				arr[9] = {1,   5,   0, */  
-	/* 						  7,   6,   4, */ 
+	/* int				arr[9] = {1,   5,   0,  	//IRRESAOLUBLE?? */
+							  /* 7,   6,   4, */ 
 							  /* 2,   3,   8}; */
-	vector<int> test(arr, arr+ 9);
-	iterator_ = 5;		//need to work for difference size
+	int				arr[9] = {4, 5, 6,
+							  1, 2, 3,
+							  7, 8, 0};
+	/* int				arr[9] = {7, 1, 8,				//HARD */
+	/* 						  5, 2, 6, */
+	/* 						  3, 4, 0}; */
+	vector<int> test(arr, arr + 9);
+	iterator_ = 4;		//need to work for difference size
 	Nodes rootNode;
 	/* write(1, "#", 1); */
 	root_ = &rootNode;
@@ -44,6 +50,7 @@ void	ManhattanDistance::solve()
 	actual_ = root_;
 	calculateManDist();
 
+	int count = 0;
 	/* end of need some work */
 	while (actual_->h()){
 		/* cout << '\t'; */
@@ -51,9 +58,13 @@ void	ManhattanDistance::solve()
 
 
 		move();
-		write(1, "%", 1);
 		actual_ = root_->best_;			//tmp to check if all ok
 
+		cout << count << '\n';
+		count += 1;
+		cout << actual_->g() << '\n';
+		if (actual_->n_ || actual_->e_ || actual_->s_ || actual_->w_)
+			write(1, "%", 1);
 		for (int i = 0; i < actual_->puzzle_.size(); i++){
 			cout << actual_->puzzle_[i] << ' ';
 			if ((i + 1) % 3 == 0)
@@ -65,7 +76,7 @@ void	ManhattanDistance::solve()
 
 	/* PRINT */
 	cout << '\n';
-	cout << actual_->lastMove() << "\n\n";
+	cout << actual_->g() << "\n\n";
 	for (int i = 0; i < actual_->puzzle_.size(); i++){
 		cout << actual_->puzzle_[i] << ' ';
 		if ((i + 1) % 3 == 0)
@@ -142,6 +153,7 @@ void	ManhattanDistance::move()
 			nodeN->increaseG();
 			nodeN->setLastMove(N);
 			nodeN->setItPos(nextItPos);
+			nodeN->setBest(nodeN);
 			actual_->setN(nodeN);
 
 			nextMove = N;			//set as best
@@ -159,6 +171,7 @@ void	ManhattanDistance::move()
 			nodeE->increaseG();
 			nodeE->setLastMove(E);
 			nodeE->setItPos(nextItPos);
+			nodeE->setBest(nodeE);
 			actual_->setE(nodeE);
 			if (nextMove == none || nextMoveH > moveE){
 				nextMove = E;
@@ -177,6 +190,7 @@ void	ManhattanDistance::move()
 			nodeS->increaseG();
 			nodeS->setLastMove(S);
 			nodeS->setItPos(nextItPos);
+			nodeS->setBest(nodeS);
 			actual_->setS(nodeS);
 			if (nextMove == none || nextMoveH > moveS){
 				nextMove = S;
@@ -195,6 +209,7 @@ void	ManhattanDistance::move()
 			nodeW->increaseG();
 			nodeW->setLastMove(W);
 			nodeW->setItPos(nextItPos);
+			nodeW->setBest(nodeW);
 			actual_->setW(nodeW);
 			if (nextMove == none || nextMoveH > moveW){
 				nextMove = W;
@@ -220,32 +235,29 @@ void	ManhattanDistance::move()
 			cout << "$";
 			break;
 	}
+	Nodes* best = actual_->best_;
 	for (Nodes* it = actual_->origin_; it; it = it->origin_){
+		/* write(1, "&", 1); */
 		
-		/* if ((actual_->n_ && it->best_->manDist() > actual_->n_->manDist()) && */
-		/* 		(actual_->e_ && it->best_->manDist() > actual_->e_->manDist()) && */
-		/* 		(actual_->s_ && it->best_->manDist() > actual_->s_->manDist()) && */
-		/* 		(actual_->w_ && it->best_->manDist() > actual_->w_->manDist())){ */
+		/* if ((it->n_ && it->best_->manDist() > actual_->n_->manDist()) && */
+		/* 		(it->e_ && it->best_->manDist() > actual_->e_->manDist()) && */
+		/* 		(it->s_ && it->best_->manDist() > actual_->s_->manDist()) && */
+		/* 		(it->w_ && it->best_->manDist() > actual_->w_->manDist())){ */
 		/* 	it->best_ = actual_->best_; */
 		/* } */
-		if (it->n_ && it->n_->best_->manDist() < actual_->manDist()){
-			actual_ = it->best_;
+		if (it->n_ && it->n_->best_ && it->n_->best_->manDist() < best->manDist()){
+			best = it->n_->best_;
 		}
-		if (it->e_ && it->e_->best_->manDist() < actual_->manDist()){
-			actual_ = it->best_;
+		if (it->e_ && it->e_->best_ && it->e_->best_->manDist() < best->manDist()){
+			best = it->e_->best_;
 		}
-		if (it->s_ && it->s_->best_->manDist() < actual_->manDist()){
-			actual_ = it->best_;
+		if (it->s_ && it->s_->best_ && it->s_->best_->manDist() < best->manDist()){
+			best = it->s_->best_;
 		}
-		if (it->w_ && it->w_->best_->manDist() < actual_->manDist()){
-			actual_ = it->best_;
+		if (it->w_ && it->w_->best_ && it->w_->best_->manDist() < best->manDist()){
+			best = it->w_->best_;
 		}
-		if ((it->n_ && it->best_->manDist() > actual_->n_->manDist()) &&
-				(it->e_ && it->best_->manDist() > actual_->e_->manDist()) &&
-				(it->s_ && it->best_->manDist() > actual_->s_->manDist()) &&
-				(it->w_ && it->best_->manDist() > actual_->w_->manDist())){
-			it->best_ = actual_->best_;
-		}
+		it->best_ = best;
 		/* else { */
 		/* 	it->best_ = actual_->best_; */
 		/* } */
