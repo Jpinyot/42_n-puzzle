@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:57:58 by jpinyot           #+#    #+#             */
-/*   Updated: 2019/12/12 22:31:41 by jpinyot          ###   ########.fr       */
+/*   Updated: 2019/12/13 23:20:43 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void	ManhattanDistance::solve()
 	/* int			arr[9] = {0, 1, 5,			//IRRESOLUBLE */
 	/* 					  4, 3, 2, */
 	/* 					  6, 7, 8}; */
+	int			arr[9] = {8, 7, 6,
+						  5, 4, 3,
+						  2, 1, 0};
 	/* int			arr[9] = {8, 7, 6, */
 	/* 					  5, 4, 3, */
-						  /* 2, 1, 0}; */
-	/* int			arr[9] = {8, 7, 6, */
-	/* 					  5, 4, 3, */
-						  /* 0, 2, 1}; */
+	/* 					  0, 2, 1}; */
 	/* int				arr[16] = {12, 14, 9, 2, */
 	/* 						   4, 0, 15, 3, */
 	/* 						   1, 10, 11, 8, */
@@ -34,14 +34,13 @@ void	ManhattanDistance::solve()
 	/* int				arr[9] = {1,   5,   0,  	//IRRESAOLUBLE?? */
 							  /* 7,   6,   4, */ 
 							  /* 2,   3,   8}; */
-	int				arr[9] = {4, 5, 6,
-							  1, 2, 3,
-							  7, 8, 0};
+	/* int				arr[9] = {4, 5, 6, */
+	/* 						  1, 2, 3, */
+							  /* 7, 8, 0}; */
 	/* int				arr[9] = {7, 1, 8,				//HARD */
 	/* 						  5, 2, 6, */
 	/* 						  3, 4, 0}; */
 	vector<int> test(arr, arr + 9);
-	iterator_ = 4;		//need to work for difference size
 	Nodes rootNode;
 	/* write(1, "#", 1); */
 	root_ = &rootNode;
@@ -49,39 +48,50 @@ void	ManhattanDistance::solve()
 	setItPos();
 	actual_ = root_;
 	calculateManDist();
+	vector<Nodes*> tmp;
+	tmp.push_back(root_);
+	nodes_.push_back(tmp);
 
-	int count = 0;
 	/* end of need some work */
-	while (actual_->h()){
+	/* for (costIt_ = 0; costIt_ < nodes_.size(); costIt_++){ */
+	for (costIt_ = 0; costIt_ < 9; costIt_++){
+			/* write(1, "@", 1); */
+		for (int j = 0; j < nodes_[costIt_].size(); j++){
+			/* write(1, "#", 1); */
+			actual_ = nodes_[costIt_][j];
+			move();
+			/* write(1, "$", 1); */
+			if (actual_->h() == 0){
+				return ;
+			}
+			/* for (int i = 0; i < actual_->puzzle_.size(); i++){ */
+			/* 	cout << actual_->puzzle_[i] << ' '; */
+			/* 	if ((i + 1) % 3 == 0) */
+			/* 		cout << '\n'; */
+			/* } */
+			/* cout << '\n'; */
+		}
 		/* cout << '\t'; */
 		/* cout << actual_->h() << "\n"; */
 
 
-		move();
-		actual_ = root_->best_;			//tmp to check if all ok
+		/* actual_ = root_->best_;			//tmp to check if all ok */
 
-		cout << count << '\n';
-		count += 1;
-		cout << actual_->g() << '\n';
-		if (actual_->n_ || actual_->e_ || actual_->s_ || actual_->w_)
-			write(1, "%", 1);
-		for (int i = 0; i < actual_->puzzle_.size(); i++){
-			cout << actual_->puzzle_[i] << ' ';
-			if ((i + 1) % 3 == 0)
-				cout << '\n';
+		cout << costIt_ << "---s\n";
+		/* cout << actual_->g() << '\n'; */
+		for (int i = 0; i < nodes_[costIt_ + 1].size(); i++){
+			for (int j = 0; j < actual_->puzzle_.size(); j++){
+				cout << nodes_[costIt_ + 1][i]->puzzle_[j] << ' ';
+				if ((j + 1) % 3 == 0)
+					cout << "\n";
+			}
+			cout << "\n";
 		}
-		cout << '\n';
+		cout << costIt_ << "---end\n\n";
 
 	}
 
 	/* PRINT */
-	cout << '\n';
-	cout << actual_->g() << "\n\n";
-	for (int i = 0; i < actual_->puzzle_.size(); i++){
-		cout << actual_->puzzle_[i] << ' ';
-		if ((i + 1) % 3 == 0)
-			cout << '\n';
-	}
 }
 
 void	ManhattanDistance::calculateManDist()				//something wrong with changing iterator
@@ -138,135 +148,63 @@ int		ManhattanDistance::manDistAfterMove(Moves lastMove)
 	return tempH;
 }
 
+void	ManhattanDistance::newNode(int nodeCost, int nextItPos)
+{
+	if (costIt_ + 1 > nodesCost_.size()){
+		nodesCost_.push_back(nodeCost);
+		vector<Nodes*> tmp;
+		nodes_.push_back(tmp);
+
+	}
+	if (nodeCost < nodesCost_[costIt_ + 1]){
+		nodesCost_[costIt_ + 1] = nodeCost;
+		nodes_.erase(nodes_.begin() + costIt_);
+		vector<Nodes*> tmp;
+		nodes_.push_back(tmp);
+	}
+	Nodes* node = new Nodes(actual_);
+	node->puzzle_[node->itPos()] = node->puzzle_[nextItPos];
+	node->puzzle_[nextItPos] = iterator_;
+	node->setH(nodeCost);
+	node->increaseG();
+	node->setLastMove(N);
+	node->setItPos(nextItPos);
+
+	write(1, "%", 1);
+	nodes_[costIt_ + 1].push_back(node);
+}
+
 void	ManhattanDistance::move()
 {
-	Moves	nextMove = none;
-	int		nextMoveH = -1;
 	if (actual_->lastMove() != S){				//NORTH
 		int moveN = manDistAfterMove(N);
-		if (moveN != -1){
-			Nodes* nodeN = new Nodes(actual_);
-			int	nextItPos = nodeN->itPos() - size_;
-			nodeN->puzzle_[nodeN->itPos()] = nodeN->puzzle_[nextItPos];
-			nodeN->puzzle_[nextItPos] = iterator_;
-			nodeN->setH(moveN);
-			nodeN->increaseG();
-			nodeN->setLastMove(N);
-			nodeN->setItPos(nextItPos);
-			nodeN->setBest(nodeN);
-			actual_->setN(nodeN);
-
-			nextMove = N;			//set as best
-			nextMoveH = moveN;
+		if (moveN != -1 && (nodesCost_.size() < costIt_ + 1 || moveN <= nodesCost_[costIt_ + 1])){
+			/* write(1, "*", 1); */
+			int	nextItPos = actual_->itPos() - size_;
+			newNode(moveN, nextItPos);
 		}
 	}
 	if (actual_->lastMove() != W){			//EST
 		int moveE = manDistAfterMove(E);
-		if (moveE != -1){
-			Nodes* nodeE = new Nodes(actual_);
-			int	nextItPos = nodeE->itPos() + 1;
-			nodeE->puzzle_[nodeE->itPos()] = nodeE->puzzle_[nextItPos];
-			nodeE->puzzle_[nextItPos] = iterator_;
-			nodeE->setH(moveE);
-			nodeE->increaseG();
-			nodeE->setLastMove(E);
-			nodeE->setItPos(nextItPos);
-			nodeE->setBest(nodeE);
-			actual_->setE(nodeE);
-			if (nextMove == none || nextMoveH > moveE){
-				nextMove = E;
-				nextMoveH = moveE;
-			}
+		if (moveE != -1 && (nodesCost_.size() < costIt_ + 1 || moveE <= nodesCost_[costIt_ + 1])){
+			int	nextItPos = actual_->itPos() + 1;
+			newNode(moveE, nextItPos);
 		}
 	}
 	if (actual_->lastMove() != N){		//SOUTH
 		int moveS = manDistAfterMove(S);
-		if (moveS != -1){
-			Nodes* nodeS = new Nodes(actual_);
-			int	nextItPos = nodeS->itPos() + size_;
-			nodeS->puzzle_[nodeS->itPos()] = nodeS->puzzle_[nextItPos];
-			nodeS->puzzle_[nextItPos] = iterator_;
-			nodeS->setH(moveS);
-			nodeS->increaseG();
-			nodeS->setLastMove(S);
-			nodeS->setItPos(nextItPos);
-			nodeS->setBest(nodeS);
-			actual_->setS(nodeS);
-			if (nextMove == none || nextMoveH > moveS){
-				nextMove = S;
-				nextMoveH = moveS;
-			}
+		if (moveS != -1 && (nodesCost_.size() < costIt_ + 1 || moveS <= nodesCost_[costIt_ + 1])){
+			int	nextItPos = actual_->itPos() + size_;
+			newNode(moveS, nextItPos);
 		}
 	}
 	if (actual_->lastMove() != E){		//WEST
 		int moveW = manDistAfterMove(W);
-		if (moveW != -1){
-			Nodes* nodeW = new Nodes(actual_);
-			int	nextItPos = nodeW->itPos() - 1;
-			nodeW->puzzle_[nodeW->itPos()] = nodeW->puzzle_[nextItPos];
-			nodeW->puzzle_[nextItPos] = iterator_;
-			nodeW->setH(moveW);
-			nodeW->increaseG();
-			nodeW->setLastMove(W);
-			nodeW->setItPos(nextItPos);
-			nodeW->setBest(nodeW);
-			actual_->setW(nodeW);
-			if (nextMove == none || nextMoveH > moveW){
-				nextMove = W;
-				nextMoveH = moveW;
-			}
+		if (moveW != -1 && (nodesCost_.size() < costIt_ + 1 || moveW <= nodesCost_[costIt_ + 1])){
+			int	nextItPos = actual_->itPos() - 1;
+			newNode(moveW, nextItPos);
 		}
 	}
-	switch (nextMove){
-		case N:
-			actual_->setBest(actual_->n_);
-			break;
-		case E:
-			actual_->setBest(actual_->e_);
-			break;
-		case S:
-			actual_->setBest(actual_->s_);
-			break;
-		case W:
-			actual_->setBest(actual_->w_);
-			break;
-		default:
-			actual_->setBest(0);
-			cout << "$";
-			break;
-	}
-	Nodes* best = actual_->best_;
-	for (Nodes* it = actual_->origin_; it; it = it->origin_){
-		/* write(1, "&", 1); */
-		
-		/* if ((it->n_ && it->best_->manDist() > actual_->n_->manDist()) && */
-		/* 		(it->e_ && it->best_->manDist() > actual_->e_->manDist()) && */
-		/* 		(it->s_ && it->best_->manDist() > actual_->s_->manDist()) && */
-		/* 		(it->w_ && it->best_->manDist() > actual_->w_->manDist())){ */
-		/* 	it->best_ = actual_->best_; */
-		/* } */
-		if (it->n_ && it->n_->best_ && it->n_->best_->manDist() < best->manDist()){
-			best = it->n_->best_;
-		}
-		if (it->e_ && it->e_->best_ && it->e_->best_->manDist() < best->manDist()){
-			best = it->e_->best_;
-		}
-		if (it->s_ && it->s_->best_ && it->s_->best_->manDist() < best->manDist()){
-			best = it->s_->best_;
-		}
-		if (it->w_ && it->w_->best_ && it->w_->best_->manDist() < best->manDist()){
-			best = it->w_->best_;
-		}
-		it->best_ = best;
-		/* else { */
-		/* 	it->best_ = actual_->best_; */
-		/* } */
-	}
-		/* for (int i = 0; i < actual_->e_->puzzle_.size(); i++){ */
-		/* 	cout << actual_->e_->puzzle_[i] << ' '; */
-		/* 	if ((i + 1) % 3 == 0) */
-		/* 		cout << '\n'; */
-		/* } */
 }
 
 void	ManhattanDistance::setItPos()
