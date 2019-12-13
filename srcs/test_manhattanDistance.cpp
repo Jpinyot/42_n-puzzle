@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:57:58 by jpinyot           #+#    #+#             */
-/*   Updated: 2019/12/13 23:20:43 by jpinyot          ###   ########.fr       */
+/*   Updated: 2019/12/14 00:30:28 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void	ManhattanDistance::solve()
 	nodes_.push_back(tmp);
 
 	/* end of need some work */
-	/* for (costIt_ = 0; costIt_ < nodes_.size(); costIt_++){ */
-	for (costIt_ = 0; costIt_ < 9; costIt_++){
+	for (costIt_ = 0; costIt_ < nodes_.size(); costIt_++){
+	/* for (costIt_ = 0; costIt_ < 9; costIt_++){ */
 			/* write(1, "@", 1); */
 		for (int j = 0; j < nodes_[costIt_].size(); j++){
 			/* write(1, "#", 1); */
@@ -148,8 +148,25 @@ int		ManhattanDistance::manDistAfterMove(Moves lastMove)
 	return tempH;
 }
 
-void	ManhattanDistance::newNode(int nodeCost, int nextItPos)
+void	ManhattanDistance::newNode(int nodeCost, Moves lastMove)
 {
+	int nextItPos = 0;
+	switch (lastMove){
+		case N:
+			nextItPos = actual_->itPos() - size_;
+			break;
+		case E:
+			nextItPos = actual_->itPos() + 1;
+			break;
+		case S:
+			nextItPos = actual_->itPos() + size_;
+			break;
+		case W:
+			nextItPos = actual_->itPos() - 1;
+			break;
+		default:
+			break;
+	}
 	if (costIt_ + 1 > nodesCost_.size()){
 		nodesCost_.push_back(nodeCost);
 		vector<Nodes*> tmp;
@@ -167,7 +184,7 @@ void	ManhattanDistance::newNode(int nodeCost, int nextItPos)
 	node->puzzle_[nextItPos] = iterator_;
 	node->setH(nodeCost);
 	node->increaseG();
-	node->setLastMove(N);
+	node->setLastMove(lastMove);
 	node->setItPos(nextItPos);
 
 	write(1, "%", 1);
@@ -180,29 +197,25 @@ void	ManhattanDistance::move()
 		int moveN = manDistAfterMove(N);
 		if (moveN != -1 && (nodesCost_.size() < costIt_ + 1 || moveN <= nodesCost_[costIt_ + 1])){
 			/* write(1, "*", 1); */
-			int	nextItPos = actual_->itPos() - size_;
-			newNode(moveN, nextItPos);
+			newNode(moveN, N);
 		}
 	}
 	if (actual_->lastMove() != W){			//EST
 		int moveE = manDistAfterMove(E);
 		if (moveE != -1 && (nodesCost_.size() < costIt_ + 1 || moveE <= nodesCost_[costIt_ + 1])){
-			int	nextItPos = actual_->itPos() + 1;
-			newNode(moveE, nextItPos);
+			newNode(moveE, E);
 		}
 	}
 	if (actual_->lastMove() != N){		//SOUTH
 		int moveS = manDistAfterMove(S);
 		if (moveS != -1 && (nodesCost_.size() < costIt_ + 1 || moveS <= nodesCost_[costIt_ + 1])){
-			int	nextItPos = actual_->itPos() + size_;
-			newNode(moveS, nextItPos);
+			newNode(moveS,S);
 		}
 	}
 	if (actual_->lastMove() != E){		//WEST
 		int moveW = manDistAfterMove(W);
 		if (moveW != -1 && (nodesCost_.size() < costIt_ + 1 || moveW <= nodesCost_[costIt_ + 1])){
-			int	nextItPos = actual_->itPos() - 1;
-			newNode(moveW, nextItPos);
+			newNode(moveW, W);
 		}
 	}
 }

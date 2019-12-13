@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 21:45:06 by jpinyot           #+#    #+#             */
-/*   Updated: 2019/12/13 22:33:02 by jpinyot          ###   ########.fr       */
+/*   Updated: 2019/12/14 00:29:08 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ class	ManhattanDistance
 		void	calculateManDist();
 		int		manDistAfterMove(Moves nextMove = none);
 		void	move();
-		void	newNode(int nodeCost, int nextItPos);
+		void	newNode(int nodeCost, Moves lastMove);
 
 	public:
 		ManhattanDistance():
