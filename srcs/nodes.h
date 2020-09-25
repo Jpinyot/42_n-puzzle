@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 20:43:55 by jpinyot           #+#    #+#             */
-/*   Updated: 2019/12/13 21:58:08 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/25 12:45:48 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,45 @@ using namespace std;
 
 enum Moves
 {
-	none,
 	N,
 	E,
 	S,
-	W
+	W,
+	none
 };
+
+class State
+{
+	protected:
+		int	moveCount_;
+		State*	previous_;
+	private:
+		int		score_;
+		vector<char>	puzzle_;
+		char		itPos_;
+
+		int	getScoreFromPrev();
+
+	public:
+		State(State* previous, const Moves& move):
+			previous_(previous), moveCount_(previous->getMoveCount() + 1)
+	{
+		score_ = getScoreFromPrev();
+
+		/* moves += previous */
+	};
+		const int	getMoveCount() {return moveCount_;}
+		const int	getScore() {return score_;}
+		const bool	canMoveTo(const Moves& move);
+		
+		const bool	isSolved() {return (score_ == moveCount_);
+		/* void		betterScore(const State* currState); */
+
+};
+
+/* if(currentState.canMoveTo(N)) { */
+
+/* } */
 
 class	Nodes
 {
