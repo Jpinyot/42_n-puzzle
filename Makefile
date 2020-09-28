@@ -6,7 +6,7 @@
 #    By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/24 19:02:13 by jpinyot           #+#    #+#              #
-#    Updated: 2020/09/28 17:14:45 by jpinyot          ###   ########.fr        #
+#    Updated: 2020/09/28 17:33:55 by jpinyot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS_DIR = srcs/
 
 SRCS = state.cpp\
        stateManhattanDistance.cpp\
+       main.cpp\
 
 OBJ_SRCS = $(patsubst %.cpp, $(SRCS_DIR)%.o, $(SRCS))
 
