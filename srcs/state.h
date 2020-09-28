@@ -49,6 +49,14 @@ class State
 		setScoreFromPrev();
 
 	};
+        State(const vector<char> puzzle, const Moves& move=none) :
+            previous_(NULL), moveCount_(0), move_(move), next_(NULL)
+        {
+            puzzle_ = puzzle;
+            //itPos_ need to be initialized
+            setScore();
+        };
+
 		const int	getMoveCount() {return moveCount_;}
 		const int	getScore() {return score_;}
         vector<char> getPuzzle() {return puzzle_;}
