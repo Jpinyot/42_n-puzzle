@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:14:12 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/09/28 11:54:46 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/09/28 15:01:01 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,24 @@ class State
 		State*	previous_;
         Moves   move_;
 	private:
-		int		score_;
+		int         score_;
 		vector<char>	puzzle_;
-		char		itPos_;
+		char	    itPos_;
+        State*      next_;
 
 		void	setScoreFromPrev();
-        void setPuzzleFromPrev(); //sets itPos_ and puzzle_ TODO: better naming :P
+        void    setScore();
+        void    setPuzzleFromPrev(); //sets itPos_ and puzzle_ TODO: better naming :P
 
 	public:
 		State(State* previous, const Moves& move):
-			previous_(previous), moveCount_(previous->getMoveCount() + 1), move_(move)
-	{
-        setPuzzleFromPrev();
-		setScoreFromPrev();
+			previous_(previous), moveCount_(previous->getMoveCount() + 1), move_(move), next_(NULL)
+	    {
+            setPuzzleFromPrev();
+	    	setScoreFromPrev();
 
-	};
+	    };
+
         State(const vector<char> puzzle, const Moves& move=none) :
             previous_(NULL), moveCount_(0), move_(move), next_(NULL)
         {
@@ -61,6 +64,8 @@ class State
 		const int	getScore() {return score_;}
         vector<char> getPuzzle() {return puzzle_;}
         const int   getItPos() {return itPos_;}
+        State*      getNext() {return next_;}
+        void        setNext(State* next) {next_ = next;}
 		
 		const bool	isSolved() {return (score_ == 0);}
 		/* void		betterScore(const State* currState); */
