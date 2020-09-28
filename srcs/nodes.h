@@ -3,54 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   nodes.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 20:43:55 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/25 12:45:48 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/28 11:15:12 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <vector>			//vector
-#include <unistd.h>			//write
-using namespace std;
-
-enum Moves
-{
-	N,
-	E,
-	S,
-	W,
-	none
-};
-
-class State
-{
-	protected:
-		int	moveCount_;
-		State*	previous_;
-	private:
-		int		score_;
-		vector<char>	puzzle_;
-		char		itPos_;
-
-		int	getScoreFromPrev();
-
-	public:
-		State(State* previous, const Moves& move):
-			previous_(previous), moveCount_(previous->getMoveCount() + 1)
-	{
-		score_ = getScoreFromPrev();
-
-		/* moves += previous */
-	};
-		const int	getMoveCount() {return moveCount_;}
-		const int	getScore() {return score_;}
-		const bool	canMoveTo(const Moves& move);
-		
-		const bool	isSolved() {return (score_ == moveCount_);
-		/* void		betterScore(const State* currState); */
-
-};
+#include "state.h"
 
 /* if(currentState.canMoveTo(N)) { */
 
