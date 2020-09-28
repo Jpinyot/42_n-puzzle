@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:55:50 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/09/28 11:55:51 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/09/28 15:03:14 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,13 @@ void State::setPuzzleFromPrev()
 	}
 
     puzzle_ = previous_->getPuzzle();
-    puzzle_.at(prevItPos) = puzzle_.at(nextItPos);
-    puzzle_.at(nextItPos) = k_itValue;
+    if (nextItPos < puzzle_.size()) {
+        puzzle_.at(prevItPos) = puzzle_.at(nextItPos);
+        puzzle_.at(nextItPos) = k_itValue;
 
-    itPos_ = nextItPos
+        itPos_ = nextItPos;
+    }
+
 }
 
 const bool	State::canMoveTo(const Moves& move)
