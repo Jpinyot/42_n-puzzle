@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:14:12 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/09/28 15:01:01 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/09/28 15:43:56 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,24 @@ enum Moves
 
 class State
 {
+	private:
+		State*	previous_;
+        State*      next_;
+
+		virtual void	setScoreFromPrev() = 0;
+        virtual void    setScore() = 0;
+        void    setPuzzleFromPrev(); //sets itPos_ and puzzle_ TODO: better naming :P
+
 	protected:
 		int	moveCount_;
-		State*	previous_;
         Moves   move_;
-	private:
 		int         score_;
 		vector<char>	puzzle_;
 		char	    itPos_;
-        State*      next_;
-
-		void	setScoreFromPrev();
-        void    setScore();
-        void    setPuzzleFromPrev(); //sets itPos_ and puzzle_ TODO: better naming :P
 
 	public:
 		State(State* previous, const Moves& move):
-			previous_(previous), moveCount_(previous->getMoveCount() + 1), move_(move), next_(NULL)
+			previous_(previous), next_(NULL), moveCount_(previous->getMoveCount() + 1), move_(move), score_(-1), puzzle_(NULL), itPos_(0)
 	    {
             setPuzzleFromPrev();
 	    	setScoreFromPrev();
@@ -53,7 +54,7 @@ class State
 	    };
 
         State(const vector<char> puzzle, const Moves& move=none) :
-            previous_(NULL), moveCount_(0), move_(move), next_(NULL)
+            previous_(NULL), next_(NULL), moveCount_(0), move_(move), score_(-1), puzzle_(NULL), itPos_(0)
         {
             puzzle_ = puzzle;
             //itPos_ need to be initialized
