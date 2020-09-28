@@ -6,16 +6,11 @@
 /*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:55:50 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/09/28 15:03:14 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/09/28 15:11:22 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "state.h"
-
-void State::setScoreFromPrev()
-{
-
-}
 
 void State::setPuzzleFromPrev()
 {
