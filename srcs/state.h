@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:14:12 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/09/28 15:43:56 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/09/28 16:08:27 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ class State
         State*      next_;
 
 		virtual void	setScoreFromPrev() = 0;
-        virtual void    setScore() = 0;
+        virtual void    setScore() = 0; //seetse itPos_ and score__ TODO: better namingggg
         void    setPuzzleFromPrev(); //sets itPos_ and puzzle_ TODO: better naming :P
 
 	protected:
@@ -67,11 +67,13 @@ class State
         const int   getItPos() {return itPos_;}
         State*      getNext() {return next_;}
         void        setNext(State* next) {next_ = next;}
+        State*    getPrevious() {return previous_;}
 		
 		const bool	isSolved() {return (score_ == 0);}
 		/* void		betterScore(const State* currState); */
 
 		const bool	canMoveTo(const Moves& move);
+        virtual const int       singleTileDistance(int tile) = 0;
 
 };
 
