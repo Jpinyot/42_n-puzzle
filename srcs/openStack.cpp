@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:50:54 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/09/30 21:16:29 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/09/30 21:53:51 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,16 @@ void OpenStack::display()
         curr->display();
         curr = curr->getNext();
     }
+}
+
+bool OpenStack::stateIsOpen(State *state)
+{
+    State *currState = top_;
+    while (currState) {
+        if (currState->getPuzzle() == state->getPuzzle()) {
+            return true;
+        }
+        currState = currState->getNext();
+    }
+    return false;
 }
