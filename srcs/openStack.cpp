@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   openStack.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:50:54 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/09/30 12:44:27 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/09/30 16:40:48 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,16 @@ void OpenStack::popTop()
 {
     if (top_ != NULL) {
         top_ = top_->getNext();
+    }
+}
+
+void OpenStack::display()
+{
+    printf("Stack:\n");
+    State *curr = top_;
+    while (curr)
+    {
+        curr->display();
+        curr = curr->getNext();
     }
 }
