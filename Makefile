@@ -6,14 +6,14 @@
 #    By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/24 19:02:13 by jpinyot           #+#    #+#              #
-#    Updated: 2020/09/30 16:09:48 by mfiguera         ###   ########.fr        #
+#    Updated: 2020/09/30 17:32:38 by jpinyot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = n-puzzle
 
 #FLAGS = -Wall -Wextra -Werror
-FLAGS =
+FLAGS = -std=c++11
 
 SRCS_DIR = srcs/
 

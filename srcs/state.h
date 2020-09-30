@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:14:12 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/09/30 12:35:46 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/09/30 17:40:22 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <vector>			//vector 
 #include <list>
 #include <unistd.h>			//write
+#include <iostream>
 using namespace std;
 
 const int k_size = 3;
@@ -48,7 +49,8 @@ class State
 
 	public:
 		State(State* previous, const Moves& move):
-			previous_(previous), next_(NULL), moveCount_(previous->getMoveCount() + 1), move_(move), heuristicScore_(-1), puzzle_(0), itPos_(0)
+			previous_(previous), next_(NULL), moveCount_(previous->getMoveCount() + 1),
+			move_(move), heuristicScore_(-1), puzzle_(0), itPos_(0)
 	    {
             	/* setPuzzleFromPrev(); */
 	    	/* setHeuristicScoreFromPrev(); */
@@ -66,7 +68,7 @@ class State
 	const int	getMoveCount() {return moveCount_;}
 	const int	getScore() {return heuristicScore_ + moveCount_;}
 	const int	getHeuristicScore() {return heuristicScore_;}
-        vector<char> getPuzzle() {return puzzle_;}
+        const vector<char> getPuzzle() {return puzzle_;}
         const int   getItPos() {return itPos_;}
         State*      getNext() {return next_;}
         void        setNext(State* next) {next_ = next;}

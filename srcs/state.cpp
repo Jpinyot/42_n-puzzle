@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:55:50 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/09/30 16:45:30 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/09/30 18:10:21 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,16 @@ void State::setPuzzleFromPrev()
 			break;
 	}
 
-    puzzle_ = previous_->getPuzzle();
-    if (nextItPos < puzzle_.size()) {
-        puzzle_.at(prevItPos) = puzzle_.at(nextItPos);
-        puzzle_.at(nextItPos) = k_itValue;
-
-        itPos_ = nextItPos;
+    /* puzzle_ = vector<char>(previous_->getPuzzle()); */
+    for (auto & tile : previous_->getPuzzle()) {
+	    puzzle_.push_back(tile);
     }
+    /* if (nextItPos < puzzle_.size()) { */
+    /*     puzzle_.at(prevItPos) = puzzle_.at(nextItPos); */
+    /*     puzzle_.at(nextItPos) = k_itValue; */
+
+    /*     itPos_ = nextItPos; */
+    /* } */
 
 }
 
@@ -77,13 +80,42 @@ int		maxWidth(int val, int out)
 
 void State::display()
 {
-	int spacing = maxWidth(k_size * k_size - 1, 1);
-	for (int i = 0; i < k_size; i++) {
-		for (int j = 0; j < k_size; j++) {
-			char c = puzzle_[i*k_size + j];
-			printf("%*d", spacing, c);
-		}
-		printf("\n");
+	/* cout << puzzle_; */
+	char move;
+	switch(move_)
+	{
+		case N :
+			move = 'n';
+			break;
+		case E :
+			move = 'e';
+			break;
+		case W :
+			move = 'w';
+			break;
+		case S :
+			move = 's';
+			break;
+		default :
+			move = '-';
 	}
+	cout << "--" << move << "--\n";
+	/* cout << "b--\n" << "<<" << puzzle_.size() << ">>\n"; */
+	/* for(auto &tile : puzzle_) { */
+	for(int i = 0; i < puzzle_.size(); i++) {
+		cout << static_cast<int>(puzzle_[i]) << ' ';
+		if ((i+1) % k_size == 0) {
+			cout << '\n';
+		}
+	}
+	cout << "\n\n";
+	/* int spacing = maxWidth(k_size * k_size - 1, 1); */
+	/* for (int i = 0; i < k_size; i++) { */
+	/* 	for (int j = 0; j < k_size; j++) { */
+	/* 		char c = puzzle_[i*k_size + j]; */
+	/* 		printf("%*d", spacing, c); */
+	/* 	} */
+	/* 	printf("\n"); */
+	/* } */
 }
 

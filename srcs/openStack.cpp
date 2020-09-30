@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:50:54 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/09/30 16:40:48 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/09/30 17:57:28 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void OpenStack::addState(State &state)
 {
     State *currState = top_;
     State *prevState = NULL;
-    
+
     while(currState != NULL) {
         if (state.getScore() > currState->getScore())
             break;
@@ -41,7 +41,7 @@ void OpenStack::popTop()
 
 void OpenStack::display()
 {
-    printf("Stack:\n");
+    cout << "Stack:\n";
     State *curr = top_;
     while (curr)
     {
