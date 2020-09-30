@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/30 12:58:00 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/09/30 16:48:31 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,43 @@ int solve(StateManhattanDistance firstState)
 	ClosedStack closedStack = ClosedStack();
 	
 	while (openStack.getTop() != NULL) {
+		openStack.display();
 		State *state = openStack.getTop();
 		if (state->getHeuristicScore() == 0) {
+			state->display();
 			return 0;
 		}
 		else {
 			openStack.popTop();
 			closedStack.addState(*state);
-			//TODO: Iterate through all directions and expand.... continue A* algo
+			openStack.display();
+
+			if (state->canMoveTo(N)) {
+				StateManhattanDistance newState = StateManhattanDistance(state, N);
+				if (!closedStack.stateIsClosed(newState))
+					openStack.addState(newState);
+			}
+
+			if (state->canMoveTo(E)) {
+				printf("E\n");
+				StateManhattanDistance newState = StateManhattanDistance(state, E);
+				if (!closedStack.stateIsClosed(newState))
+					openStack.addState(newState);
+			}
+
+			if (state->canMoveTo(S)) {
+				printf("S\n");
+				StateManhattanDistance newState = StateManhattanDistance(state, S);
+				if (!closedStack.stateIsClosed(newState))
+					openStack.addState(newState);
+			}
+
+			if (state->canMoveTo(W)) {
+				printf("W\n");
+				StateManhattanDistance newState = StateManhattanDistance(state, W);
+				if (!closedStack.stateIsClosed(newState))
+					openStack.addState(newState);
+			}
 		}
 	}
 
