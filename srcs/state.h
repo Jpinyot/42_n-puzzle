@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   state.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
+/*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:14:12 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/09/28 17:22:41 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/30 12:29:10 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ class State
 	protected:
 		int	moveCount_;
         	Moves   move_;
-		int         score_;
+		int         heuristicScore_;
 		vector<char>	puzzle_;
 		char	    itPos_;
 
@@ -48,7 +48,7 @@ class State
 
 	public:
 		State(State* previous, const Moves& move):
-			previous_(previous), next_(NULL), moveCount_(previous->getMoveCount() + 1), move_(move), score_(-1), puzzle_(0), itPos_(0)
+			previous_(previous), next_(NULL), moveCount_(previous->getMoveCount() + 1), move_(move), heuristicScore_(-1), puzzle_(0), itPos_(0)
 	    {
             	/* setPuzzleFromPrev(); */
 	    	/* setScoreFromPrev(); */
@@ -56,7 +56,7 @@ class State
 	    };
 
         State(const vector<char> puzzle, const Moves& move=none) :
-            previous_(NULL), next_(NULL), moveCount_(0), move_(move), score_(-1), puzzle_(0), itPos_(0)
+            previous_(NULL), next_(NULL), moveCount_(0), move_(move), heuristicScore_(-1), puzzle_(0), itPos_(0)
         {
             puzzle_ = puzzle;
             //itPos_ need to be initialized
@@ -64,14 +64,15 @@ class State
         };
 
 	const int	getMoveCount() {return moveCount_;}
-	const int	getScore() {return score_;}
+	const int	getScore() {return heuristicScore_ + moveCount_;}
+	const int	getHeuristicScore() {return heuristicScore_;}
         vector<char> getPuzzle() {return puzzle_;}
         const int   getItPos() {return itPos_;}
         State*      getNext() {return next_;}
         void        setNext(State* next) {next_ = next;}
         State*    getPrevious() {return previous_;}
 		
-	const bool	isSolved() {return (score_ == 0);}
+	const bool	isSolved() {return (heuristicScore_ == 0);}
 	/* void		betterScore(const State* currState); */
 
 	const bool	canMoveTo(const Moves& move);
