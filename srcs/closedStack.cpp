@@ -19,14 +19,25 @@ void	ClosedStack::addState(State& state)
 			stack_.push_back(NULL);
 		}
 	}
-	State* currState = stack_.at(state.getScore()); //TODO:currState better name:{D
-	if (currState == NULL) {
-		currState[state.getScore()] = state;
+
+	state.setNext(stack_.at(state.getScore()));
+	stack_[state.getScore()] = &state;
+}
+
+bool	ClosedStack::stateIsClosed(State& state)
+{
+	if (state.getScore() > stack_.size()) {
+		return false;
 	}
 	else {
-		while (currState != NULL) {
-			/* if (currState.getPuzzle */
-			/* 		} */
+		State* currState = stack_.at(state.getScore());
+		while (currState != NULL)
+		{
+			if (currState->getPuzzle() == state.getPuzzle()) {
+				return true;
+			}
+			currState = currState->getNext();
 		}
+		return false;
 	}
 }
