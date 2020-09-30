@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stateManhattanDistance.cpp                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
+/*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 15:17:54 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/09/28 16:06:49 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/09/30 12:32:13 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void StateManhattanDistance::setScoreFromPrev()
     if (previous != NULL) {
         const int prevScore = previous->singleTileDistance(itPos_);
         const int currScore = singleTileDistance(previous->getItPos());
-        score_ += currScore - prevScore;
+        heuristicScore_ += currScore - prevScore;
     }
 };
 
@@ -42,5 +42,5 @@ void StateManhattanDistance::setScore()
             itPos_ = i;
         }
 	}
-    score_ = h;
+    heuristicScore_ = h;
 };
