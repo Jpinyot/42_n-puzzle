@@ -68,5 +68,23 @@ const bool	State::canMoveTo(const Moves& move)
 	}
 }
 
+int		maxWidth(int val, int out)
+{
+	if (val == 0)
+		return out;
+	return maxWidth(val / 10, out + 1);
+}
 
+void State::display()
+{
+	int spacing = maxWidth(k_size * k_size - 1, 1);
+	for (int i = 0; i < k_size; i++) {
+		for (int j = 0; j < k_size; j++) {
+			char c = puzzle_[i*k_size + j];
+			printf("%*d", spacing, c);
+		}
+		printf("\n");
+	}
+	printf("\n");
+}
 

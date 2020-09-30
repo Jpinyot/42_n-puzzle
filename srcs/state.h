@@ -75,6 +75,7 @@ class State
 	/* void		betterScore(const State* currState); */
 
 	const bool	canMoveTo(const Moves& move);
+		void		display();
         virtual const int       singleTileDistance(int tile) = 0;
 
 };
