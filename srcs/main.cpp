@@ -3,16 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/28 17:41:13 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/30 12:58:00 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* #include "state.h" */
 #include "stateManhattanDistance.h"
+#include "closedStack.h"
+#include "openStack.h"
 #include <iostream>
+
+int solve(StateManhattanDistance firstState)
+{
+	OpenStack openStack = OpenStack();
+	openStack.addState(firstState);
+
+	ClosedStack closedStack = ClosedStack();
+	
+	while (openStack.getTop() != NULL) {
+		State *state = openStack.getTop();
+		if (state->getHeuristicScore() == 0) {
+			return 0;
+		}
+		else {
+			openStack.popTop();
+			closedStack.addState(*state);
+			//TODO: Iterate through all directions and expand.... continue A* algo
+		}
+	}
+
+	return 1;
+}
 
 int	main()
 {
