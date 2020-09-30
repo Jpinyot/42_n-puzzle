@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 15:12:43 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/09/30 18:10:54 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/30 18:18:06 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ class StateManhattanDistance : public State
 	StateManhattanDistance(State* previous, const Moves& move):
 		State(previous, move)
 	    {
-		/* puzzle_ = previous->getPuzzle(); */
 		setPuzzleFromPrev();
 	    	setHeuristicScoreFromPrev();
+    		/* display(); */
 
 	    };
 

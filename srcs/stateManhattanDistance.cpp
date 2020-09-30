@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 15:17:54 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/09/30 18:12:54 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/30 18:16:16 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ const int StateManhattanDistance::singleTileDistance(int tile)
 void StateManhattanDistance::setHeuristicScoreFromPrev()
 {
     State* previous = getPrevious();
-    display();
     if (previous != NULL) {
         const int prevScore = previous->singleTileDistance(itPos_);
         const int currScore = singleTileDistance(previous->getItPos());
