@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#pragma once
 #include "state.h"
 
 const int k_maxScore = 80; //TODO: change to a real value :)

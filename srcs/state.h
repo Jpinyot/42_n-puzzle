@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#pragma once
 #include <vector>			//vector 
 #include <list>
 #include <unistd.h>			//write

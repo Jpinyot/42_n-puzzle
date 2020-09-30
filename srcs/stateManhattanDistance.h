@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#pragma once
 #include "state.h"
 
 class StateManhattanDistance : public State
