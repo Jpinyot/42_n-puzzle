@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   state.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:14:12 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/09/30 17:40:22 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/30 21:26:29 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ class State
 	public:
 		State(State* previous, const Moves& move):
 			previous_(previous), next_(NULL), moveCount_(previous->getMoveCount() + 1),
-			move_(move), heuristicScore_(-1), puzzle_(0), itPos_(0)
+			move_(move), heuristicScore_(previous_->heuristicScore_), puzzle_(0), itPos_(0)
 	    {
             	/* setPuzzleFromPrev(); */
 	    	/* setHeuristicScoreFromPrev(); */
