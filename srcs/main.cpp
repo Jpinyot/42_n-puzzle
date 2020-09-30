@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/30 18:13:09 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/30 18:33:35 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "openStack.h"
 #include <iostream>
 
-int solve(StateManhattanDistance firstState)
+static int solve(StateManhattanDistance *firstState)
 {
 	OpenStack openStack = OpenStack();
 	openStack.addState(firstState);
@@ -24,7 +24,7 @@ int solve(StateManhattanDistance firstState)
 	ClosedStack closedStack = ClosedStack();
 	
 	while (openStack.getTop() != NULL) {
-		/* openStack.display(); */
+		openStack.display();
 		State *state = openStack.getTop();
 		if (state->getHeuristicScore() == 0) {
 			/* state->display(); */
@@ -32,9 +32,9 @@ int solve(StateManhattanDistance firstState)
 		}
 		else {
 			openStack.popTop();
-			closedStack.addState(*state);
+			closedStack.addState(state);
 			if (state->canMoveTo(N)) {
-				StateManhattanDistance newState = StateManhattanDistance(state, N);
+				StateManhattanDistance *newState = new StateManhattanDistance(state, N);
 				if (!closedStack.stateIsClosed(newState))
 					openStack.addState(newState);
 				/* newState.display(); */
@@ -42,7 +42,7 @@ int solve(StateManhattanDistance firstState)
 
 			if (state->canMoveTo(E)) {
 				/* cout <<"E\n"; */
-				StateManhattanDistance newState = StateManhattanDistance(state, E);
+				StateManhattanDistance *newState = new StateManhattanDistance(state, E);
 				if (!closedStack.stateIsClosed(newState))
 					openStack.addState(newState);
 				/* newState.display(); */
@@ -50,7 +50,7 @@ int solve(StateManhattanDistance firstState)
 
 			if (state->canMoveTo(S)) {
 				/* cout <<"S\n"; */
-				StateManhattanDistance newState = StateManhattanDistance(state, S);
+				StateManhattanDistance *newState = new StateManhattanDistance(state, S);
 				if (!closedStack.stateIsClosed(newState))
 					openStack.addState(newState);
 				/* newState.display(); */
@@ -58,7 +58,7 @@ int solve(StateManhattanDistance firstState)
 
 			if (state->canMoveTo(W)) {
 				/* cout <<"W\n"; */
-				StateManhattanDistance newState = StateManhattanDistance(state, W);
+				StateManhattanDistance *newState = new StateManhattanDistance(state, W);
 				if (!closedStack.stateIsClosed(newState))
 					openStack.addState(newState);
 				/* newState.display(); */
@@ -88,8 +88,8 @@ int	main()
 	/* puzzle.push_back(6); */
 	/* puzzle.push_back(7); */
 	/* puzzle.push_back(8); */
-	StateManhattanDistance state(puzzle);
+	StateManhattanDistance *state = new StateManhattanDistance(puzzle);
 	solve(state);
-	cout << state.getScore();
+	cout << state->getScore();
 	return (0);
 }
