@@ -6,34 +6,34 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 18:30:32 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/30 12:32:10 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/09/30 18:32:43 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "closedStack.h"
 
-void	ClosedStack::addState(State& state)
+void	ClosedStack::addState(State* state)
 {
-	if (state.getHeuristicScore() > stack_.size()) {
-		for(int i = stack_.size(); i < state.getHeuristicScore(); i++) {
+	if (state->getHeuristicScore() > stack_.size()) {
+		for(int i = stack_.size(); i < state->getHeuristicScore(); i++) {
 			stack_.push_back(NULL);
 		}
 	}
 
-	state.setNext(stack_.at(state.getHeuristicScore()));
-	stack_[state.getHeuristicScore()] = &state;
+	state->setNext(stack_.at(state->getHeuristicScore()));
+	stack_[state->getHeuristicScore()] = state;
 }
 
-bool	ClosedStack::stateIsClosed(State& state)
+bool	ClosedStack::stateIsClosed(State* state)
 {
-	if (state.getHeuristicScore() > stack_.size()) {
+	if (state->getHeuristicScore() > stack_.size()) {
 		return false;
 	}
 	else {
-		State* currState = stack_.at(state.getHeuristicScore());
+		State* currState = stack_.at(state->getHeuristicScore());
 		while (currState != NULL)
 		{
-			if (currState->getPuzzle() == state.getPuzzle()) {
+			if (currState->getPuzzle() == state->getPuzzle()) {
 				return true;
 			}
 			currState = currState->getNext();
