@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stateManhattanDistance.h                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
+/*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 15:12:43 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/09/28 17:22:08 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/30 12:36:31 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 class StateManhattanDistance : public State
 {
     private:
-        virtual void    setScoreFromPrev();
-        virtual void    setScore();
+        virtual void    setHeuristicScoreFromPrev();
+        virtual void    setHeuristicScore();
     
     public:
         virtual const int       singleTileDistance(int i);
@@ -25,7 +25,7 @@ class StateManhattanDistance : public State
 		State(previous, move)
 	    {
 		setPuzzleFromPrev();
-	    	setScoreFromPrev();
+	    	setHeuristicScoreFromPrev();
 
 	    };
 
@@ -34,7 +34,7 @@ class StateManhattanDistance : public State
         {
             puzzle_ = puzzle;
             //itPos_ need to be initialized
-            setScore();
+            setHeuristicScore();
         };
 
 };

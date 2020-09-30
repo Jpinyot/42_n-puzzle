@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:14:12 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/09/30 12:29:10 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/09/30 12:35:46 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ class State
 		State*	previous_;
         State*      next_;
 
-	virtual void	setScoreFromPrev() = 0;
-        virtual void    setScore() = 0; //seetse itPos_ and score__ TODO: better namingggg
+	virtual void	setHeuristicScoreFromPrev() = 0;
+        virtual void    setHeuristicScore() = 0; //seetse itPos_ and score__ TODO: better namingggg
 
 	protected:
 		int	moveCount_;
@@ -51,7 +51,7 @@ class State
 			previous_(previous), next_(NULL), moveCount_(previous->getMoveCount() + 1), move_(move), heuristicScore_(-1), puzzle_(0), itPos_(0)
 	    {
             	/* setPuzzleFromPrev(); */
-	    	/* setScoreFromPrev(); */
+	    	/* setHeuristicScoreFromPrev(); */
 
 	    };
 
@@ -60,7 +60,7 @@ class State
         {
             puzzle_ = puzzle;
             //itPos_ need to be initialized
-            /* setScore(); */
+            /* setHeuristicScore(); */
         };
 
 	const int	getMoveCount() {return moveCount_;}

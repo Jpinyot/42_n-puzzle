@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 15:17:54 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/09/30 12:32:13 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/09/30 12:35:47 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ const int StateManhattanDistance::singleTileDistance(int tile)
 };
 
 
-void StateManhattanDistance::setScoreFromPrev()
+void StateManhattanDistance::setHeuristicScoreFromPrev()
 {
     State* previous = getPrevious();
     if (previous != NULL) {
@@ -31,7 +31,7 @@ void StateManhattanDistance::setScoreFromPrev()
 };
 
 
-void StateManhattanDistance::setScore()
+void StateManhattanDistance::setHeuristicScore()
 {
     int	h = 0;
 	for (int i = 0; i < puzzle_.size(); i++) {
