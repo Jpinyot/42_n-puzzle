@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/24 19:02:13 by jpinyot           #+#    #+#              #
-#    Updated: 2020/09/30 10:28:36 by mfiguera         ###   ########.fr        #
+#    Updated: 2020/09/30 16:09:48 by mfiguera         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS = state.cpp\
        stateManhattanDistance.cpp\
        main.cpp\
 	   closedStack.cpp\
+	   openStack.cpp\
 
 OBJ_SRCS = $(patsubst %.cpp, $(SRCS_DIR)%.o, $(SRCS))
 
