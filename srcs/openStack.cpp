@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:50:54 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/09/30 18:37:19 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/09/30 21:16:29 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void OpenStack::addState(State *state)
     State *prevState = NULL;
 
     while(currState != NULL) {
-        if (state->getScore() > currState->getScore())
+        if (state->getScore() < currState->getScore())
             break;
         prevState = currState;
         currState = currState->getNext();
