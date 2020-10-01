@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:14:12 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/09/30 21:26:29 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/01 09:33:22 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 using namespace std;
 
 const int k_size = 3;
-const char k_itValue = 4;
+const unsigned char k_itValue = 4;
 
 enum Moves
 {
@@ -42,8 +42,8 @@ class State
 		int	moveCount_;
         	Moves   move_;
 		int         heuristicScore_;
-		vector<char>	puzzle_;
-		char	    itPos_;
+		vector<unsigned char>	puzzle_;
+		unsigned char	    itPos_;
 
         void    setPuzzleFromPrev(); //sets itPos_ and puzzle_ TODO: better naming :P
 
@@ -57,7 +57,7 @@ class State
 
 	    };
 
-        State(const vector<char> puzzle, const Moves& move=none) :
+        State(const vector<unsigned char> puzzle, const Moves& move=none) :
             previous_(NULL), next_(NULL), moveCount_(0), move_(move), heuristicScore_(-1), puzzle_(0), itPos_(0)
         {
             puzzle_ = puzzle;
@@ -68,7 +68,7 @@ class State
 	const int	getMoveCount() {return moveCount_;}
 	const int	getScore() {return heuristicScore_ + moveCount_;}
 	const int	getHeuristicScore() {return heuristicScore_;}
-        const vector<char> getPuzzle() {return puzzle_;}
+        const vector<unsigned char> getPuzzle() {return puzzle_;}
         const int   getItPos() {return itPos_;}
         State*      getNext() {return next_;}
         void        setNext(State* next) {next_ = next;}

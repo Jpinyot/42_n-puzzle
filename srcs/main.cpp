@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/30 18:33:35 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/01 09:35:28 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ static int solve(StateManhattanDistance *firstState)
 const int k_test_size = 9;
 int	main()
 {
-	char puzzleArr[k_test_size] = {	0,4,2,
+	unsigned char puzzleArr[k_test_size] = {	0,4,2,
 					3,1,5,
 					6,7,8};
-	vector<char> puzzle;
+	vector<unsigned char> puzzle;
 	for (int i = 0; i < k_test_size ; i++) {
 		puzzle.emplace_back(puzzleArr[i]);
 	}
