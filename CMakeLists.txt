@@ -6,7 +6,7 @@
 #    By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/23 10:17:31 by jpinyot           #+#    #+#              #
-#    Updated: 2020/10/01 09:48:03 by jpinyot          ###   ########.fr        #
+#    Updated: 2020/10/01 11:55:18 by jpinyot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ add_executable(n-puzzle
 			srcs/stateManhattanDistance.cpp
 			srcs/closedStack.cpp
 			srcs/openStack.cpp
+			srcs/inputParser.cpp
 			)
 
 target_include_directories(n-puzzle PRIVATE 
@@ -42,4 +43,5 @@ set(HEADER_FILES
 			includes/nodes.h
 			includes/stateManhattanDistance.h
 			includes/openStack.h
+			includes/inputParser.h
 			)

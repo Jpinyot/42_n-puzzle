@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/01 09:35:28 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/01 12:17:56 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "stateManhattanDistance.h"
 #include "closedStack.h"
 #include "openStack.h"
+#include "inputParser.h"
 #include <iostream>
 
 static int solve(StateManhattanDistance *firstState)
@@ -70,26 +71,31 @@ static int solve(StateManhattanDistance *firstState)
 }
 
 const int k_test_size = 9;
-int	main()
+
+int main(int av, char** ag)
 {
-	unsigned char puzzleArr[k_test_size] = {	0,4,2,
-					3,1,5,
-					6,7,8};
-	vector<unsigned char> puzzle;
-	for (int i = 0; i < k_test_size ; i++) {
-		puzzle.emplace_back(puzzleArr[i]);
-	}
-	/* puzzle.push_back(0); */
-	/* puzzle.push_back(3); */
-	/* puzzle.push_back(2); */
-	/* puzzle.push_back(1); */
-	/* puzzle.push_back(4); */
-	/* puzzle.push_back(5); */
-	/* puzzle.push_back(6); */
-	/* puzzle.push_back(7); */
-	/* puzzle.push_back(8); */
-	StateManhattanDistance *state = new StateManhattanDistance(puzzle);
-	solve(state);
-	cout << state->getScore();
-	return (0);
+	InputParser input(ag[1]);
 }
+/* int	main() */
+/* { */
+/* 	unsigned char puzzleArr[k_test_size] = {	0,4,2, */
+/* 					3,1,5, */
+/* 					6,7,8}; */
+/* 	vector<unsigned char> puzzle; */
+/* 	for (int i = 0; i < k_test_size ; i++) { */
+/* 		puzzle.emplace_back(puzzleArr[i]); */
+/* 	} */
+/* 	/1* puzzle.push_back(0); *1/ */
+/* 	/1* puzzle.push_back(3); *1/ */
+/* 	/1* puzzle.push_back(2); *1/ */
+/* 	/1* puzzle.push_back(1); *1/ */
+/* 	/1* puzzle.push_back(4); *1/ */
+/* 	/1* puzzle.push_back(5); *1/ */
+/* 	/1* puzzle.push_back(6); *1/ */
+/* 	/1* puzzle.push_back(7); *1/ */
+/* 	/1* puzzle.push_back(8); *1/ */
+/* 	StateManhattanDistance *state = new StateManhattanDistance(puzzle); */
+/* 	solve(state); */
+/* 	cout << state->getScore(); */
+/* 	return (0); */
+/* } */
