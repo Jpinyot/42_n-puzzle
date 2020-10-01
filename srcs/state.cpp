@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   state.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
+/*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:55:50 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/01 10:25:42 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/01 12:11:44 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,3 +98,38 @@ void State::display() const
 	cout << "\n";
 }
 
+void State::displaySteps(const bool first) const
+{
+	if (previous_ != NULL) {
+		previous_->displaySteps(false);
+		if (previous_->previous_ != NULL) {
+			cout << "-";
+		}
+	}
+
+	switch (move_) {
+		case N:
+			cout << "N";
+			break;
+
+		case E:
+			cout << "E";
+			break;
+
+		case S:
+			cout << "S";
+			break;
+
+		case W:
+			cout << "W";
+			break;
+
+		default:
+			cout << "Steps: ";
+			break;
+	}
+
+	if (first) {
+		cout << "\n";
+	}
+}

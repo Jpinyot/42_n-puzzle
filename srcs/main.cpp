@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/01 09:35:28 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/01 12:12:09 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int solve(StateManhattanDistance *firstState)
 		openStack.display();
 		State *state = openStack.getTop();
 		if (state->getHeuristicScore() == 0) {
-			/* state->display(); */
+			state->displaySteps(true);
 			return 0;
 		}
 		else {

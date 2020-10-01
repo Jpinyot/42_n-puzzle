@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   state.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
+/*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:14:12 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/01 10:27:46 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/01 12:11:40 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ class State
         State*    getPrevious() const {return previous_;}
 		
 	const bool	isSolved() const {return (heuristicScore_ == 0);}
-	/* void		betterScore(const State* currState); */
 
 	const bool	canMoveTo(const Moves& move) const;
 	void		display() const;
+	void		displaySteps(const bool first) const;
         virtual const int       singleTileDistance(int tile) const = 0;
 
 };
