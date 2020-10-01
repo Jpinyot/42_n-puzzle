@@ -6,13 +6,13 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 15:17:54 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/09/30 18:16:16 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/01 10:26:47 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stateManhattanDistance.h"
 
-const int StateManhattanDistance::singleTileDistance(int tile)
+const int StateManhattanDistance::singleTileDistance(int tile) const
 {
     int xAxis = abs(( puzzle_[tile] - ((puzzle_[tile] / k_size) * k_size)) - (tile -((tile / k_size) * k_size)));
 	int	yAxis = abs(puzzle_[tile] / k_size - tile / k_size);

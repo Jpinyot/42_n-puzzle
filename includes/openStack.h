@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:45:15 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/09/30 21:49:25 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/01 10:28:36 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ class OpenStack
         }
 
         void    addState(State *state);
-        State   *getTop() {return top_;}
+        State   *getTop() const {return top_;}
         
         void    popTop();
-        void    display();
-        bool    stateIsOpen(State *state);
+        void    display() const;
+        const bool    stateIsOpen(State *state) const;
 };

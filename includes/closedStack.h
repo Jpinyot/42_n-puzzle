@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 18:19:24 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/30 18:33:06 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/01 10:20:23 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ class ClosedStack
 			stack_(k_maxScore, NULL)
 		{;}
 
-		bool	stateIsClosed(State* state);
-		void	addState(State* state);
+		const bool	stateIsClosed(State* state) const;
+		void		addState(State* state);
 		/* void */	
 };

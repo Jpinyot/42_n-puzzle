@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:50:54 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/09/30 21:53:51 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/01 10:23:27 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void OpenStack::popTop()
     }
 }
 
-void OpenStack::display()
+void OpenStack::display() const
 {
     cout << "Stack:\n";
     State *curr = top_;
@@ -50,7 +50,7 @@ void OpenStack::display()
     }
 }
 
-bool OpenStack::stateIsOpen(State *state)
+const bool OpenStack::stateIsOpen(State *state) const
 {
     State *currState = top_;
     while (currState) {

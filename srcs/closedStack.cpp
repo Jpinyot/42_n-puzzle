@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 18:30:32 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/09/30 18:32:43 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/01 10:20:56 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ClosedStack::addState(State* state)
 	stack_[state->getHeuristicScore()] = state;
 }
 
-bool	ClosedStack::stateIsClosed(State* state)
+const bool	ClosedStack::stateIsClosed(State* state) const
 {
 	if (state->getHeuristicScore() > stack_.size()) {
 		return false;

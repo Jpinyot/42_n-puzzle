@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:55:50 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/09/30 18:36:45 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/01 10:25:42 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void State::setPuzzleFromPrev()
 
 }
 
-const bool	State::canMoveTo(const Moves& move)
+const bool	State::canMoveTo(const Moves& move) const
 {
 	int		pos = 0;
 	switch (move){
@@ -68,14 +68,7 @@ const bool	State::canMoveTo(const Moves& move)
 	}
 }
 
-int		maxWidth(int val, int out)
-{
-	if (val == 0)
-		return out;
-	return maxWidth(val / 10, out + 1);
-}
-
-void State::display()
+void State::display() const
 {
 	char move;
 	switch(move_)

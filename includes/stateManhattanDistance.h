@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 15:12:43 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/01 09:34:19 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/01 10:26:21 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ class StateManhattanDistance : public State
         virtual void    setHeuristicScore();
     
     public:
-        virtual const int       singleTileDistance(int i);
+        virtual const int       singleTileDistance(int i) const;
 	StateManhattanDistance(State* previous, const Moves& move):
 		State(previous, move)
 	    {

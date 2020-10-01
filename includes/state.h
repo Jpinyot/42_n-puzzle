@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:14:12 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/01 09:33:22 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/01 10:27:46 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +65,21 @@ class State
             /* setHeuristicScore(); */
         };
 
-	const int	getMoveCount() {return moveCount_;}
-	const int	getScore() {return heuristicScore_ + moveCount_;}
-	const int	getHeuristicScore() {return heuristicScore_;}
-        const vector<unsigned char> getPuzzle() {return puzzle_;}
-        const int   getItPos() {return itPos_;}
-        State*      getNext() {return next_;}
+	const int	getMoveCount() const {return moveCount_;}
+	const int	getScore() const {return heuristicScore_ + moveCount_;}
+	const int	getHeuristicScore() const {return heuristicScore_;}
+        const vector<unsigned char> getPuzzle() const {return puzzle_;}
+        const int   getItPos() const {return itPos_;}
+        State*      getNext() const {return next_;}
         void        setNext(State* next) {next_ = next;}
-        State*    getPrevious() {return previous_;}
+        State*    getPrevious() const {return previous_;}
 		
-	const bool	isSolved() {return (heuristicScore_ == 0);}
+	const bool	isSolved() const {return (heuristicScore_ == 0);}
 	/* void		betterScore(const State* currState); */
 
-	const bool	canMoveTo(const Moves& move);
-		void		display();
-        virtual const int       singleTileDistance(int tile) = 0;
+	const bool	canMoveTo(const Moves& move) const;
+	void		display() const;
+        virtual const int       singleTileDistance(int tile) const = 0;
 
 };
 
