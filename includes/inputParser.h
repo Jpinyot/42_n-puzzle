@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 11:46:13 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/01 12:44:39 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/01 16:08:48 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,17 @@
 
 const char k_commentChar = '#';
 const int k_invalidSize = -1;
+const int k_minSize = 3;
+const int k_maxSize = 12;
+const int k_minValue = 0;
 
 using namespace std;
 
 enum InputErros
 {
-	badIdent = 00001,
+	badFormat = 00001,
 	noFile = 00010,
-	biggerSize = 00100,
-	smallerSize = 01000,
+	invalidSize = 00100,
 	noError = 0
 };
 
@@ -38,7 +40,9 @@ class InputParser
 		/* const bool fileIsValid( */
 		void		puzzleFromFile(const char* string);
 		void		parseLine(const string& line);
-		void		parseSize(const string& line);
+		InputErros	parseSize(const string& line);
+		bool		errorsInFormat(const string& line, int pos);
+		bool		sizeIsValid() {return (size_ >= k_minSize && size_ <= k_maxSize);};
 	public :
 		/* InputParser(const char* string): */
 		/* 	puzzle_(0) */
