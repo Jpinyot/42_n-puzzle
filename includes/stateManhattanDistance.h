@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 15:12:43 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/01 10:26:21 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/01 10:30:38 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ class StateManhattanDistance : public State
 		State(puzzle, move)
         {
             puzzle_ = puzzle;
-            //itPos_ need to be initialized
             setHeuristicScore();
         };
 
