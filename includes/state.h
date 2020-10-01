@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:14:12 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/01 12:11:40 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/01 18:41:05 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ class State
 
 	const bool	canMoveTo(const Moves& move) const;
 	void		display() const;
-	void		displaySteps(const bool first) const;
+	void		displaySteps(const bool disp=false, const bool isFirst=true) const;
         virtual const int       singleTileDistance(int tile) const = 0;
 
 };

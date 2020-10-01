@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:55:50 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/01 12:11:44 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/01 18:31:08 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,16 @@ void State::display() const
 	switch(move_)
 	{
 		case N :
-			move = 'n';
+			move = 'N';
 			break;
 		case E :
-			move = 'e';
+			move = 'E';
 			break;
 		case W :
-			move = 'w';
+			move = 'W';
 			break;
 		case S :
-			move = 's';
+			move = 'S';
 			break;
 		default :
 			move = '-';
@@ -98,38 +98,42 @@ void State::display() const
 	cout << "\n";
 }
 
-void State::displaySteps(const bool first) const
+void State::displaySteps(const bool disp, const bool isFirst) const
 {
 	if (previous_ != NULL) {
-		previous_->displaySteps(false);
-		if (previous_->previous_ != NULL) {
+		previous_->displaySteps(disp, false);
+		if (previous_->previous_ != NULL && !disp) {
 			cout << "-";
 		}
 	}
 
-	switch (move_) {
-		case N:
-			cout << "N";
-			break;
+	if (disp) {
+		display();
+	} else {
+		switch (move_) {
+			case N:
+				cout << "N";
+				break;
 
-		case E:
-			cout << "E";
-			break;
+			case E:
+				cout << "E";
+				break;
 
-		case S:
-			cout << "S";
-			break;
+			case S:
+				cout << "S";
+				break;
 
-		case W:
-			cout << "W";
-			break;
+			case W:
+				cout << "W";
+				break;
 
-		default:
-			cout << "Steps: ";
-			break;
-	}
+			default:
+				cout << "Steps: ";
+				break;
+		}
 
-	if (first) {
-		cout << "\n";
+		if (isFirst) {
+			cout << "\n";
+		}
 	}
 }
