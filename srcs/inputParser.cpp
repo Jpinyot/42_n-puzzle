@@ -6,13 +6,12 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 11:55:44 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/02 10:03:06 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/02 12:11:13 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fstream> /* ifstream */
 #include <sstream> /* geline */
-#include <iostream> /* cout */
 #include <string>
 #include "inputParser.h"
 
@@ -87,7 +86,6 @@ bool		InputParser::errorsInFormat(const string& line, int pos)
 				return (noError);
 			}
 			else if (line.at(pos) != ' ' && line.at(pos) != '\t') {
-				/* cout << "<<" << line << ">>"; */
 				return (badFormat);
 			}
 		}
@@ -100,32 +98,25 @@ void	InputParser::puzzleFromFile(const char* fileName)
 	ifstream infile(fileName);
 	string line;
 
-	/* if (fileName. */
 	while (getline(infile, line)) {
 		if (size_ == k_invalidSize) {
 			if ((errors_ = parseSize(line)) != noError) {
-				cout << "ERROR PARSING SIZE " << errors_;
 				break ;
 			}
 		}
 		else if ((errors_ = parseLine(line)) != noError) {
-		/* cout << line; */
-			cout << "<<ERROR PARSING LINE>>";
 			break ;
 		}
 	}
-/* TODO:Need to check number of lines */
-	getPuzzle();
-	/* for (auto &tile : puzzle_) { */
-	/* 	cout << static_cast<int>(tile) << "-"; */
-	/* } */
-	/* cout << '\n'; */
+	if (puzzle_.size() != size_) {
+		errors_ = invalidSize;
+	}
 }
 
-const vector<unsigned char>	InputParser::getPuzzle() const
+const vector<unsigned char>	InputParser::getTranslatedPuzzle() const
 {
 	const char* translateStr;
-	vector<unsigned char> retPuzzle;
+	vector<unsigned char> retPuzzle(puzzle_.size());
 
 	switch (size_)
 	{
@@ -144,20 +135,33 @@ const vector<unsigned char>	InputParser::getPuzzle() const
 	for(auto &tile : puzzle_) {
 		retPuzzle.emplace_back(translateStr[tile]);
 	}
+	return (retPuzzle);
+}
 
-	/* DISPLAY */
-	for (int i = 0; i < puzzle_.size(); i++) {
-		cout << static_cast<int>(puzzle_[i]) << "\t";
-		if ((i + 1) % size_ == 0) {
-			cout << "\n";
-		}
+const vector<unsigned char>	InputParser::translatePuzle(const vector<unsigned char>& puzzle, const unsigned char& size) const
+{
+	if ( puzzle.size() != size * size) {
+		return (vector<unsigned char>(0));
 	}
-	cout << "\n\n";
-	for (int i = 0; i < puzzle_.size(); i++) {
-		cout << static_cast<int>(retPuzzle[i]) << "\t";
-		if ((i + 1) % size_ == 0) {
-			cout << "\n";
-		}
+	const char* translateStr;
+	vector<unsigned char> retPuzzle(puzzle.size());
+
+	switch (size)
+	{
+		case 3:
+			translateStr = k_translateThree;
+			break ;
+		case 4:
+			translateStr = k_translateFour;
+			break ;
+		case 5:
+			translateStr = k_translateFive;
+			break ;
+		default:
+			return (vector<unsigned char>(0));
+	}
+	for (auto &tile : puzzle) {
+		retPuzzle[translateStr[tile]] = tile;
 	}
 	return (retPuzzle);
 }
