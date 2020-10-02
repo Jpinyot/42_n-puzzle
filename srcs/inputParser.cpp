@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 11:55:44 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/01 18:31:30 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/02 10:03:06 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,50 @@ void	InputParser::puzzleFromFile(const char* fileName)
 			break ;
 		}
 	}
-	for (auto &tile : puzzle_) {
-		cout << static_cast<int>(tile) << "-";
+/* TODO:Need to check number of lines */
+	getPuzzle();
+	/* for (auto &tile : puzzle_) { */
+	/* 	cout << static_cast<int>(tile) << "-"; */
+	/* } */
+	/* cout << '\n'; */
+}
+
+const vector<unsigned char>	InputParser::getPuzzle() const
+{
+	const char* translateStr;
+	vector<unsigned char> retPuzzle;
+
+	switch (size_)
+	{
+		case 3:
+			translateStr = k_translateThree;
+			break ;
+		case 4:
+			translateStr = k_translateFour;
+			break ;
+		case 5:
+			translateStr = k_translateFive;
+			break ;
+		default:
+			return (vector<unsigned char>(0));
 	}
-	cout << '\n';
+	for(auto &tile : puzzle_) {
+		retPuzzle.emplace_back(translateStr[tile]);
+	}
+
+	/* DISPLAY */
+	for (int i = 0; i < puzzle_.size(); i++) {
+		cout << static_cast<int>(puzzle_[i]) << "\t";
+		if ((i + 1) % size_ == 0) {
+			cout << "\n";
+		}
+	}
+	cout << "\n\n";
+	for (int i = 0; i < puzzle_.size(); i++) {
+		cout << static_cast<int>(retPuzzle[i]) << "\t";
+		if ((i + 1) % size_ == 0) {
+			cout << "\n";
+		}
+	}
+	return (retPuzzle);
 }
