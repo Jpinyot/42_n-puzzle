@@ -6,7 +6,7 @@
 #    By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/23 10:17:31 by jpinyot           #+#    #+#              #
-#    Updated: 2020/10/01 15:37:47 by mfiguera         ###   ########.fr        #
+#    Updated: 2020/10/02 12:15:45 by mfiguera         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ add_executable(n-puzzle
 			srcs/closedStack.cpp
 			srcs/openStack.cpp
 			srcs/stateShuffler.cpp
+			srcs/stateLinearConflict.cpp
 			)
 
 target_include_directories(n-puzzle PRIVATE 
@@ -44,4 +45,5 @@ set(HEADER_FILES
 			includes/stateManhattanDistance.h
 			includes/openStack.h
 			includes/stateShuffler.h
+			includes/stateLinearConflict.h
 			)
