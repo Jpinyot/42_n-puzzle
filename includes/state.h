@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:14:12 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/02 11:09:23 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/02 12:13:28 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 #include <iostream>
 using namespace std;
 
-const int k_size = 4;
-const unsigned char k_itValue = 15;
+const int k_size = 3;
+const unsigned char k_itValue = 4;
 
 enum Moves
 {
