@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 15:12:43 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/01 10:30:38 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/02 11:10:34 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,5 @@ class StateManhattanDistance : public State
             setHeuristicScore();
         };
 
+        ~StateManhattanDistance() {;}
 };
