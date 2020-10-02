@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 11:55:44 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/02 12:11:13 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/02 12:17:14 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		InputParser::setTileChecker()
 	tileChecker_ = vector<bool>(maxValidTile_, false);
 }
 
-InputErros	InputParser::parseLine(const string& line)
+InputErrors	InputParser::parseLine(const string& line)
 {
 	int count = 0;
 	for (int i = 0; i < line.size(); i++) {
@@ -55,7 +55,7 @@ InputErros	InputParser::parseLine(const string& line)
 	return (badFormat);
 }
 
-InputErros	InputParser::parseSize(const string& line)
+InputErrors	InputParser::parseSize(const string& line)
 {
 	for (int i = 0; i < line.size(); i++) {
 		if (line.at(i) == k_commentChar) {
@@ -113,7 +113,7 @@ void	InputParser::puzzleFromFile(const char* fileName)
 	}
 }
 
-const vector<unsigned char>	InputParser::getTranslatedPuzzle() const
+vector<unsigned char>	InputParser::getTranslatedPuzzle() const
 {
 	const char* translateStr;
 	vector<unsigned char> retPuzzle(puzzle_.size());
@@ -130,7 +130,7 @@ const vector<unsigned char>	InputParser::getTranslatedPuzzle() const
 			translateStr = k_translateFive;
 			break ;
 		default:
-			return (vector<unsigned char>(0));
+			return (retPuzzle);
 	}
 	for(auto &tile : puzzle_) {
 		retPuzzle.emplace_back(translateStr[tile]);
@@ -138,7 +138,7 @@ const vector<unsigned char>	InputParser::getTranslatedPuzzle() const
 	return (retPuzzle);
 }
 
-const vector<unsigned char>	InputParser::translatePuzle(const vector<unsigned char>& puzzle, const unsigned char& size) const
+vector<unsigned char>	InputParser::translatePuzzleBack(const vector<unsigned char>& puzzle, const unsigned char& size) const
 {
 	if ( puzzle.size() != size * size) {
 		return (vector<unsigned char>(0));

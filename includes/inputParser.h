@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 11:46:13 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/02 12:11:41 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/02 12:17:52 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ const char k_translateFive[25]{12,0,1,2,3,4,9,14,19,24,23,22,21,20,15,10,5,6,7,8
 
 using namespace std;
 
-enum InputErros
+enum InputErrors
 {
 	badFormat = 00001,
 	noFile = 00010,
@@ -37,7 +37,7 @@ class InputParser
 {
 	private:
 		vector<unsigned char>	puzzle_;
-		InputErros		errors_;
+		InputErrors		errors_;
 		unsigned char		size_;
 		unsigned char		maxValidTile_;
 		vector<bool>		tileChecker_;
@@ -48,8 +48,8 @@ class InputParser
 
 
 		void		puzzleFromFile(const char* string);
-		InputErros	parseLine(const string& line);
-		InputErros	parseSize(const string& line);
+		InputErrors	parseLine(const string& line);
+		InputErrors	parseSize(const string& line);
 		bool		errorsInFormat(const string& line, int pos);
 		bool		sizeIsValid() {return (size_ >= k_minSize && size_ <= k_maxSize);};
 	public :
@@ -60,8 +60,8 @@ class InputParser
 		};
 		~InputParser() {};
 
-		const vector<unsigned char>	getTranslatedPuzzle() const;
-		const vector<unsigned char>	translatePuzle(const vector<unsigned char>& puzzlei, const unsigned char& size) const;
-		const InputErros	getErrors() const {return errors_;}
+		vector<unsigned char>	getTranslatedPuzzle() const;
+		vector<unsigned char>	translatePuzzleBack(const vector<unsigned char>& puzzlei, const unsigned char& size) const;
+		const InputErrors	getErrors() const {return errors_;}
 		const char		getSize() const {return size_;}
 };
