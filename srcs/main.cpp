@@ -6,12 +6,13 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/01 17:30:07 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/02 12:38:20 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* #include "state.h" */
 #include "stateManhattanDistance.h"
+#include "stateLinearConflict.h"
 #include "closedStack.h"
 #include "stateShuffler.h"
 #include "openStack.h"
@@ -43,15 +44,25 @@ static int solve(StateManhattanDistance *firstState)
 
 	ClosedStack closedStack = ClosedStack();
 	
+	int prev = 0;
 	while (openStack.getTop() != NULL) {
-		openStack.display();
+		// openStack.display();
 		State *state = openStack.getTop();
+		if (state->getMoveCount() > prev) {
+			prev = state->getMoveCount();
+			cout << prev << '\n';
+		}
 		if (state->getHeuristicScore() == 0) {
+			cout << "Solved in " << state->getMoveCount() << " steps.\n";
 			state->displaySteps(true);
 			return 0;
 		}
 		else {
 			openStack.popTop();
+			if (closedStack.stateIsClosed(state)) {
+				delete state;
+				continue;
+			}
 			closedStack.addState(state);
 			if (state->canMoveTo(N)) {
 				StateManhattanDistance *newState = new StateManhattanDistance(state, N);
@@ -89,12 +100,21 @@ static int solve(StateManhattanDistance *firstState)
 	return 1;
 }
 
-const int k_test_size = 9;
+const int k_test_size = k_size * k_size;
 int	main()
 {
-	unsigned char puzzleArr[k_test_size] = {	0,4,2,
-					3,1,5,
-					6,7,8};
+	unsigned char puzzleArr[k_test_size] = {	3,1,6,
+												0,8,5,
+												2,4,7};
+
+
+	// unsigned char puzzleHard[k_test_size] = {
+	// 	0,12,7,1,
+	// 	14,10,15,5,
+	// 	2,6,11,9,
+	// 	3,4,8,13,
+	// };
+
 	vector<unsigned char> puzzle;
 	for (int i = 0; i < k_test_size ; i++) {
 		puzzle.emplace_back(puzzleArr[i]);
@@ -108,8 +128,18 @@ int	main()
 	/* puzzle.push_back(6); */
 	/* puzzle.push_back(7); */
 	/* puzzle.push_back(8); */
-	StateManhattanDistance *state = new StateManhattanDistance(puzzle);
-	solve(state);
-	cout << state->getScore();
+	// StateShuffler *randState = new StateShuffler(3);
+	// randState = shuffle(randState, 50);
+	// randState->display();
+	StateLinearConflict *state = new StateLinearConflict(puzzle, Moves::none);
+	state->isSolvable();
+	int c = 0;
+	for (int i = 0; i < state->getPuzzle().size(); i++){
+		int tmp = state->singleTileConflicts(i);
+		cout << "i: " << (int)state->getPuzzle()[i] << " c: " << tmp << "\n";
+		c += tmp;
+	}
+	cout << "conflicts: " << c << "\n";
+	// solve(state);
 	return (0);
 }
