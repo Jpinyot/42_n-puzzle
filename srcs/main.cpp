@@ -33,6 +33,11 @@ StateShuffler	*shuffle(StateShuffler *state, int n_moves)
 
 static int solve(StateManhattanDistance *firstState)
 {
+	if (!firstState->isSolvable()) {
+		cout << "Not solvable puzzle.\n";
+		firstState->display();
+		return 1;
+	}
 	OpenStack openStack = OpenStack();
 	openStack.addState(firstState);
 

@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:55:50 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/01 18:31:08 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/02 10:07:46 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,4 +136,18 @@ void State::displaySteps(const bool disp, const bool isFirst) const
 			cout << "\n";
 		}
 	}
+}
+
+const bool State::isSolvable() const
+{
+	int invCount = 0;
+
+	for (int i = 0; i < puzzle_.size() - 1; i++) {
+		for (int j = i + 1; j < puzzle_.size(); j++) {
+			if (puzzle_[i] != k_itValue && puzzle_[j] != k_itValue && puzzle_[i] > puzzle_[j]) {
+				invCount++;
+			}
+		}
+	}
+	return (invCount % 2 == 0);
 }
