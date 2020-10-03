@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stateLinearConflict.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 11:23:42 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/02 12:25:06 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/03 19:15:18 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,12 @@ class StateLinearConflict : public State
     
     public:
         virtual const int       singleTileDistance(int i) const;
-        virtual const int       singleTileConflicts(int tile) const;
-	StateLinearConflict(State* previous, const Moves& move):
+
+    	StateLinearConflict(State* previous, const Moves& move):
 		State(previous, move)
 	    {
-		setPuzzleFromPrev();
+		    setPuzzleFromPrev();
 	    	setHeuristicScoreFromPrev();
-    		/* display(); */
-
 	    };
 
         StateLinearConflict(const vector<unsigned char> puzzle, const Moves& move=none) :
