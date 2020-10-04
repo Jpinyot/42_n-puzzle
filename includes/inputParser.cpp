@@ -44,7 +44,7 @@ class InputParser
 
 		void		setTileChecker();
 		const bool	tileIsValid(const unsigned char& tile) const {return (tile < maxValidTile_ && !tileChecker_[tile]);}
-		void		setTileAsChecket(const unsigned char& pos) {tileChecker_.at(pos) = true;}
+		void		setTileAsChecked(const unsigned char& pos) {tileChecker_.at(pos) = true;}
 
 
 		void		puzzleFromFile(const char* string);
