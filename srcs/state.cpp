@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   state.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:55:50 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/02 10:07:46 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/04 18:16:33 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,17 @@ const bool	State::canMoveTo(const Moves& move) const
 	}
 }
 
+const int	maxDigits(int size) {
+	int n = size * size;
+	int c = 0;
+	while (n)
+	{
+		c++;
+		n /= 10;
+	}
+	return (c + 1);
+}
+
 void State::display() const
 {
 	char move;
@@ -88,9 +99,11 @@ void State::display() const
 		default :
 			move = '-';
 	}
-	cout << "--" << move << "--\n";
+	int fill = maxDigits(k_size);
+	string str = "-------------------------------------------\n";
+	cout << setfill('-') << setw((round((fill * k_size) / 2)) + 1) << move << str.substr(str.size() - floor((fill * k_size / 2)));
 	for(int i = 0; i < puzzle_.size(); i++) {
-		cout << static_cast<int>(puzzle_[i]) << ' ';
+		cout << setfill(' ') << setw(fill) << static_cast<int>(puzzle_[i]);
 		if ((i+1) % k_size == 0) {
 			cout << '\n';
 		}
