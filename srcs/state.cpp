@@ -149,5 +149,12 @@ const bool State::isSolvable() const
 			}
 		}
 	}
-	return (invCount % 2 == 0);
+
+	const bool isEven = invCount % 2 == 0;
+	if (k_size % 2 == 1){
+		return (isEven);
+	} else {
+		const bool isEvenItPos = getItPos() % 2 == 0;
+		return (isEvenItPos ^ isEven);
+	}
 }
