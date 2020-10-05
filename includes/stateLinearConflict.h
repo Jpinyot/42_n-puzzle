@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stateLinearConflict.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
+/*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 11:23:42 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/03 19:15:18 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/05 16:21:17 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,6 @@ class StateLinearConflict : public State
         };
 
         ~StateLinearConflict() {;}
+
+        static State	*moveTo(State *previous, Moves &move) {return new StateLinearConflict(previous, move);}
 };
