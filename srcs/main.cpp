@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
+/*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/01 16:46:13 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/05 11:03:28 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,6 @@
 #include "stateShuffler.h"
 #include "openStack.h"
 #include <iostream>
-
-StateShuffler	*shuffle(StateShuffler *state, int n_moves)
-{
-    int i = 0;
-	StateShuffler *currState = state;
-    while (i < n_moves) {
-        Moves move = static_cast<Moves>(rand() % (Moves::none));
-        if (currState->canMoveTo(move)) {
-			currState = new StateShuffler(currState, move);
-            i++;
-        }
-    }
-	return currState;
-}
 
 static int solve(StateManhattanDistance *firstState)
 {
@@ -103,8 +89,8 @@ int	main()
 	/* puzzle.push_back(6); */
 	/* puzzle.push_back(7); */
 	/* puzzle.push_back(8); */
-	StateManhattanDistance *state = new StateManhattanDistance(puzzle);
-	solve(state);
-	cout << state->getScore();
+	Shuffler shuffler = Shuffler(3);
+	shuffler.shuffle(10);
+	shuffler.display();
 	return (0);
 }
