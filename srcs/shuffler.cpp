@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stateShuffler.cpp                                  :+:      :+:    :+:   */
+/*   shuffler.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 15:25:21 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/05 10:59:29 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/05 11:05:43 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stateShuffler.h"
+#include "shuffler.h"
 
 vector<unsigned char>  StateSolution::genPuzzle(int size)
 {

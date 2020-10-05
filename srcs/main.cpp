@@ -6,14 +6,14 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/05 11:03:28 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/05 11:06:19 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* #include "state.h" */
 #include "stateManhattanDistance.h"
 #include "closedStack.h"
-#include "stateShuffler.h"
+#include "shuffler.h"
 #include "openStack.h"
 #include <iostream>
 
