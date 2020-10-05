@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:45:15 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/05 11:20:39 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/05 16:06:58 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ class OpenStack
         {
             top_ = NULL;
         }
+
+        OpenStack(State *top):
+            top_(top)
+        {;}
 
         ~OpenStack()
         {
