@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/05 23:05:06 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/05 23:36:59 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ static int astar(State *firstState, State* (moveStateTo)(State*, Moves&))
 		State *state = openStack.getTop();
 		n_openStates++;
 		if (state->getHeuristicScore() == 0) {
-			cout << "Total opened states: " << n_openStates << ".\n";
+			cout << "Total opened states: " << State::getStatesCreated() << ".\n";
+			cout << "Max active states at once: " << State::getMaxStatesActive() << ".\n";
 			cout << "Solved in " << state->getMoveCount() << " steps.\n";
 			state->displaySteps();
 			return 1;
@@ -93,7 +94,8 @@ static int idastar(State *firstState, State* (moveStateTo)(State*, Moves&))
 		t = idasearch(stack, bound, moveStateTo);
 		if (t == 0) {
 			State *state = stack->getTop();
-			// cout << "Total opened states: " << n_openStates << ".\n";
+			cout << "Total opened states: " << State::getStatesCreated() << ".\n";
+			cout << "Max active states at once: " << State::getMaxStatesActive() << ".\n";
 			cout << "Solved in " << state->getMoveCount() << " steps.\n";
 			state->displaySteps();
 			return 1;

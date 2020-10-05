@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   state.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:14:12 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/05 16:24:12 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/05 23:36:00 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 using namespace std;
 
 const int k_size = 3;
-const unsigned char k_itValue = 4;
+const unsigned char k_itValue = 8;
 
 enum Moves
 {
@@ -33,6 +33,10 @@ enum Moves
 
 class State
 {
+	static int statesCreated;
+	static int currentStatesActive;
+	static int maxStatesActive;
+
 	private:
 		State*	previous_;
         State*      next_;
@@ -54,6 +58,11 @@ class State
 			previous_(previous), next_(NULL), moveCount_(previous->getMoveCount() + 1),
 			move_(move), heuristicScore_(previous_->heuristicScore_), puzzle_(0), itPos_(0)
 	    {
+			statesCreated++;
+			currentStatesActive++;
+			if (currentStatesActive > maxStatesActive) {
+				maxStatesActive = currentStatesActive;
+			}
             	/* setPuzzleFromPrev(); */
 	    	/* setHeuristicScoreFromPrev(); */
 
@@ -62,12 +71,19 @@ class State
         State(const vector<unsigned char> puzzle, const Moves& move=none) :
             previous_(NULL), next_(NULL), moveCount_(0), move_(move), heuristicScore_(-1), puzzle_(0), itPos_(0)
         {
-            puzzle_ = puzzle;
+			statesCreated++;
+			currentStatesActive++;
+			if (currentStatesActive > maxStatesActive) {
+				maxStatesActive = currentStatesActive;
+			}
             //itPos_ need to be initialized
             /* setHeuristicScore(); */
         };
 
-		virtual ~State() {};
+		virtual ~State()
+		{
+			currentStatesActive--;
+		}
 
 	const int	getMoveCount() const {return moveCount_;}
 	const int	getScore() const {return heuristicScore_ + moveCount_;}
@@ -77,6 +93,8 @@ class State
         State*      getNext() const {return next_;}
         void        setNext(State* next) {next_ = next;}
         State*    getPrevious() const {return previous_;}
+		static int getStatesCreated() {return statesCreated;}
+		static int getMaxStatesActive() {return maxStatesActive;}
 		
 	const bool	isSolved() const {return (heuristicScore_ == 0);}
 	const bool	isSolvable() const;

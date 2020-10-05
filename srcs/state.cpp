@@ -6,11 +6,15 @@
 /*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:55:50 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/04 18:16:33 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/05 23:28:59 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "state.h"
+
+int State::statesCreated = 0;
+int State::currentStatesActive = 0;
+int State::maxStatesActive = 0;
 
 void State::setPuzzleFromPrev()
 {
