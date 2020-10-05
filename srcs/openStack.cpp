@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:50:54 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/01 10:23:27 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/05 22:38:57 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void OpenStack::addState(State *state)
     State *currState = top_;
     State *prevState = NULL;
 
-    while(currState != NULL) {
+    while (currState != NULL) {
         if (state->getScore() < currState->getScore())
             break;
         prevState = currState;
@@ -30,6 +30,12 @@ void OpenStack::addState(State *state)
         top_ = state;
     else
         prevState->setNext(state);
+}
+
+void UnsortedStack::addState(State* state)
+{
+    state->setNext(top_);
+    top_ = state;
 }
 
 void OpenStack::popTop()
