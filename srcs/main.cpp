@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/02 12:38:20 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/05 11:10:02 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,9 @@
 #include "stateManhattanDistance.h"
 #include "stateLinearConflict.h"
 #include "closedStack.h"
-#include "stateShuffler.h"
+#include "shuffler.h"
 #include "openStack.h"
 #include <iostream>
-
-StateShuffler	*shuffle(StateShuffler *state, int n_moves)
-{
-    int i = 0;
-	StateShuffler *currState = state;
-    while (i < n_moves) {
-        Moves move = static_cast<Moves>(rand() % (Moves::none));
-        if (currState->canMoveTo(move)) {
-			currState = new StateShuffler(currState, move);
-            i++;
-        }
-    }
-	return currState;
-}
 
 static int solve(StateManhattanDistance *firstState)
 {
@@ -128,18 +114,8 @@ int	main()
 	/* puzzle.push_back(6); */
 	/* puzzle.push_back(7); */
 	/* puzzle.push_back(8); */
-	// StateShuffler *randState = new StateShuffler(3);
-	// randState = shuffle(randState, 50);
-	// randState->display();
-	StateLinearConflict *state = new StateLinearConflict(puzzle, Moves::none);
-	state->isSolvable();
-	int c = 0;
-	for (int i = 0; i < state->getPuzzle().size(); i++){
-		int tmp = state->singleTileConflicts(i);
-		cout << "i: " << (int)state->getPuzzle()[i] << " c: " << tmp << "\n";
-		c += tmp;
-	}
-	cout << "conflicts: " << c << "\n";
-	// solve(state);
+	Shuffler shuffler = Shuffler(3);
+	shuffler.shuffle(10);
+	shuffler.display();
 	return (0);
 }

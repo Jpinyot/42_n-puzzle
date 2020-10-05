@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stateShuffler.cpp                                  :+:      :+:    :+:   */
+/*   shuffler.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 15:25:21 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/01 16:45:18 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/05 11:05:43 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stateShuffler.h"
+#include "shuffler.h"
 
-vector<unsigned char>  StateShuffler::genPuzzle(int size)
+vector<unsigned char>  StateSolution::genPuzzle(int size)
 {
     vector<unsigned char> puzzle;
 
@@ -22,7 +22,7 @@ vector<unsigned char>  StateShuffler::genPuzzle(int size)
     return puzzle;
 }
 
-void	StateShuffler::setHeuristicScore()
+void	StateSolution::setHeuristicScore()
 {
 	for (int i = 0; i < puzzle_.size(); i++) {
 		if (puzzle_[i] == k_itValue){
@@ -32,6 +32,14 @@ void	StateShuffler::setHeuristicScore()
     heuristicScore_ = 0;
 };
 
-
-void StateShuffler::setHeuristicScoreFromPrev() {int i;}
-const int StateShuffler::singleTileDistance(int i) const {return -1;}
+void	Shuffler::shuffle(int n_moves)
+{
+    int i = 0;
+    while (i < n_moves) {
+        Moves move = static_cast<Moves>(rand() % (Moves::none));
+        if (solution_->canMoveTo(move)) {
+			solution_ = new StateSolution(solution_, move);
+            i++;
+        }
+    }
+}
