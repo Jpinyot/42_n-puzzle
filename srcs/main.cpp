@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/05 11:46:41 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/05 16:30:15 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,72 +17,50 @@
 #include "shuffler.h"
 #include "openStack.h"
 #include <iostream>
+#include <map>
 
-static int solve(StateManhattanDistance *firstState)
+map<const char*, State *(*)(State*,Moves&)> heuristicTypes = {
+    { "ManDist", StateManhattanDistance::moveTo},
+    { "LinConf", StateLinearConflict::moveTo}
+  };
+
+static int solve(State *firstState, const char *heuristic)
 {
-	if (!firstState->isSolvable()) {
-		cout << "Not solvable puzzle.\n";
-		firstState->display();
-		return 1;
-	}
-	OpenStack openStack = OpenStack();
-	openStack.addState(firstState);
+	State *(*moveStateTo)(State*, Moves&) = heuristicTypes[heuristic];
 
-	ClosedStack closedStack = ClosedStack();
+	if (firstState->isSolvable()) {
+
+		OpenStack openStack = OpenStack(firstState);
+		ClosedStack closedStack = ClosedStack();
+
+		while (openStack.getTop() != NULL) {
+			State *state = openStack.getTop();
+			if (state->getHeuristicScore() == 0) {
+				cout << "Solved in " << state->getMoveCount() << " steps.\n";
+				state->displaySteps(true);
+				return 0;
+			}
+			else {
+				openStack.popTop();
+				if (closedStack.stateIsClosed(state)) {
+					delete state;
+					continue;
+				}
+				closedStack.addState(state);
+				for (int i = Moves::N; i < Moves::none; i++){
+					Moves dir = static_cast<Moves>(i);
+					if (state->canMoveTo(dir)) {
+						State *newState = moveStateTo(state, dir);
+						if (!closedStack.stateIsClosed(newState))
+							openStack.addState(newState);
+					}
+				}
+			}
+		}
+	}
 	
-	int prev = 0;
-	while (openStack.getTop() != NULL) {
-		// openStack.display();
-		State *state = openStack.getTop();
-		if (state->getMoveCount() > prev) {
-			prev = state->getMoveCount();
-			cout << prev << '\n';
-		}
-		if (state->getHeuristicScore() == 0) {
-			cout << "Solved in " << state->getMoveCount() << " steps.\n";
-			state->displaySteps(true);
-			return 0;
-		}
-		else {
-			openStack.popTop();
-			if (closedStack.stateIsClosed(state)) {
-				delete state;
-				continue;
-			}
-			closedStack.addState(state);
-			if (state->canMoveTo(N)) {
-				StateManhattanDistance *newState = new StateManhattanDistance(state, N);
-				if (!closedStack.stateIsClosed(newState))
-					openStack.addState(newState);
-				/* newState.display(); */
-			}
-
-			if (state->canMoveTo(E)) {
-				/* cout <<"E\n"; */
-				StateManhattanDistance *newState = new StateManhattanDistance(state, E);
-				if (!closedStack.stateIsClosed(newState))
-					openStack.addState(newState);
-				/* newState.display(); */
-			}
-
-			if (state->canMoveTo(S)) {
-				/* cout <<"S\n"; */
-				StateManhattanDistance *newState = new StateManhattanDistance(state, S);
-				if (!closedStack.stateIsClosed(newState))
-					openStack.addState(newState);
-				/* newState.display(); */
-			}
-
-			if (state->canMoveTo(W)) {
-				/* cout <<"W\n"; */
-				StateManhattanDistance *newState = new StateManhattanDistance(state, W);
-				if (!closedStack.stateIsClosed(newState))
-					openStack.addState(newState);
-				/* newState.display(); */
-			}
-		}
-	}
-
+	cout << "Not solvable puzzle.\n";
+	firstState->display();
 	return 1;
 }
 
@@ -115,7 +93,8 @@ int	main()
 	/* puzzle.push_back(7); */
 	/* puzzle.push_back(8); */
 	Shuffler shuffler = Shuffler(3);
-	shuffler.shuffle(10);
-	shuffler.display();
+	shuffler.shuffle(25);
+	solve(new StateManhattanDistance(shuffler.getPuzzle(), none), "LinConf");
+	// shuffler.display();
 	return (0);
 }
