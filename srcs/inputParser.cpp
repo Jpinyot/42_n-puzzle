@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 11:55:44 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/02 12:17:14 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/05 09:22:49 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ InputErrors	InputParser::parseLine(const string& line)
 			if (!tileIsValid(tile)) {
 				return (badFormat);
 			}
-			setTileAsChecket(tile);
+			setTileAsChecked(tile);
 			puzzle_.emplace_back(tile);
 			i = findLastDigit(line, i);
 			count += 1;
