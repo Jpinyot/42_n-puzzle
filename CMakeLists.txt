@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    CMakeLists.txt                                     :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+         #
+#    By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/23 10:17:31 by jpinyot           #+#    #+#              #
-#    Updated: 2020/10/01 15:37:47 by mfiguera         ###   ########.fr        #
+#    Updated: 2020/10/01 09:48:03 by jpinyot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,6 @@ add_executable(n-puzzle
 			srcs/stateManhattanDistance.cpp
 			srcs/closedStack.cpp
 			srcs/openStack.cpp
-			srcs/stateShuffler.cpp
 			)
 
 target_include_directories(n-puzzle PRIVATE 
@@ -43,5 +42,4 @@ set(HEADER_FILES
 			includes/nodes.h
 			includes/stateManhattanDistance.h
 			includes/openStack.h
-			includes/stateShuffler.h
 			)

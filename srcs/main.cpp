@@ -6,30 +6,15 @@
 /*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/01 16:46:13 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/01 09:35:28 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* #include "state.h" */
 #include "stateManhattanDistance.h"
 #include "closedStack.h"
-#include "stateShuffler.h"
 #include "openStack.h"
 #include <iostream>
-
-StateShuffler	*shuffle(StateShuffler *state, int n_moves)
-{
-    int i = 0;
-	StateShuffler *currState = state;
-    while (i < n_moves) {
-        Moves move = static_cast<Moves>(rand() % (Moves::none));
-        if (currState->canMoveTo(move)) {
-			currState = new StateShuffler(currState, move);
-            i++;
-        }
-    }
-	return currState;
-}
 
 static int solve(StateManhattanDistance *firstState)
 {
