@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 15:25:21 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/01 16:45:18 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/05 10:24:08 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,16 @@ void	StateShuffler::setHeuristicScore()
     heuristicScore_ = 0;
 };
 
-
-void StateShuffler::setHeuristicScoreFromPrev() {int i;}
-const int StateShuffler::singleTileDistance(int i) const {return -1;}
+StateShuffler *StateShuffler::shuffle(int n_moves)
+{
+    int i = 0;
+	StateShuffler *currState = this;
+    while (i < n_moves) {
+        Moves move = static_cast<Moves>(rand() % (Moves::none));
+        if (currState->canMoveTo(move)) {
+			currState = new StateShuffler(currState, move);
+            i++;
+        }
+    }
+	return currState;
+}
