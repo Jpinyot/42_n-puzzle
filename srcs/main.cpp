@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/05 18:58:17 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/05 23:05:06 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include "openStack.h"
 #include <iostream>
 #include <map>
+
+int k_infinite = 9999999;
 
 map<const char*, State *(*)(State*,Moves&)> heuristicTypes = {
     { "ManDist", StateManhattanDistance::moveTo},
@@ -59,19 +61,22 @@ static int astar(State *firstState, State* (moveStateTo)(State*, Moves&))
 	return 0;
 }
 
-int idasearch(State *path, int bound, State* (moveStateTo)(State*, Moves&))
+int idasearch(UnsortedStack *stack, int bound, State* (moveStateTo)(State*, Moves&))
 {
-	int f = path->getScore();
+	State *state = stack->getTop();
+	int f = state->getScore();
 	if (f > bound) {return f;}
-	if (path->getHeuristicScore() == 0) {return 0;}
+	if (state->getHeuristicScore() == 0) {return 0;}
 	int min = k_infinite;
-	for (int i = Moves::N; i < Moves::none; i++) {
+	for (int i = Moves::N; i < Moves::none; i++) { //need to sort these based on score.
 		Moves dir = static_cast<Moves>(i);
-		if (path->canMoveTo(dir)){
-			State *newNode = moveStateTo(path, dir);
-			int t = idasearch(newNode, bound, moveStateTo);
+		if (state->canMoveTo(dir)){
+			State *newNode = moveStateTo(state, dir);
+			stack->addState(newNode);
+			int t = idasearch(stack, bound, moveStateTo);
 			if (t == 0) {return 0;}
 			if (t < min) {min = t;}
+			stack->popTop();
 			delete newNode;
 		}
 	}
@@ -80,16 +85,22 @@ int idasearch(State *path, int bound, State* (moveStateTo)(State*, Moves&))
 
 static int idastar(State *firstState, State* (moveStateTo)(State*, Moves&))
 {
+	UnsortedStack *stack = new UnsortedStack(firstState);
 	int bound = firstState->getHeuristicScore();
 	int t;
 
 	while (true) {
-		t = search(path, bound);
+		t = idasearch(stack, bound, moveStateTo);
 		if (t == 0) {
-			//Solution found
+			State *state = stack->getTop();
+			// cout << "Total opened states: " << n_openStates << ".\n";
+			cout << "Solved in " << state->getMoveCount() << " steps.\n";
+			state->displaySteps();
+			return 1;
 		}
 		if (t == k_infinite) {
 			//no solution
+			return 0;
 		}
 		bound = t;
 	}
