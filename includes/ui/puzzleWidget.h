@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 11:20:42 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/05 12:31:10 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/05 16:09:31 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,31 @@
 #include <QGraphicsView>
 #include <QAbstractTransition>
 #include <QRandomGenerator>
+#include <QtCore>
+#include <QtWidgets>
+
+const int k_tileSize = 50;
+const int k_tilePosSeparation = 50;
 
 using namespace std;
+
+
+//![13]
+/* QState *createGeometryState(QObject *w1, const QRect &rect1, */
+/*                             QObject *w2, const QRect &rect2, */
+/*                             QObject *w3, const QRect &rect3, */
+/*                             QObject *w4, const QRect &rect4, */
+/*                             QState *parent) */
+/* { */
+/*     QState *result = new QState(parent); */
+/*     result->assignProperty(w1, "geometry", rect1); */
+/*     result->assignProperty(w2, "geometry", rect2); */
+/*     result->assignProperty(w3, "geometry", rect3); */
+/*     result->assignProperty(w4, "geometry", rect4); */
+
+/*     return result; */
+/* } */
+/* //![13] */
 
 //![15]
 class StateSwitchEvent: public QEvent
@@ -44,8 +67,6 @@ public:
 private:
     int m_rand;
 };
-//![15]
-
 //![16]
 class QGraphicsRectWidget : public QGraphicsWidget
 {
@@ -57,7 +78,6 @@ public:
     }
 };
 //![16]
-
 class StateSwitchTransition: public QAbstractTransition
 {
 public:
@@ -85,7 +105,7 @@ private:
 //![10]
 class StateSwitcher : public QState
 {
-    Q_OBJECT
+    /* Q_OBJECT */
 public:
     StateSwitcher(QStateMachine *machine)
         : QState(machine), m_stateCount(0), m_lastIndex(0)
@@ -118,32 +138,16 @@ private:
     int m_lastIndex;
 };
 
-//![13]
-QState *createGeometryState(QObject *w1, const QRect &rect1,
-                            QObject *w2, const QRect &rect2,
-                            QObject *w3, const QRect &rect3,
-                            QObject *w4, const QRect &rect4,
-                            QState *parent)
-{
-    QState *result = new QState(parent);
-    result->assignProperty(w1, "geometry", rect1);
-    result->assignProperty(w2, "geometry", rect2);
-    result->assignProperty(w3, "geometry", rect3);
-    result->assignProperty(w4, "geometry", rect4);
-
-    return result;
-}
-//![13]
-
 
 class GraphicsView : public QGraphicsView
 {
-    Q_OBJECT
+    /* Q_OBJECT */
 public:
     GraphicsView(QGraphicsScene *scene, QWidget *parent = nullptr)
         : QGraphicsView(scene, parent)
     {
     }
+    virtual ~GraphicsView() = default;
 
 protected:
     void resizeEvent(QResizeEvent *event) override
@@ -154,41 +158,97 @@ protected:
 };
 
 class PuzzleWidget
-/* class PuzzleWidget : QGraphicsScene */
 {
 	private:
-		GraphicsView			window_;
+		/* GraphicsView			window_; */
 
 		vector<QGraphicsRectWidget*>	tiles_;
 		int				size_;
 		int				numOfTiles_;
 
 
-		QGraphicsScene	addButtons();
-		void		setWindow(QGraphicsScene scene);
+		/* QGraphicsScene	addButtons(); */
+		/* void		setWindow(QGraphicsScene scene); */
+		QState *createGeometryState(QState *parent)
+		{
+			QState *result = new QState(parent);
+			QRect rect(0, 0, 0, 0);
+			for (int i = 0; i < tiles_.size(); i++) {
+				result->assignProperty(tiles_[i], "geometry", rect);
+				rect.moveLeft(rect.left() + k_tilePosSeparation);
+				if ((i + 1) % size_ == 0) {
+					rect.moveTo(0, rect.top() + k_tilePosSeparation);
+				}
+			}
+			return result;
+		}
 	public:
 		PuzzleWidget(const int& size, QObject* paret=nullptr) :
-			window_(0), tiles_(0), size_(size), numOfTiles_(size * size)
+			tiles_(0), size_(size), numOfTiles_(size * size)
 	{
-		/* /1* 1 *1/ */
-		/* /1* 2 *1/ */
-		/* GraphicsView window(&addButtons()); */
-		/* window.setFrameStyle(0); */
-		/* window.setAlignment(Qt::AlignLeft | Qt::AlignTop); */
-		/* window.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff); */
-		/* window.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff); */
-		/* /1* 3 *1/ */
-		/*  QStateMachine machine; */
-		/*  QState *group = new QState(); */
-		/*  group->setObjectName("group"); */
-		/*  QTimer timer; */
-		/*  timer.setInterval(1250); */
-		/*  timer.setSingleShot(true); */
-		/*  QObject::connect(group, &QState::entered, &timer, QOverload<>::of(&QTimer::start)); */
+    		QGraphicsScene scene(0, 0, 300, 300);
+		scene.setBackgroundBrush(Qt::black);
+		for (int i = 0; i < size_; i++) {
+			QGraphicsRectWidget *tile = new QGraphicsRectWidget;
+			tile->setZValue(i);
+			tiles_.push_back(tile);
+			scene.addItem(tile);
+		}
+   		GraphicsView window(&scene);
+		window.setFrameStyle(0);
+		window.setAlignment(Qt::AlignLeft | Qt::AlignTop);
+		window.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+		window.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-		/*   machine.addState(group); */
-		/*   machine.setInitialState(group); */
-		/*   machine.start(); */
+		QStateMachine machine;
+
+		QState *group = new QState();
+		group->setObjectName("group");
+		QTimer timer;
+		timer.setInterval(1250);
+		timer.setSingleShot(true);
+		QObject::connect(group, &QState::entered, &timer, QOverload<>::of(&QTimer::start));
+
+		QState* state1 = createGeometryState(group); /* new createGeometryState() */
+
+
+		QParallelAnimationGroup animationGroup;
+		QSequentialAnimationGroup *subGroup;
+
+		for (auto& tile : tiles_) {
+			QPropertyAnimation *anim = new QPropertyAnimation(tile, "geometry");
+			anim->setDuration(1000);
+			anim->setEasingCurve(QEasingCurve::OutElastic);
+			animationGroup.addAnimation(anim);
+
+			subGroup = new QSequentialAnimationGroup(&animationGroup);
+			subGroup->addAnimation(anim);
+		}
+
+			StateSwitcher *stateSwitcher = new StateSwitcher(&machine);
+			stateSwitcher->setObjectName("stateSwitcher");
+			group->addTransition(&timer, &QTimer::timeout, stateSwitcher);
+			stateSwitcher->addState(state1, &animationGroup);
+			/* stateSwitcher->addState(state2, &animationGroup); */
+			/* //![7] */
+			/* stateSwitcher->addState(state3, &animationGroup); */
+			/* stateSwitcher->addState(state4, &animationGroup); */
+			/* stateSwitcher->addState(state5, &animationGroup); */
+			/* stateSwitcher->addState(state6, &animationGroup); */
+			/* //![8] */
+			/* stateSwitcher->addState(state7, &animationGroup); */
+			//![8]
+
+			//![9]
+			machine.addState(group);
+			machine.setInitialState(group);
+			machine.start();
+			//![9]
+
+			window.resize(300, 300);
+			window.show();
+
+			/* return app.exec(); */
 	}
 };
 #include "main.moc"
