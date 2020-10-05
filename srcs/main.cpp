@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/01 09:35:28 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/05 11:33:23 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,26 +70,43 @@ static int solve(StateManhattanDistance *firstState)
 }
 
 const int k_test_size = 9;
-int	main()
+
+#include <QApplication>
+#include <QPushButton>
+#include "ui/puzzleWidget.h"
+
+int main(int argc, char** argv)
 {
-	unsigned char puzzleArr[k_test_size] = {	0,4,2,
-					3,1,5,
-					6,7,8};
-	vector<unsigned char> puzzle;
-	for (int i = 0; i < k_test_size ; i++) {
-		puzzle.emplace_back(puzzleArr[i]);
-	}
-	/* puzzle.push_back(0); */
-	/* puzzle.push_back(3); */
-	/* puzzle.push_back(2); */
-	/* puzzle.push_back(1); */
-	/* puzzle.push_back(4); */
-	/* puzzle.push_back(5); */
-	/* puzzle.push_back(6); */
-	/* puzzle.push_back(7); */
-	/* puzzle.push_back(8); */
-	StateManhattanDistance *state = new StateManhattanDistance(puzzle);
-	solve(state);
-	cout << state->getScore();
-	return (0);
+	QApplication app (argc, argv);
+
+
+	PuzzleWidget	puzzle(3);
+	/* puzzle.show(); */
+
+	QPushButton button("OLI");
+	button.show();
+	 return app.exec();
 }
+/* int	main() */
+/* { */
+/* 	unsigned char puzzleArr[k_test_size] = {	0,4,2, */
+/* 					3,1,5, */
+/* 					6,7,8}; */
+/* 	vector<unsigned char> puzzle; */
+/* 	for (int i = 0; i < k_test_size ; i++) { */
+/* 		puzzle.emplace_back(puzzleArr[i]); */
+/* 	} */
+/* 	/1* puzzle.push_back(0); *1/ */
+/* 	/1* puzzle.push_back(3); *1/ */
+/* 	/1* puzzle.push_back(2); *1/ */
+/* 	/1* puzzle.push_back(1); *1/ */
+/* 	/1* puzzle.push_back(4); *1/ */
+/* 	/1* puzzle.push_back(5); *1/ */
+/* 	/1* puzzle.push_back(6); *1/ */
+/* 	/1* puzzle.push_back(7); *1/ */
+/* 	/1* puzzle.push_back(8); *1/ */
+/* 	StateManhattanDistance *state = new StateManhattanDistance(puzzle); */
+/* 	solve(state); */
+/* 	cout << state->getScore(); */
+/* 	return (0); */
+/* } */
