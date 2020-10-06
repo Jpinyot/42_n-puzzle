@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   state.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
+/*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:55:50 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/05 23:28:59 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/06 10:51:27 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "state.h"
 
-int State::statesCreated = 0;
-int State::currentStatesActive = 0;
-int State::maxStatesActive = 0;
+int State::statesCreated_ = 0;
+int State::currentStatesActive_ = 0;
+int State::maxStatesActive_ = 0;
 
 void State::setPuzzleFromPrev()
 {

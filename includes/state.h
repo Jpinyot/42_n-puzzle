@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:14:12 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/06 09:45:03 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/06 11:38:32 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ enum Moves
 
 class State
 {
-	static int statesCreated;
-	static int currentStatesActive;
-	static int maxStatesActive;
+	static int statesCreated_;
+	static int currentStatesActive_;
+	static int maxStatesActive_;
 
 	private:
 		State*	previous_;
@@ -58,10 +58,10 @@ class State
 			previous_(previous), next_(NULL), moveCount_(previous->getMoveCount() + 1),
 			move_(move), heuristicScore_(previous_->heuristicScore_), puzzle_(0), itPos_(0)
 	    {
-			statesCreated++;
-			currentStatesActive++;
-			if (currentStatesActive > maxStatesActive) {
-				maxStatesActive = currentStatesActive;
+			++statesCreated_;
+			++currentStatesActive_;
+			if (currentStatesActive_ > maxStatesActive_) {
+				maxStatesActive_ = currentStatesActive_;
 			}
             	/* setPuzzleFromPrev(); */
 	    	/* setHeuristicScoreFromPrev(); */
@@ -71,18 +71,16 @@ class State
         State(const vector<unsigned char> puzzle, const Moves& move=none) :
             previous_(NULL), next_(NULL), moveCount_(0), move_(move), heuristicScore_(-1), puzzle_(0), itPos_(0)
         {
-			statesCreated++;
-			currentStatesActive++;
-			if (currentStatesActive > maxStatesActive) {
-				maxStatesActive = currentStatesActive;
+			++statesCreated_;
+			++currentStatesActive_;
+			if (currentStatesActive_ > maxStatesActive_) {
+				maxStatesActive_ = currentStatesActive_;
 			}
-            //itPos_ need to be initialized
-            /* setHeuristicScore(); */
         };
 
 		virtual ~State()
 		{
-			currentStatesActive--;
+			--currentStatesActive_;
 		}
 
 	const int	getMoveCount() const {return moveCount_;}
@@ -93,8 +91,8 @@ class State
         State*      getNext() const {return next_;}
         void        setNext(State* next) {next_ = next;}
         State*    getPrevious() const {return previous_;}
-		static int getStatesCreated() {return statesCreated;}
-		static int getMaxStatesActive() {return maxStatesActive;}
+		static int getStatesCreated() {return statesCreated_;}
+		static int getMaxStatesActive() {return maxStatesActive_;}
 		
 	const bool	isSolved() const {return (heuristicScore_ == 0);}
 	const bool	isSolvable() const;

@@ -23,13 +23,11 @@ int k_infinite = 9999999;
 
 static int astar(State *firstState)
 {
-	int n_openStates = 0;
 	OpenStack openStack = OpenStack(firstState);
 	ClosedStack closedStack = ClosedStack();
 
 	while (openStack.getTop() != NULL) {
 		State *state = openStack.getTop();
-		n_openStates++;
 		if (state->getHeuristicScore() == 0) {
 			cout << "Total opened states: " << State::getStatesCreated() << ".\n";
 			cout << "Max active states at once: " << State::getMaxStatesActive() << ".\n";
