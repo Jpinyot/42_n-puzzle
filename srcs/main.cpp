@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/06 09:46:35 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/06 09:49:43 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static int idastar(State *firstState)
 	}
 }
 
-static int solve(State *firstState, const char *heuristic)
+static int solve(State *firstState)
 {
 	if (firstState->isSolvable()) {
 		if (idastar(firstState)) {
