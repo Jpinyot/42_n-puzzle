@@ -6,13 +6,13 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 15:25:21 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/06 11:10:41 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/06 18:46:58 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shuffler.h"
 
-vector<unsigned char>  StateSolution::genPuzzle(int size)
+const vector<unsigned char>  StateSolution::genPuzzle(int size)
 {
     vector<unsigned char> puzzle;
 

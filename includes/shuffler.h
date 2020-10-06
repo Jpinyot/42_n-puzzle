@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 15:26:40 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/06 11:39:49 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/06 18:44:40 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,12 @@
 class StateSolution : public State
 {
 	private:
-		void setHeuristicScoreFromPrev() {};
-
+		virtual void setHeuristicScoreFromPrev() {};
+		static const vector<unsigned char> genPuzzle(int size);
 		virtual void    setHeuristicScore();
-		vector<unsigned char> genPuzzle(int size);
-		StateSolution *next_;
 
 	public:
 		const int singleTileDistance(int i) const {return -1;}
-		StateSolution *getNext() const {return next_;}
 
 		StateSolution(int size):
 		State(genPuzzle(size), none)
