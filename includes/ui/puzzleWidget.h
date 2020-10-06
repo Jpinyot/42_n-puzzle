@@ -6,7 +6,7 @@
 /*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 11:20:42 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/05 16:54:40 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/06 09:41:05 by jpinyot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 #include <QtCore>
 #include <QtWidgets>
 
-const int k_tileSize = 50;
-const int k_tilePosSeparation = 50;
+/* const int k_tileSize = 50; */
+/* const int k_tilePosSeparation = 50; */
 
 using namespace std;
 
@@ -180,11 +180,11 @@ protected:
 			QState *result = new QState(parent);
 			QRect rect(0, 0, 0, 0);
 			for (int i = 0; i < tiles_.size(); i++) {
-				result->assignProperty(tiles_[i], "geometry", rect);
-				rect.moveLeft(rect.left() + k_tilePosSeparation);
-				if ((i + 1) % size_ == 0) {
-					rect.moveTo(0, rect.top() + k_tilePosSeparation);
-				}
+				/* result->assignProperty(tiles_[i], "geometry", rect); */
+				/* rect.moveLeft(rect.left() + k_tilePosSeparation); */
+				/* if ((i + 1) % size_ == 0) { */
+				/* 	rect.moveTo(0, rect.top() + k_tilePosSeparation); */
+				/* } */
 			}
 			return result;
 		}
