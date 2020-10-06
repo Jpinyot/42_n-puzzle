@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stateShuffler.h                                    :+:      :+:    :+:   */
+/*   shuffler.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 15:26:40 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/05 10:56:14 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/06 11:39:49 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,13 @@ class StateSolution : public State
 
 		~StateSolution()
 		{;}
+		
+		State	*moveTo(Moves &move) {return new StateSolution(this, move);}
 };
 
 class Shuffler{
 	private:
-		StateSolution	*solution_;
+		State	*solution_;
 	
 	public:
 		Shuffler(int size):
@@ -53,10 +55,10 @@ class Shuffler{
 
 		~Shuffler()
 		{
-			StateSolution *currState = solution_;
-			StateSolution *nextState;
+			State *currState = solution_;
+			State *nextState;
 			while (currState) {
-				nextState = currState->getNext();
+				nextState = currState->getPrevious();
 				delete currState;
 				currState = nextState;
 			}

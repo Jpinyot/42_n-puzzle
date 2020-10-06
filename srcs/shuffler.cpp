@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 15:25:21 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/05 11:05:43 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/06 11:10:41 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	Shuffler::shuffle(int n_moves)
     while (i < n_moves) {
         Moves move = static_cast<Moves>(rand() % (Moves::none));
         if (solution_->canMoveTo(move)) {
-			solution_ = new StateSolution(solution_, move);
+			solution_  = solution_->moveTo(move);
             i++;
         }
     }
