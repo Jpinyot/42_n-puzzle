@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:14:12 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/06 11:38:32 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/06 18:32:05 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ class State
 	    };
 
         State(const vector<unsigned char> puzzle, const Moves& move=none) :
-            previous_(NULL), next_(NULL), moveCount_(0), move_(move), heuristicScore_(-1), puzzle_(0), itPos_(0)
+            previous_(NULL), next_(NULL), moveCount_(0), move_(move), heuristicScore_(-1), puzzle_(puzzle), itPos_(0)
         {
 			++statesCreated_;
 			++currentStatesActive_;
