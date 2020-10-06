@@ -15,7 +15,7 @@
 #include "stateLinearConflict.h"
 #include "closedStack.h"
 #include "shuffler.h"
-#include "openStack.h"
+#include "stack.h"
 #include <iostream>
 #include <map>
 

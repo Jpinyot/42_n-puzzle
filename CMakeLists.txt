@@ -6,7 +6,7 @@
 #    By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/23 10:17:31 by jpinyot           #+#    #+#              #
-#    Updated: 2020/10/05 11:46:00 by mfiguera         ###   ########.fr        #
+#    Updated: 2020/10/06 11:44:42 by mfiguera         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ add_executable(n-puzzle
 			srcs/state.cpp
 			srcs/stateManhattanDistance.cpp
 			srcs/closedStack.cpp
-			srcs/openStack.cpp
+			srcs/stack.cpp
 			srcs/stateLinearConflict.cpp
 			srcs/shuffler.cpp
 			srcs/inputParser.cpp
@@ -44,7 +44,7 @@ set(HEADER_FILES
 			includes/state.h
 			includes/nodes.h
 			includes/stateManhattanDistance.h
-			includes/openStack.h
+			includes/stack.h
 			includes/stateLinearConflict.h
 			includes/shuffler.h
 			includes/inputParser.h

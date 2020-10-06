@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   openStack.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
+/*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:50:54 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/05 22:38:57 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/06 10:28:30 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ void UnsortedStack::addState(State* state)
     top_ = state;
 }
 
-void OpenStack::popTop()
+void Stack::popTop()
 {
     if (top_ != NULL) {
         top_ = top_->getNext();
     }
 }
 
-void OpenStack::display() const
+void Stack::display() const
 {
     cout << "Stack:\n";
     State *curr = top_;
@@ -56,7 +56,7 @@ void OpenStack::display() const
     }
 }
 
-const bool OpenStack::stateIsOpen(State *state) const
+const bool Stack::stateIsOpen(State *state) const
 {
     State *currState = top_;
     while (currState) {

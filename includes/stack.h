@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   openStack.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
+/*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:45:15 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/05 23:03:39 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/06 10:30:59 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,33 @@
 #include "state.h"
 #include "iostream"
 
-class OpenStack
+class Stack
 {
     protected:
         State   *top_;
     
     public:
-        OpenStack():
+        Stack():
             top_(NULL)
         {;}
 
-        OpenStack(State *top):
+        Stack(State *top):
             top_(top)
         {;}
 
-        ~OpenStack()
+        virtual ~Stack()
         {
             State *currState = top_;
             State *nextState;
 
-            while (currState) {
+            while (currState != NULL) {
                 nextState = currState->getNext();
                 delete currState;
                 currState = nextState;
             }
         }
 
-        void    addState(State *state);
+        virtual void    addState(State *state) = 0;
         State   *getTop() const {return top_;}
         
         void    popTop();
@@ -48,28 +48,36 @@ class OpenStack
         const bool    stateIsOpen(State *state) const;
 };
 
-class UnsortedStack: public OpenStack
+class OpenStack: public Stack
+{
+    public:
+        OpenStack():
+            Stack()
+        {;}
+
+        OpenStack(State *state):
+            Stack(state)
+        {;}
+
+        ~OpenStack()
+        {;}
+
+        virtual void    addState(State *state);
+};
+
+class UnsortedStack: public Stack
 {
     public:
         UnsortedStack():
-            OpenStack()
+            Stack()
         {;}
 
         UnsortedStack(State *state):
-            OpenStack(state)
+            Stack(state)
         {;}
 
         ~UnsortedStack()
-        {
-            State *currState = top_;
-            State *nextState;
+        {;}
 
-            while (currState) {
-                nextState = currState->getNext();
-                delete currState;
-                currState = nextState;
-            }
-        }
-
-        void addState(State *state);
+        virtual void addState(State *state);
 };
