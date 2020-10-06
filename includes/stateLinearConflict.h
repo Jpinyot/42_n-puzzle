@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/02 11:23:42 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/05 16:21:17 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/06 09:48:22 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ class StateLinearConflict : public State
 
         ~StateLinearConflict() {;}
 
-        static State	*moveTo(State *previous, Moves &move) {return new StateLinearConflict(previous, move);}
+		State	*moveTo(Moves &move) {return new StateLinearConflict(this, move);}
 };

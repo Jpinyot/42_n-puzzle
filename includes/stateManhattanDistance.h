@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 15:12:43 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/05 16:21:11 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/06 09:48:38 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,5 @@ class StateManhattanDistance : public State
 
         ~StateManhattanDistance() {;}
 
-        static State	*moveTo(State *previous, Moves &move) {return new StateManhattanDistance(previous, move);}
+		State	*moveTo(Moves &move) {return new StateManhattanDistance(this, move);}
 };

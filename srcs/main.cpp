@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
+/*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/05 23:36:59 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/06 09:46:35 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,7 @@
 
 int k_infinite = 9999999;
 
-map<const char*, State *(*)(State*,Moves&)> heuristicTypes = {
-    { "ManDist", StateManhattanDistance::moveTo},
-    { "LinConf", StateLinearConflict::moveTo}
-  };
-
-static int astar(State *firstState, State* (moveStateTo)(State*, Moves&))
+static int astar(State *firstState)
 {
 	int n_openStates = 0;
 	OpenStack openStack = OpenStack(firstState);
@@ -52,7 +47,7 @@ static int astar(State *firstState, State* (moveStateTo)(State*, Moves&))
 			for (int i = Moves::N; i < Moves::none; i++){
 				Moves dir = static_cast<Moves>(i);
 				if (state->canMoveTo(dir)) {
-					State *newState = moveStateTo(state, dir);
+					State *newState = state->moveTo(dir);
 					if (!closedStack.stateIsClosed(newState))
 						openStack.addState(newState);
 				}
@@ -62,7 +57,7 @@ static int astar(State *firstState, State* (moveStateTo)(State*, Moves&))
 	return 0;
 }
 
-int idasearch(UnsortedStack *stack, int bound, State* (moveStateTo)(State*, Moves&))
+int idasearch(UnsortedStack *stack, int bound)
 {
 	State *state = stack->getTop();
 	int f = state->getScore();
@@ -72,9 +67,9 @@ int idasearch(UnsortedStack *stack, int bound, State* (moveStateTo)(State*, Move
 	for (int i = Moves::N; i < Moves::none; i++) { //need to sort these based on score.
 		Moves dir = static_cast<Moves>(i);
 		if (state->canMoveTo(dir)){
-			State *newNode = moveStateTo(state, dir);
+			State *newNode = state->moveTo(dir);
 			stack->addState(newNode);
-			int t = idasearch(stack, bound, moveStateTo);
+			int t = idasearch(stack, bound);
 			if (t == 0) {return 0;}
 			if (t < min) {min = t;}
 			stack->popTop();
@@ -84,14 +79,14 @@ int idasearch(UnsortedStack *stack, int bound, State* (moveStateTo)(State*, Move
 	return min;
 }
 
-static int idastar(State *firstState, State* (moveStateTo)(State*, Moves&))
+static int idastar(State *firstState)
 {
 	UnsortedStack *stack = new UnsortedStack(firstState);
 	int bound = firstState->getHeuristicScore();
 	int t;
 
 	while (true) {
-		t = idasearch(stack, bound, moveStateTo);
+		t = idasearch(stack, bound);
 		if (t == 0) {
 			State *state = stack->getTop();
 			cout << "Total opened states: " << State::getStatesCreated() << ".\n";
@@ -110,15 +105,12 @@ static int idastar(State *firstState, State* (moveStateTo)(State*, Moves&))
 
 static int solve(State *firstState, const char *heuristic)
 {
-	State *(*moveStateTo)(State*, Moves&) = heuristicTypes[heuristic];
-	int n_openStates = 0;
-
 	if (firstState->isSolvable()) {
-		if (astar(firstState, moveStateTo)) {
+		if (idastar(firstState)) {
 			return 1;
 		}
 	}
-	cout << "Total opened states: " << n_openStates << ".\n";
+	cout << "Total opened states: " << State::getStatesCreated() << ".\n";
 	cout << "Not solvable puzzle.\n";
 	firstState->display();
 	return 1;

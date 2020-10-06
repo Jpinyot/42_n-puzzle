@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   state.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
+/*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:14:12 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/05 23:36:00 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/06 09:45:03 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ class State
 	void		display() const;
 	void		displaySteps(const bool disp=false, const bool isFirst=true) const;
         virtual const int       singleTileDistance(int tile) const = 0;
-		static State	*moveTo(State* previous, Moves &move) {return NULL;}
+		virtual State	*moveTo(Moves &move) {cout << "here"; return NULL;}
 
 };
 
