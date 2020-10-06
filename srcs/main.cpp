@@ -48,6 +48,8 @@ static int astar(State *firstState)
 					State *newState = state->moveTo(dir);
 					if (!closedStack.stateIsClosed(newState))
 						openStack.addState(newState);
+					else
+						delete newState;
 				}
 			}
 		}
@@ -91,6 +93,7 @@ static int idastar(State *firstState)
 			cout << "Max active states at once: " << State::getMaxStatesActive() << ".\n";
 			cout << "Solved in " << state->getMoveCount() << " steps.\n";
 			state->displaySteps();
+			delete stack;
 			return 1;
 		}
 		if (t == k_infinite) {
