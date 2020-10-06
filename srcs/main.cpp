@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/06 09:49:43 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/06 11:46:48 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ static int idastar(State *firstState)
 			return 1;
 		}
 		if (t == k_infinite) {
-			//no solution
 			return 0;
 		}
 		bound = t;
@@ -107,13 +106,12 @@ static int idastar(State *firstState)
 static int solve(State *firstState)
 {
 	if (firstState->isSolvable()) {
-		if (idastar(firstState)) {
+		if (astar(firstState)) {
 			return 1;
 		}
 	}
 	cout << "Total opened states: " << State::getStatesCreated() << ".\n";
 	cout << "Not solvable puzzle.\n";
-	firstState->display();
 	return 1;
 }
 
@@ -136,9 +134,16 @@ int	main()
 	for (int i = 0; i < k_test_size ; i++) {
 		puzzle.emplace_back(puzzleArr[i]);
 	}
-	Shuffler shuffler = Shuffler(3);
-	shuffler.shuffle(170);
-	solve(new StateManhattanDistance(puzzle, none), "LinConf");
+	Shuffler *shuffler = new Shuffler(3);
+	shuffler->shuffle(30);
+	shuffler->display();
+	cout << "aqui\n";
+	puzzle = shuffler->getPuzzle();
+	delete shuffler;
+	cout << "la\n";
+	State * state = new StateLinearConflict(puzzle, none);
+	cout << "lala\n";
+	solve(state);
 	// shuffler.display();
 	return (0);
 }
