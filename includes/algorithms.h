@@ -15,7 +15,7 @@
 #include "stack.h"
 #include "closedStack.h"
 
-static int k_infinite = 9999999;
+const int k_infinite = 9999999;
 
 enum Algorithms {
 	a,
