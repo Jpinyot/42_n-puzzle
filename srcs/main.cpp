@@ -3,93 +3,81 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
+/*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/01 09:35:28 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/07 16:40:41 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* #include "state.h" */
 #include "stateManhattanDistance.h"
-#include "closedStack.h"
-#include "openStack.h"
+#include "stateLinearConflict.h"
+#include "shuffler.h"
+#include "algorithms.h"
+#include "inputParser.h"
 #include <iostream>
+#include <map>
 
-static int solve(StateManhattanDistance *firstState)
+static int solve(State *firstState, int (*algo)(State*))
 {
-	OpenStack openStack = OpenStack();
-	openStack.addState(firstState);
-
-	ClosedStack closedStack = ClosedStack();
-	
-	while (openStack.getTop() != NULL) {
-		openStack.display();
-		State *state = openStack.getTop();
-		if (state->getHeuristicScore() == 0) {
-			/* state->display(); */
-			return 0;
-		}
-		else {
-			openStack.popTop();
-			closedStack.addState(state);
-			if (state->canMoveTo(N)) {
-				StateManhattanDistance *newState = new StateManhattanDistance(state, N);
-				if (!closedStack.stateIsClosed(newState))
-					openStack.addState(newState);
-				/* newState.display(); */
-			}
-
-			if (state->canMoveTo(E)) {
-				/* cout <<"E\n"; */
-				StateManhattanDistance *newState = new StateManhattanDistance(state, E);
-				if (!closedStack.stateIsClosed(newState))
-					openStack.addState(newState);
-				/* newState.display(); */
-			}
-
-			if (state->canMoveTo(S)) {
-				/* cout <<"S\n"; */
-				StateManhattanDistance *newState = new StateManhattanDistance(state, S);
-				if (!closedStack.stateIsClosed(newState))
-					openStack.addState(newState);
-				/* newState.display(); */
-			}
-
-			if (state->canMoveTo(W)) {
-				/* cout <<"W\n"; */
-				StateManhattanDistance *newState = new StateManhattanDistance(state, W);
-				if (!closedStack.stateIsClosed(newState))
-					openStack.addState(newState);
-				/* newState.display(); */
-			}
+	if (firstState->isSolvable()) {
+		if (algo(firstState)) {
+			return 1;
 		}
 	}
-
+	cout << "Total opened states: " << State::getStatesCreated() << ".\n";
+	cout << "Not solvable puzzle.\n";
 	return 1;
 }
 
-const int k_test_size = 9;
+const int k_test_size = k_size * k_size;
 int	main()
 {
-	unsigned char puzzleArr[k_test_size] = {	0,4,2,
-					3,1,5,
-					6,7,8};
+	Algorithms algo = ida; //linconf by default
+	Heuristic h = linconf; //linconf by default
+	const char *file = NULL; //NULL by default
+	bool translate = true; //true by default
+	int random = 50; //50 by default
+
 	vector<unsigned char> puzzle;
-	for (int i = 0; i < k_test_size ; i++) {
-		puzzle.emplace_back(puzzleArr[i]);
+	
+	if (file != NULL) {
+		InputParser parser = InputParser(file);
+		if (translate)
+			puzzle = parser.getTranslatedPuzzle();
+		else
+			puzzle = parser.getPuzzle();
+	} else {
+		Shuffler shuffler = Shuffler(k_size);
+		shuffler.shuffle(random);
+		cout << "Starting with random state:\n\n";
+		shuffler.display();
+		cout << "Shuffled " << random << " times.\n\n";
+		puzzle = shuffler.getPuzzle();
 	}
-	/* puzzle.push_back(0); */
-	/* puzzle.push_back(3); */
-	/* puzzle.push_back(2); */
-	/* puzzle.push_back(1); */
-	/* puzzle.push_back(4); */
-	/* puzzle.push_back(5); */
-	/* puzzle.push_back(6); */
-	/* puzzle.push_back(7); */
-	/* puzzle.push_back(8); */
-	StateManhattanDistance *state = new StateManhattanDistance(puzzle);
-	solve(state);
-	cout << state->getScore();
+	
+	State *state;
+	int (*algorithm)(State*);
+
+	switch (h) {
+		case mandist:
+			state = new StateManhattanDistance(puzzle, Moves::none);
+			break;
+		case linconf:
+			state = new StateLinearConflict(puzzle, Moves::none);
+			break;
+	}
+
+	switch (algo) {
+		case a:
+			algorithm = astar;
+			break;
+		case ida:
+			algorithm = idastar;
+			break;
+	}
+
+	solve(state, algorithm);
 	return (0);
 }

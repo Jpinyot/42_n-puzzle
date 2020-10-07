@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   state.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfiguera <mfiguera@student.42.us.org>      +#+  +:+       +#+        */
+/*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:55:50 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/01 10:25:42 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/06 10:51:27 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "state.h"
+
+int State::statesCreated_ = 0;
+int State::currentStatesActive_ = 0;
+int State::maxStatesActive_ = 0;
 
 void State::setPuzzleFromPrev()
 {
@@ -68,29 +72,42 @@ const bool	State::canMoveTo(const Moves& move) const
 	}
 }
 
+const int	maxDigits(int size) {
+	int n = size * size;
+	int c = 0;
+	while (n)
+	{
+		c++;
+		n /= 10;
+	}
+	return (c + 1);
+}
+
 void State::display() const
 {
 	char move;
 	switch(move_)
 	{
 		case N :
-			move = 'n';
+			move = 'N';
 			break;
 		case E :
-			move = 'e';
+			move = 'E';
 			break;
 		case W :
-			move = 'w';
+			move = 'W';
 			break;
 		case S :
-			move = 's';
+			move = 'S';
 			break;
 		default :
 			move = '-';
 	}
-	cout << "--" << move << "--\n";
+	int fill = maxDigits(k_size);
+	string str = "-------------------------------------------\n";
+	cout << setfill('-') << setw((round((fill * k_size) / 2)) + 1) << move << str.substr(str.size() - floor((fill * k_size / 2)));
 	for(int i = 0; i < puzzle_.size(); i++) {
-		cout << static_cast<int>(puzzle_[i]) << ' ';
+		cout << setfill(' ') << setw(fill) << static_cast<int>(puzzle_[i]);
 		if ((i+1) % k_size == 0) {
 			cout << '\n';
 		}
@@ -98,3 +115,63 @@ void State::display() const
 	cout << "\n";
 }
 
+void State::displaySteps(const bool disp, const bool isFirst) const
+{
+	if (previous_ != NULL) {
+		previous_->displaySteps(disp, false);
+		if (previous_->previous_ != NULL && !disp) {
+			cout << "-";
+		}
+	}
+
+	if (disp) {
+		display();
+	} else {
+		switch (move_) {
+			case N:
+				cout << "N";
+				break;
+
+			case E:
+				cout << "E";
+				break;
+
+			case S:
+				cout << "S";
+				break;
+
+			case W:
+				cout << "W";
+				break;
+
+			default:
+				cout << "Steps: ";
+				break;
+		}
+
+		if (isFirst) {
+			cout << "\n";
+		}
+	}
+}
+
+const bool State::isSolvable() const
+{
+	int invCount = 0;
+
+	for (int i = 0; i < puzzle_.size() - 1; i++) {
+		for (int j = i + 1; j < puzzle_.size(); j++) {
+			if (puzzle_[i] != k_itValue && puzzle_[j] != k_itValue && puzzle_[i] > puzzle_[j]) {
+				invCount++;
+			}
+		}
+	}
+
+	const bool isEven = invCount % 2 == 0;
+	if (k_size % 2 == 1){
+		return (isEven);
+	} else {
+		const bool isEvenItPos = getItPos() % 2 == 0;
+		return (isEvenItPos ^ isEven);
+	}
+}

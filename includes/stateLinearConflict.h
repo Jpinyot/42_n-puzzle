@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stateManhattanDistance.h                           :+:      :+:    :+:   */
+/*   stateLinearConflict.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/28 15:12:43 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/06 09:48:38 by mfiguera         ###   ########.fr       */
+/*   Created: 2020/10/02 11:23:42 by mfiguera          #+#    #+#             */
+/*   Updated: 2020/10/06 09:48:22 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include "state.h"
 
-class StateManhattanDistance : public State
+class StateLinearConflict : public State
 {
     private:
         virtual void    setHeuristicScoreFromPrev();
@@ -21,23 +21,22 @@ class StateManhattanDistance : public State
     
     public:
         virtual const int       singleTileDistance(int i) const;
-	StateManhattanDistance(State* previous, const Moves& move):
+
+    	StateLinearConflict(State* previous, const Moves& move):
 		State(previous, move)
 	    {
-		setPuzzleFromPrev();
+		    setPuzzleFromPrev();
 	    	setHeuristicScoreFromPrev();
-    		/* display(); */
-
 	    };
 
-        StateManhattanDistance(const vector<unsigned char> puzzle, const Moves& move=none) :
+        StateLinearConflict(const vector<unsigned char> puzzle, const Moves& move=none) :
 		State(puzzle, move)
         {
             puzzle_ = puzzle;
             setHeuristicScore();
         };
 
-        ~StateManhattanDistance() {;}
+        ~StateLinearConflict() {;}
 
-		State	*moveTo(Moves &move) {return new StateManhattanDistance(this, move);}
+		State	*moveTo(Moves &move) {return new StateLinearConflict(this, move);}
 };

@@ -1,0 +1,4 @@
+3       #took 12366 opened states and 14.120 s to solve with LinConf. 29 steps min
+7 5 6   #took 21240 opened states and 39.627 s to solve with ManDist. 31 steps min
+1 4 3
+2 8 0
