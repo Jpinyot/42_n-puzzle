@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:14:12 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/06 18:32:05 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/07 15:38:11 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ using namespace std;
 
 const int k_size = 3;
 const unsigned char k_itValue = 8;
+
+enum Heuristic {
+	mandist,
+	linconf,
+};
 
 enum Moves
 {

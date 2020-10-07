@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/07 11:10:35 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/07 15:38:43 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 #include "stateLinearConflict.h"
 #include "shuffler.h"
 #include "algorithms.h"
+#include "inputParser.h"
 #include <iostream>
 #include <map>
 
-static int solve(State *firstState)
+static int solve(State *firstState, int (*algo)(State*))
 {
 	if (firstState->isSolvable()) {
-		if (astar(firstState)) {
+		if (algo(firstState)) {
 			return 1;
 		}
 	}
@@ -33,32 +34,46 @@ static int solve(State *firstState)
 const int k_test_size = k_size * k_size;
 int	main()
 {
-	unsigned char puzzleArr[k_test_size] = {	7,5,6,
-												1,4,3,
-												2,8,0};
+	Algorithms algo = ida;
+	Heuristic h = linconf;
+	const char *file = "test/hardest3.txt";
+	bool translate = false;
 
-
-	// unsigned char puzzleHard[k_test_size] = {
-	// 	0,12,7,1,
-	// 	14,10,15,5,
-	// 	2,6,11,9,
-	// 	3,4,8,13,
+	// unsigned char puzzleArr[k_test_size] = {
+	// 	5,10,14,7,
+	// 	8, 3,6,1,
+	// 	15, 0, 12,9,
+	// 	2,11,4,13
 	// };
 
+	InputParser parser = InputParser(file);
 	vector<unsigned char> puzzle;
-	for (int i = 0; i < k_test_size ; i++) {
-		puzzle.emplace_back(puzzleArr[i]);
+	if (translate)
+		puzzle = parser.getTranslatedPuzzle();
+	else
+		puzzle = parser.getPuzzle();
+	
+	State *state;
+	int (*algorithm)(State*);
+
+	switch (h) {
+		case mandist:
+			state = new StateManhattanDistance(puzzle, Moves::none);
+			break;
+		case linconf:
+			state = new StateLinearConflict(puzzle, Moves::none);
+			break;
 	}
-	Shuffler *shuffler = new Shuffler(3);
-	shuffler->shuffle(30);
-	shuffler->display();
-	cout << "aqui\n";
-	puzzle = shuffler->getPuzzle();
-	delete shuffler;
-	cout << "la\n";
-	State * state = new StateLinearConflict(puzzle, none);
-	cout << "lala\n";
-	solve(state);
-	// shuffler.display();
+
+	switch (algo) {
+		case a:
+			algorithm = astar;
+			break;
+		case ida:
+			algorithm = idastar;
+			break;
+	}
+
+	solve(state, algorithm);
 	return (0);
 }
