@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/07 15:38:43 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/07 16:40:41 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,28 @@ static int solve(State *firstState, int (*algo)(State*))
 const int k_test_size = k_size * k_size;
 int	main()
 {
-	Algorithms algo = ida;
-	Heuristic h = linconf;
-	const char *file = "test/hardest3.txt";
-	bool translate = false;
+	Algorithms algo = ida; //linconf by default
+	Heuristic h = linconf; //linconf by default
+	const char *file = NULL; //NULL by default
+	bool translate = true; //true by default
+	int random = 50; //50 by default
 
-	// unsigned char puzzleArr[k_test_size] = {
-	// 	5,10,14,7,
-	// 	8, 3,6,1,
-	// 	15, 0, 12,9,
-	// 	2,11,4,13
-	// };
-
-	InputParser parser = InputParser(file);
 	vector<unsigned char> puzzle;
-	if (translate)
-		puzzle = parser.getTranslatedPuzzle();
-	else
-		puzzle = parser.getPuzzle();
+	
+	if (file != NULL) {
+		InputParser parser = InputParser(file);
+		if (translate)
+			puzzle = parser.getTranslatedPuzzle();
+		else
+			puzzle = parser.getPuzzle();
+	} else {
+		Shuffler shuffler = Shuffler(k_size);
+		shuffler.shuffle(random);
+		cout << "Starting with random state:\n\n";
+		shuffler.display();
+		cout << "Shuffled " << random << " times.\n\n";
+		puzzle = shuffler.getPuzzle();
+	}
 	
 	State *state;
 	int (*algorithm)(State*);
