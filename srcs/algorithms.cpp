@@ -6,11 +6,18 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 11:06:13 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/07 11:08:51 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/07 16:48:48 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "algorithms.h"
+
+static void outputSolution(State *solution) {
+	cout << "Solved in " << solution->getMoveCount() << " steps.\n";
+	solution->displaySteps();
+	cout << "Total opened states: " << State::getStatesCreated() << ".\n";
+	cout << "Max active states at once: " << State::getMaxStatesActive() << ".\n";
+}
 
 int astar(State *firstState)
 {
@@ -20,10 +27,7 @@ int astar(State *firstState)
 	while (openStack.getTop() != NULL) {
 		State *state = openStack.getTop();
 		if (state->getHeuristicScore() == 0) {
-			cout << "Total opened states: " << State::getStatesCreated() << ".\n";
-			cout << "Max active states at once: " << State::getMaxStatesActive() << ".\n";
-			cout << "Solved in " << state->getMoveCount() << " steps.\n";
-			state->displaySteps();
+			outputSolution(state);
 			return 1;
 		}
 		else {
@@ -80,10 +84,7 @@ int idastar(State *firstState)
 		t = idasearch(stack, bound);
 		if (t == 0) {
 			State *state = stack->getTop();
-			cout << "Total opened states: " << State::getStatesCreated() << ".\n";
-			cout << "Max active states at once: " << State::getMaxStatesActive() << ".\n";
-			cout << "Solved in " << state->getMoveCount() << " steps.\n";
-			state->displaySteps();
+			outputSolution(state);
 			delete stack;
 			return 1;
 		}
