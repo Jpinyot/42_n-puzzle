@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inputParser.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 11:46:13 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/05 09:22:35 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/07 16:17:00 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ class InputParser
 		~InputParser() {};
 
 		vector<unsigned char>	getTranslatedPuzzle() const;
+		vector<unsigned char>	getPuzzle() const {return puzzle_;};
 		vector<unsigned char>	translatePuzzleBack(const vector<unsigned char>& puzzlei, const unsigned char& size) const;
 		const InputErrors	getErrors() const {return errors_;}
 		const char		getSize() const {return size_;}

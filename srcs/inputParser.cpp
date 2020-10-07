@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inputParser.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpinyot <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 11:55:44 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/05 09:22:49 by jpinyot          ###   ########.fr       */
+/*   Updated: 2020/10/07 16:17:15 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	InputParser::puzzleFromFile(const char* fileName)
 vector<unsigned char>	InputParser::getTranslatedPuzzle() const
 {
 	const char* translateStr;
-	vector<unsigned char> retPuzzle(puzzle_.size());
+	vector<unsigned char> retPuzzle;
 
 	switch (size_)
 	{
