@@ -18,6 +18,7 @@
 #include "inputParser.h"
 #include "argparse.h"
 #include <iostream>
+#include <time.h>
 
 static int solve(State *firstState, int (*algo)(State*))
 {
@@ -41,7 +42,9 @@ int	main(int ac, char **av)
 	bool translate;
 	int random;
 	
-	tie(error, algo, h, file, translate, random) = parse_args(ac, av);
+	srand(time(NULL));
+	int shuffleIter = rand() % 50 + 20;
+	
 
 	if (error != "") {
 		cout << error;
@@ -57,11 +60,11 @@ int	main(int ac, char **av)
 		else
 			puzzle = parser.getPuzzle();
 	} else {
-		Shuffler shuffler = Shuffler(k_size);
-		shuffler.shuffle(random);
+		Shuffler shuffler = Shuffler(size);
+		shuffler.shuffle(shuffleIter);
 		cout << "Starting with random state:\n\n";
 		shuffler.display();
-		cout << "Shuffled " << random << " times.\n\n";
+		cout << "Shuffled " << shuffleIter << " times.\n\n";
 		puzzle = shuffler.getPuzzle();
 	}
 
