@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/09 11:57:14 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/09 16:42:35 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static int solve(State *firstState, int (*algo)(State*))
 	return 1;
 }
 
-const int k_test_size = k_size * k_size;
 int	main(int ac, char **av)
 {
 	string error;
@@ -40,11 +39,12 @@ int	main(int ac, char **av)
 	Heuristic h;
 	const char *file;
 	bool translate;
-	int random;
+	int size;
 	
 	srand(time(NULL));
 	int shuffleIter = rand() % 50 + 20;
 	
+	tie(error, algo, h, file, translate, size) = parse_args(ac, av);
 
 	if (error != "") {
 		cout << error;
@@ -55,6 +55,7 @@ int	main(int ac, char **av)
 
 	if (file != NULL) {
 		InputParser parser = InputParser(file);
+		size = parser.getSize();
 		if (translate)
 			puzzle = parser.getTranslatedPuzzle();
 		else

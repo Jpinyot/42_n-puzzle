@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 18:02:53 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/09 11:55:51 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/09 16:41:18 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,24 @@ const int TYPE_HELP = 00;
 const int TYPE_MAP = 01;
 const int TYPE_ALGO = 010;
 const int TYPE_HEURISTIC = 0100;
-const int TYPE_SHUFFLE = 01000;
+const int TYPE_SIZE = 01000;
 const int TYPE_TRANSLATE = 010000;
 
+
+string help =
+"\
+n-puzzle [PUZZLE] [args]\n\
+\n\
+Args:\n\
+	PUZZLE		path to map file. If not provided map is randomly generated\n\
+	-s, --size S	size of the generated map -- Default=3\n\
+	-h, --help	display help and exit\n\
+	-a, --astar	solve using A* algorithm\n\
+	-ida, --idastar	solve using IDA* algorithm -- Default\n\
+	--notranslate	map is not curled\n\
+	--mandist	solve using Manhattan Distance heuristic\n\
+	--linconf	solve using Linear Conflict heuristic -- Default\n\
+";
 
 map<string, Algorithms> algorithms {
 	{"--idastar", ida},
@@ -41,7 +56,8 @@ map<string, int> skips {
 	{"-ida", TYPE_ALGO},
 	{"--astar", TYPE_ALGO},
 	{"-a", TYPE_ALGO},
-	{"--shuffle", TYPE_SHUFFLE},
+	{"--size", TYPE_SIZE},
+	{"-s", TYPE_SIZE},
 	{"--notranslate", TYPE_TRANSLATE},
 	{"--mandist", TYPE_HEURISTIC},
 	{"--linconf", TYPE_HEURISTIC}
@@ -55,15 +71,15 @@ tuple<string, Algorithms, Heuristic, char*, bool, int>    parse_args(int ac, cha
 	Heuristic h = linconf;
 	char *file = NULL;
 	bool translate = true;
-	int random = 50;
+	int size = 3;
 
-	for (int i = 1; i < ac; i++) {
+	for (int i = 1; i < ac && error == ""; i++) {
 		auto arg = skips.find(string(av[i]));
 		if (arg != skips.end()) {
 			if ((argsSet & arg->second) == arg->second) {
-				error =  "ERROR - Argument \"" + arg->first + "\" already has been represented.\n"; // or return error
+				error =  "ERROR - Argument \"" + arg->first + "\" already has been represented.\n";
 				if (arg->second == TYPE_HELP) {
-					error = "help\n";
+					error = help;
 				}
 				break;
 			}
@@ -78,8 +94,22 @@ tuple<string, Algorithms, Heuristic, char*, bool, int>    parse_args(int ac, cha
 					h = heuristics.find(arg->first)->second;
 					break;
 
-				case TYPE_SHUFFLE:
-					break; //TODO deal with this
+				case TYPE_SIZE:
+					i++;
+					if (i < ac) {
+						string n = string(av[i]);
+						string::const_iterator it = n.begin();
+						while (it != n.end() && isdigit(*it))
+							it++;
+						if (it == n.end()) {
+							size = stoi(n);
+							if (size >= 3) {
+								continue;
+							}
+						}
+					}
+					error = "ERROR - Argument \"" + arg->first + "\" requires number greater than 3 after.\n";
+					break;
 
 				case TYPE_TRANSLATE:
 					translate = false;
@@ -92,7 +122,7 @@ tuple<string, Algorithms, Heuristic, char*, bool, int>    parse_args(int ac, cha
 			ifstream f(av[i]);
 			if (f.good()) {
 				if ((argsSet & TYPE_MAP) == TYPE_MAP) {
-					error = "ERROR - Argument path already has been represented.\n"; // or return error
+					error = "ERROR - Argument path already has been represented.\n";
 					break;
 				}
 				argsSet |= TYPE_MAP;
@@ -102,5 +132,5 @@ tuple<string, Algorithms, Heuristic, char*, bool, int>    parse_args(int ac, cha
 			}
 		}
 	}
-	return make_tuple(error, algo, h, file, translate, random);
+	return make_tuple(error, algo, h, file, translate, size);
 }
