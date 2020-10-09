@@ -6,11 +6,11 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 11:46:13 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/07 16:17:00 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/09 16:04:49 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma one
+#pragma once
 #include <vector>
 
 const char k_commentChar = '#';
