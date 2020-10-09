@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/07 16:40:41 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/09 11:57:14 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #include "shuffler.h"
 #include "algorithms.h"
 #include "inputParser.h"
+#include "argparse.h"
 #include <iostream>
-#include <map>
 
 static int solve(State *firstState, int (*algo)(State*))
 {
@@ -32,16 +32,24 @@ static int solve(State *firstState, int (*algo)(State*))
 }
 
 const int k_test_size = k_size * k_size;
-int	main()
+int	main(int ac, char **av)
 {
-	Algorithms algo = ida; //linconf by default
-	Heuristic h = linconf; //linconf by default
-	const char *file = NULL; //NULL by default
-	bool translate = true; //true by default
-	int random = 50; //50 by default
+	string error;
+	Algorithms algo;
+	Heuristic h;
+	const char *file;
+	bool translate;
+	int random;
+	
+	tie(error, algo, h, file, translate, random) = parse_args(ac, av);
+
+	if (error != "") {
+		cout << error;
+		return 1;
+	}
 
 	vector<unsigned char> puzzle;
-	
+
 	if (file != NULL) {
 		InputParser parser = InputParser(file);
 		if (translate)
@@ -56,7 +64,7 @@ int	main()
 		cout << "Shuffled " << random << " times.\n\n";
 		puzzle = shuffler.getPuzzle();
 	}
-	
+
 	State *state;
 	int (*algorithm)(State*);
 
