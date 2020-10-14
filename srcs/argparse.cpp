@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 18:02:53 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/09 16:41:18 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/09 16:51:09 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ Args:\n\
 	--notranslate	map is not curled\n\
 	--mandist	solve using Manhattan Distance heuristic\n\
 	--linconf	solve using Linear Conflict heuristic -- Default\n\
+\n\
 ";
 
 map<string, Algorithms> algorithms {
@@ -78,9 +79,7 @@ tuple<string, Algorithms, Heuristic, char*, bool, int>    parse_args(int ac, cha
 		if (arg != skips.end()) {
 			if ((argsSet & arg->second) == arg->second) {
 				error =  "ERROR - Argument \"" + arg->first + "\" already has been represented.\n";
-				if (arg->second == TYPE_HELP) {
-					error = help;
-				}
+				if (arg->second == TYPE_HELP) error = help;
 				break;
 			}
 			argsSet |= arg->second;
@@ -103,9 +102,7 @@ tuple<string, Algorithms, Heuristic, char*, bool, int>    parse_args(int ac, cha
 							it++;
 						if (it == n.end()) {
 							size = stoi(n);
-							if (size >= 3) {
-								continue;
-							}
+							if (size >= 3) continue;
 						}
 					}
 					error = "ERROR - Argument \"" + arg->first + "\" requires number greater than 3 after.\n";
@@ -127,9 +124,7 @@ tuple<string, Algorithms, Heuristic, char*, bool, int>    parse_args(int ac, cha
 				}
 				argsSet |= TYPE_MAP;
 				file = av[i];
-			} else {
-				error = "ERROR - Extraneous member \"" + string(av[i]) + "\" in input.\n";
-			}
+			} else error = "ERROR - Extraneous member \"" + string(av[i]) + "\" in input.\n";
 		}
 	}
 	return make_tuple(error, algo, h, file, translate, size);
