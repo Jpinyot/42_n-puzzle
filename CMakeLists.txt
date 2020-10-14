@@ -6,7 +6,7 @@
 #    By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/23 10:17:31 by jpinyot           #+#    #+#              #
-#    Updated: 2020/10/09 10:57:26 by mfiguera         ###   ########.fr        #
+#    Updated: 2020/10/14 11:15:31 by mfiguera         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ add_executable(n-puzzle
 			srcs/inputParser.cpp
 			srcs/algorithms.cpp
 			srcs/argparse.cpp
+			srcs/stateUniformCost.cpp
 			)
 
 target_include_directories(n-puzzle PRIVATE 
@@ -52,4 +53,5 @@ set(HEADER_FILES
 			includes/inputParser.h
 			includes/algorithms.h
 			includes/argparse.h
+			includes/stateUniformCost.h
 			)

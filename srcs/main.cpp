@@ -6,13 +6,14 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/09 16:42:35 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/14 11:26:43 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* #include "state.h" */
 #include "stateManhattanDistance.h"
 #include "stateLinearConflict.h"
+#include "stateUniformCost.h"
 #include "shuffler.h"
 #include "algorithms.h"
 #include "inputParser.h"
@@ -79,6 +80,8 @@ int	main(int ac, char **av)
 		case linconf:
 			state = new StateLinearConflict(puzzle, Moves::none);
 			break;
+		case unicost:
+			state = new StateUniformCost(puzzle, Moves::none);
 	}
 
 	switch (algo) {

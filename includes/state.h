@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:14:12 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/07 15:38:11 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/14 11:27:08 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ const unsigned char k_itValue = 8;
 enum Heuristic {
 	mandist,
 	linconf,
+	unicost,
 };
 
 enum Moves

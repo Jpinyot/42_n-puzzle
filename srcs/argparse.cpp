@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 18:02:53 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/09 16:51:09 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/14 11:18:26 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ Args:\n\
 	-ida, --idastar	solve using IDA* algorithm -- Default\n\
 	--notranslate	map is not curled\n\
 	--mandist	solve using Manhattan Distance heuristic\n\
+	--unicost	solve using uniform cost, aka no heuristic\n\
 	--linconf	solve using Linear Conflict heuristic -- Default\n\
 \n\
 ";
@@ -47,7 +48,8 @@ map<string, Algorithms> algorithms {
 
 map<string, Heuristic> heuristics {
 	{"--mandist", mandist},
-	{"--linconf", linconf}
+	{"--linconf", linconf},
+	{"--unicost", unicost}
 };
 
 map<string, int> skips {
@@ -61,7 +63,8 @@ map<string, int> skips {
 	{"-s", TYPE_SIZE},
 	{"--notranslate", TYPE_TRANSLATE},
 	{"--mandist", TYPE_HEURISTIC},
-	{"--linconf", TYPE_HEURISTIC}
+	{"--linconf", TYPE_HEURISTIC},
+	{"--unicost", TYPE_HEURISTIC}
 };
 
 tuple<string, Algorithms, Heuristic, char*, bool, int>    parse_args(int ac, char **av) {
