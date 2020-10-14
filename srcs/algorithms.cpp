@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 11:06:13 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/14 16:26:46 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/14 16:47:45 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int idastar(State *firstState)
 	}
 }
 
-int greedy(State *firstState)
+int greedyastar(State *firstState)
 {
 	GreedyStack stack = GreedyStack(firstState);
 	ClosedStack closedStack = ClosedStack();
