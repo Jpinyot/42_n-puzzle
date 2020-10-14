@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 11:02:16 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/14 11:21:27 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/14 11:59:56 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ class StateUniformCost : public State
     public:
         virtual const int       singleTileDistance(int i) const;
 
-    	StateUniformCost(State* previous, const Moves& move):
-        actualHeuristicScore_(0),
+    	StateUniformCost(StateUniformCost* previous, const Moves& move):
+        actualHeuristicScore_(previous->getActualHeuristicScore()),
 		State(previous, move)
 	    {
 		    setPuzzleFromPrev();
@@ -42,4 +42,5 @@ class StateUniformCost : public State
         ~StateUniformCost() {;}
 
 		State	*moveTo(Moves &move) {return new StateUniformCost(this, move);}
+        int     getActualHeuristicScore() const {return actualHeuristicScore_;}
 };
