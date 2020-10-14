@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 11:06:13 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/14 12:09:16 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/14 16:26:46 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,37 @@ int idastar(State *firstState)
 		}
 		bound = t;
 	}
+}
+
+int greedy(State *firstState)
+{
+	GreedyStack stack = GreedyStack(firstState);
+	ClosedStack closedStack = ClosedStack();
+
+	while (stack.getTop() != NULL) {
+		State *state = stack.getTop();
+		if (state->isSolution()) {
+			outputSolution(state);
+			return 1;
+		}
+		else {
+			stack.popTop();
+			if (closedStack.stateIsClosed(state)) {
+				delete state;
+				continue;
+			}
+			closedStack.addState(state);
+			for (int i = Moves::N; i < Moves::none; i++){
+				Moves dir = static_cast<Moves>(i);
+				if (state->canMoveTo(dir)) {
+					State *newState = state->moveTo(dir);
+					if (!closedStack.stateIsClosed(newState))
+						stack.addState(newState);
+					else
+						delete newState;
+				}
+			}
+		}
+	}
+	return 0;
 }

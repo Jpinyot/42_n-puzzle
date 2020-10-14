@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/14 11:26:43 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/14 16:27:13 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,9 @@ int	main(int ac, char **av)
 			break;
 		case ida:
 			algorithm = idastar;
+			break;
+		case greedy:
+			algorithm = greedyastar;
 			break;
 	}
 

@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 18:02:53 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/14 11:18:26 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/14 16:46:13 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ map<string, Algorithms> algorithms {
 	{"--idastar", ida},
 	{"-ida", ida},
 	{"--astar", a},
-	{"-a", a}
+	{"-a", a},
+	{"--greedy", greedy},
+	{"-g", greedy},
 };
 
 map<string, Heuristic> heuristics {
@@ -59,6 +61,8 @@ map<string, int> skips {
 	{"-ida", TYPE_ALGO},
 	{"--astar", TYPE_ALGO},
 	{"-a", TYPE_ALGO},
+	{"--greedy", TYPE_ALGO},
+	{"-g", TYPE_ALGO},
 	{"--size", TYPE_SIZE},
 	{"-s", TYPE_SIZE},
 	{"--notranslate", TYPE_TRANSLATE},
