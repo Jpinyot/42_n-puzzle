@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 11:03:50 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/14 11:14:00 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/14 12:11:04 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,7 @@ void StateUniformCost::setHeuristicScoreFromPrev()
         const int currScore = singleTileDistance(previous->getItPos());
         actualHeuristicScore_ += currScore - prevScore;
     }
-    if (actualHeuristicScore_ == 0) {
-        heuristicScore_ = 0;
-    } else {
-        heuristicScore_ = 1;
-    }
+    heuristicScore_ = 0;
 };
 
 
@@ -48,9 +44,5 @@ void StateUniformCost::setHeuristicScore()
         }
 	}
     actualHeuristicScore_ = h;
-    if (actualHeuristicScore_ == 0) {
-        heuristicScore_ = 0;
-    } else {
-        heuristicScore_ = 1;
-    }
+    heuristicScore_ = 0;
 };

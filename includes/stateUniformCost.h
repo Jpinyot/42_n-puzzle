@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 11:02:16 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/14 11:59:56 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/14 12:11:45 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ class StateUniformCost : public State
         ~StateUniformCost() {;}
 
 		State	*moveTo(Moves &move) {return new StateUniformCost(this, move);}
+        const bool  isSolution() const {return getActualHeuristicScore() == 0;}
         int     getActualHeuristicScore() const {return actualHeuristicScore_;}
 };

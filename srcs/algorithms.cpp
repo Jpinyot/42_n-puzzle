@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 11:06:13 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/07 16:48:48 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/14 12:09:16 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int astar(State *firstState)
 
 	while (openStack.getTop() != NULL) {
 		State *state = openStack.getTop();
-		if (state->getHeuristicScore() == 0) {
+		if (state->isSolution()) {
 			outputSolution(state);
 			return 1;
 		}
@@ -57,7 +57,7 @@ static int idasearch(UnsortedStack *stack, int bound)
 	State *state = stack->getTop();
 	int f = state->getScore();
 	if (f > bound) {return f;}
-	if (state->getHeuristicScore() == 0) {return 0;}
+	if (state->isSolution()) {return 0;}
 	int min = k_infinite;
 	for (int i = Moves::N; i < Moves::none; i++) { //need to sort these based on score.
 		Moves dir = static_cast<Moves>(i);

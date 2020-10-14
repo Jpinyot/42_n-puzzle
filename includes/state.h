@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:14:12 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/14 11:27:08 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/14 12:08:51 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ class State
 	void		display() const;
 	void		displaySteps(const bool disp=false, const bool isFirst=true) const;
         virtual const int       singleTileDistance(int tile) const = 0;
-		virtual State	*moveTo(Moves &move) {cout << "here"; return NULL;}
+		virtual State	*moveTo(Moves &move) {return NULL;}
+		virtual const bool isSolution() const {return getHeuristicScore() == 0;}
 
 };
 
