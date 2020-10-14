@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:14:12 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/14 12:08:51 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/14 15:27:57 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 using namespace std;
 
 const int k_size = 3;
-const unsigned char k_itValue = 8;
+const unsigned char k_itValue = 4;
 
 enum Heuristic {
 	mandist,
@@ -111,5 +111,3 @@ class State
 		virtual const bool isSolution() const {return getHeuristicScore() == 0;}
 
 };
-
-/* list<int, vector<State*> > visited; */
