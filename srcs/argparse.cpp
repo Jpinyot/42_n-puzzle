@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 18:02:53 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/14 16:46:13 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/15 18:38:07 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,12 @@ tuple<string, Algorithms, Heuristic, char*, bool, int>    parse_args(int ac, cha
 							it++;
 						if (it == n.end()) {
 							size = stoi(n);
-							if (size >= 3) continue;
+							if (size >= 3 && size <= 16) continue;
 						}
 					}
 					error = "ERROR - Argument \"" + arg->first + "\" requires number greater than 3 after.\n";
+					if (size > 16)
+						error = "ERROR - Why would you want a puzzle so big? Limit is 16.\n";
 					break;
 
 				case TYPE_TRANSLATE:
