@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/15 17:15:02 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/15 17:51:26 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	main(int ac, char **av)
 		Shuffler shuffler = Shuffler(k_size);
 		shuffler.shuffle(shuffleIter);
 		cout << "Starting with random state:\n\n";
-		shuffler.displaySteps(true);
+		shuffler.display();
 		cout << "Shuffled " << shuffleIter << " times.\n\n";
 		puzzle = shuffler.getPuzzle();
 	}
