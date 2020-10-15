@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:55:50 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/06 10:51:27 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/15 19:41:02 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ const bool State::isSolvable() const
 	if (k_size % 2 == 1){
 		return (isEven);
 	} else {
-		const bool isEvenItPos = getItPos() % 2 == 0;
+		const bool isEvenItPos = (k_size - getItPos() / k_size) % 2 == 1;
 		return (isEvenItPos ^ isEven);
 	}
 }
