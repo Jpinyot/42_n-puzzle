@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:14:12 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/14 15:27:57 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/14 16:56:28 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 #include <cmath>
 using namespace std;
 
-const int k_size = 3;
-const unsigned char k_itValue = 4;
+extern int k_size;
+extern unsigned char k_itValue;
 
 enum Heuristic {
 	mandist,
