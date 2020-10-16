@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 11:55:44 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/07 16:17:15 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/16 17:51:57 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,55 +113,88 @@ void	InputParser::puzzleFromFile(const char* fileName)
 	}
 }
 
+const vector<unsigned char> getTranslationStr(unsigned char size)
+{
+	enum Directions {R, D, L, U};
+	vector<unsigned char> retStr(size*size);
+	int i = 0, j = 0;
+	int i_max = size - 1, j_max = size - 1;
+	int i_min = 0, j_min = 1;
+	int c = 1;
+	int itPos = floor(size * size / 2) + (size - 1) % 2 * 1;
+
+	Directions currMove = R;
+
+	retStr[0] = itPos;
+
+	while (!(i == itPos % size && j == itPos / size)) {
+		retStr[c++] = j*size + i;
+		switch (currMove)
+		{
+		case R:
+			i++;
+			if (i >= i_max) {
+				currMove = D;
+				i_max--;
+			}
+			break;
+		case D:
+			j++;
+			if (j >= j_max) {
+				currMove = L;
+				j_max--;
+			}
+			break;
+		case L:
+			i--;
+			if (i <= i_min) {
+				currMove = U;
+				i_min++;
+			}
+			break;
+		case U:
+			j--;
+			if (j <= j_min) {
+				currMove = R;
+				j_min++;
+			}
+			break;
+		}
+	}
+
+	return retStr;
+}
+
+vector<unsigned char>	inverse(vector<unsigned char>vec) {
+	vector<unsigned char> ret(vec.size());
+	for (int i; i < vec.size(); i++) {
+		ret[vec[i]] = i;
+	}
+	return ret;
+}
+
 vector<unsigned char>	InputParser::getTranslatedPuzzle() const
 {
-	const char* translateStr;
+	vector<unsigned char> translateStr = getTranslationStr(size_);
 	vector<unsigned char> retPuzzle;
 
-	switch (size_)
-	{
-		case 3:
-			translateStr = k_translateThree;
-			break ;
-		case 4:
-			translateStr = k_translateFour;
-			break ;
-		case 5:
-			translateStr = k_translateFive;
-			break ;
-		default:
-			return (retPuzzle);
-	}
 	for(auto &tile : puzzle_) {
 		retPuzzle.emplace_back(translateStr[tile]);
 	}
 	return (retPuzzle);
 }
 
-vector<unsigned char>	InputParser::translatePuzzleBack(const vector<unsigned char>& puzzle, const unsigned char& size) const
+vector<unsigned char>	InputParser::translatePuzzleBack(const vector<unsigned char>& puzzle, const unsigned char& size)
 {
 	if ( puzzle.size() != size * size) {
 		return (vector<unsigned char>(0));
 	}
-	const char* translateStr;
+	
+	vector<unsigned char> translateStr = inverse(getTranslationStr(size));
 	vector<unsigned char> retPuzzle(puzzle.size());
 
-	switch (size)
-	{
-		case 3:
-			translateStr = k_translateThree;
-			break ;
-		case 4:
-			translateStr = k_translateFour;
-			break ;
-		case 5:
-			translateStr = k_translateFive;
-			break ;
-		default:
-			return (vector<unsigned char>(0));
-	}
-	for (auto &tile : puzzle) {
-		retPuzzle[translateStr[tile]] = tile;
+	for (int i = 0; i < puzzle.size(); i++) {
+		retPuzzle[i] = translateStr[puzzle[i]];
 	}
 	return (retPuzzle);
 }

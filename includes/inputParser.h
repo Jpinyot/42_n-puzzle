@@ -6,12 +6,13 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 11:46:13 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/16 10:24:54 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/16 17:29:29 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include <vector>
+#include <math.h>
 
 const char k_commentChar = '#';
 const int k_invalidSize = 0;
