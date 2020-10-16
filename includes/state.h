@@ -6,11 +6,12 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:14:12 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/14 16:56:28 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/16 10:32:22 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
+#include "inputParser.h"
 #include <vector>			//vector 
 #include <list>
 #include <unistd.h>			//write
@@ -21,6 +22,7 @@ using namespace std;
 
 extern int k_size;
 extern unsigned char k_itValue;
+extern bool k_translate;
 
 enum Heuristic {
 	mandist,

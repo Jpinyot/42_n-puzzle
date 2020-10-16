@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 11:46:13 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/09 16:04:49 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/16 10:24:54 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ class InputParser
 
 		vector<unsigned char>	getTranslatedPuzzle() const;
 		vector<unsigned char>	getPuzzle() const {return puzzle_;};
-		vector<unsigned char>	translatePuzzleBack(const vector<unsigned char>& puzzlei, const unsigned char& size) const;
+		static vector<unsigned char>	translatePuzzleBack(const vector<unsigned char>& puzzlei, const unsigned char& size);
 		const InputErrors	getErrors() const {return errors_;}
 		const char		getSize() const {return size_;}
 };

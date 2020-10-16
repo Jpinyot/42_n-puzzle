@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/15 17:51:26 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/16 11:39:35 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 int k_size = 0;
 unsigned char k_itValue = 0;
+bool k_translate = false;
 
 static int solve(State *firstState, int (*algo)(State*))
 {
@@ -42,12 +43,11 @@ int	main(int ac, char **av)
 	Algorithms algo;
 	Heuristic h;
 	const char *file;
-	bool translate;
 	
 	srand(time(NULL));
 	int shuffleIter = rand() % 50 + 20;
 	
-	tie(error, algo, h, file, translate, k_size) = parse_args(ac, av);
+	tie(error, algo, h, file, k_translate, k_size) = parse_args(ac, av);
 
 	if (error != "") {
 		cout << error;
@@ -59,13 +59,13 @@ int	main(int ac, char **av)
 	if (file != NULL) {
 		InputParser parser = InputParser(file);
 		k_size = parser.getSize();
-		k_itValue = (floor(k_size * k_size / 2) + (k_size - 1) % 2 * 1) * translate;
-		if (translate)
+		k_itValue = (floor(k_size * k_size / 2) + (k_size - 1) % 2 * 1) * k_translate;
+		if (k_translate)
 			puzzle = parser.getTranslatedPuzzle();
 		else
 			puzzle = parser.getPuzzle();
 	} else {
-		k_itValue = (floor(k_size * k_size / 2) + (k_size - 1) % 2 * 1) * translate;
+		k_itValue = (floor(k_size * k_size / 2) + (k_size - 1) % 2 * 1) * k_translate;
 		Shuffler shuffler = Shuffler(k_size);
 		shuffler.shuffle(shuffleIter);
 		cout << "Starting with random state:\n\n";
