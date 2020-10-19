@@ -6,20 +6,20 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 11:06:13 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/14 16:47:45 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/19 09:10:01 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "algorithms.h"
 
-static void outputSolution(State *solution) {
+static void outputSolution(State *solution, bool display) {
 	cout << "Solved in " << solution->getMoveCount() << " steps.\n";
-	solution->displaySteps();
+	solution->displaySteps(display);
 	cout << "Total opened states: " << State::getStatesCreated() << ".\n";
 	cout << "Max active states at once: " << State::getMaxStatesActive() << ".\n";
 }
 
-int astar(State *firstState)
+int astar(State *firstState, bool display)
 {
 	OpenStack openStack = OpenStack(firstState);
 	ClosedStack closedStack = ClosedStack();
@@ -27,7 +27,7 @@ int astar(State *firstState)
 	while (openStack.getTop() != NULL) {
 		State *state = openStack.getTop();
 		if (state->isSolution()) {
-			outputSolution(state);
+			outputSolution(state, display);
 			return 1;
 		}
 		else {
@@ -74,7 +74,7 @@ static int idasearch(UnsortedStack *stack, int bound)
 	return min;
 }
 
-int idastar(State *firstState)
+int idastar(State *firstState, bool display)
 {
 	UnsortedStack *stack = new UnsortedStack(firstState);
 	int bound = firstState->getHeuristicScore();
@@ -84,7 +84,7 @@ int idastar(State *firstState)
 		t = idasearch(stack, bound);
 		if (t == 0) {
 			State *state = stack->getTop();
-			outputSolution(state);
+			outputSolution(state, display);
 			delete stack;
 			return 1;
 		}
@@ -95,7 +95,7 @@ int idastar(State *firstState)
 	}
 }
 
-int greedyastar(State *firstState)
+int greedyastar(State *firstState, bool display)
 {
 	GreedyStack stack = GreedyStack(firstState);
 	ClosedStack closedStack = ClosedStack();
@@ -103,7 +103,7 @@ int greedyastar(State *firstState)
 	while (stack.getTop() != NULL) {
 		State *state = stack.getTop();
 		if (state->isSolution()) {
-			outputSolution(state);
+			outputSolution(state, display);
 			return 1;
 		}
 		else {

@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 18:02:53 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/19 08:47:48 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/19 09:14:47 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ const int TYPE_ALGO = 010;
 const int TYPE_HEURISTIC = 0100;
 const int TYPE_SIZE = 01000;
 const int TYPE_TRANSLATE = 010000;
+const int TYPE_DISPLAY = 0100000;
 
 
 string help =
@@ -37,6 +38,7 @@ Args:\n\
 	--mandist	solve using Manhattan Distance heuristic\n\
 	--unicost	solve using uniform cost, aka no heuristic\n\
 	--linconf	solve using Linear Conflict heuristic -- Default\n\
+	--display	display full steps progression after solving\n\
 \n\
 ";
 
@@ -69,10 +71,12 @@ map<string, int> skips {
 	{"--notranslate", TYPE_TRANSLATE},
 	{"--mandist", TYPE_HEURISTIC},
 	{"--linconf", TYPE_HEURISTIC},
-	{"--unicost", TYPE_HEURISTIC}
+	{"--unicost", TYPE_HEURISTIC},
+	{"-d", TYPE_DISPLAY},
+	{"--display", TYPE_DISPLAY}
 };
 
-tuple<string, Algorithms, Heuristic, char*, bool, int>    parse_args(int ac, char **av) {
+tuple<string, Algorithms, Heuristic, char*, bool, int, bool>    parse_args(int ac, char **av) {
 	int argsSet = 00;
 
 	string error = "";
@@ -80,6 +84,7 @@ tuple<string, Algorithms, Heuristic, char*, bool, int>    parse_args(int ac, cha
 	Heuristic h = linconf;
 	char *file = NULL;
 	bool translate = true;
+	bool display = false;
 	int size = 3;
 
 	for (int i = 1; i < ac && error == ""; i++) {
@@ -122,6 +127,10 @@ tuple<string, Algorithms, Heuristic, char*, bool, int>    parse_args(int ac, cha
 					translate = false;
 					break;
 
+				case TYPE_DISPLAY:
+					display = true;
+					break;
+
 				default:
 					break;
 			}
@@ -137,5 +146,5 @@ tuple<string, Algorithms, Heuristic, char*, bool, int>    parse_args(int ac, cha
 			} else error = "ERROR - Extraneous member \"" + string(av[i]) + "\" in input.\n";
 		}
 	}
-	return make_tuple(error, algo, h, file, translate, size);
+	return make_tuple(error, algo, h, file, translate, size, display);
 }
