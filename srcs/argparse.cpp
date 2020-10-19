@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 18:02:53 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/19 09:14:47 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/19 10:02:27 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ Args:\n\
 	--mandist	solve using Manhattan Distance heuristic\n\
 	--unicost	solve using uniform cost, aka no heuristic\n\
 	--linconf	solve using Linear Conflict heuristic -- Default\n\
+	--hamming	solve using Hamming heuristic\n\
 	--display	display full steps progression after solving\n\
 \n\
 ";
@@ -54,7 +55,8 @@ map<string, Algorithms> algorithms {
 map<string, Heuristic> heuristics {
 	{"--mandist", mandist},
 	{"--linconf", linconf},
-	{"--unicost", unicost}
+	{"--unicost", unicost},
+	{"--hamming", hamming}
 };
 
 map<string, int> skips {
@@ -72,6 +74,7 @@ map<string, int> skips {
 	{"--mandist", TYPE_HEURISTIC},
 	{"--linconf", TYPE_HEURISTIC},
 	{"--unicost", TYPE_HEURISTIC},
+	{"--hamming", TYPE_HEURISTIC},
 	{"-d", TYPE_DISPLAY},
 	{"--display", TYPE_DISPLAY}
 };

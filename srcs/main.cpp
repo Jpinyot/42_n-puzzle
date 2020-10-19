@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/19 09:10:52 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/19 10:00:34 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "stateManhattanDistance.h"
 #include "stateLinearConflict.h"
 #include "stateUniformCost.h"
+#include "stateHamming.h"
 #include "shuffler.h"
 #include "algorithms.h"
 #include "inputParser.h"
@@ -85,6 +86,10 @@ int	main(int ac, char **av)
 			break;
 		case unicost:
 			state = new StateUniformCost(puzzle, Moves::none);
+			break;
+		case hamming:
+			state = new StateHamming(puzzle, Moves::none);
+			break;
 	}
 
 	switch (algo) {
