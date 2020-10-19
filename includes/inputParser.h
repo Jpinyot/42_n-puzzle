@@ -6,22 +6,19 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 11:46:13 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/07 16:17:00 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/16 18:49:18 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma one
+#pragma once
 #include <vector>
+#include <math.h>
 
 const char k_commentChar = '#';
 const int k_invalidSize = 0;
 const int k_minSize = 3;
-const int k_maxSize = 5;
+const int k_maxSize = 16;
 const int k_minValue = 0;
-
-const char k_translateThree[9]{4,0,1,2,5,8,7,6,3};
-const char k_translateFour[16]{9,0,1,2,3,7,11,15,14,13,12,8,4,5,6,10};
-const char k_translateFive[25]{12,0,1,2,3,4,9,14,19,24,23,22,21,20,15,10,5,6,7,8,13,18,17,16,11};
 
 using namespace std;
 
@@ -62,7 +59,7 @@ class InputParser
 
 		vector<unsigned char>	getTranslatedPuzzle() const;
 		vector<unsigned char>	getPuzzle() const {return puzzle_;};
-		vector<unsigned char>	translatePuzzleBack(const vector<unsigned char>& puzzlei, const unsigned char& size) const;
+		static vector<unsigned char>	translatePuzzleBack(const vector<unsigned char>& puzzlei, const unsigned char& size);
 		const InputErrors	getErrors() const {return errors_;}
 		const char		getSize() const {return size_;}
 };

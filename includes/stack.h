@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   openStack.h                                        :+:      :+:    :+:   */
+/*   stack.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:45:15 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/06 10:30:59 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/14 15:53:02 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,21 @@ class UnsortedStack: public Stack
         {;}
 
         virtual void addState(State *state);
+};
+
+class GreedyStack: public Stack
+{
+    public:
+        GreedyStack():
+            Stack()
+        {;}
+
+        GreedyStack(State *state):
+            Stack(state)
+        {;}
+
+        ~GreedyStack()
+        {;}
+
+        virtual void    addState(State *state);
 };

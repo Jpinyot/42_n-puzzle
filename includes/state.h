@@ -6,11 +6,12 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:14:12 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/07 15:38:11 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/16 10:32:22 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
+#include "inputParser.h"
 #include <vector>			//vector 
 #include <list>
 #include <unistd.h>			//write
@@ -19,12 +20,14 @@
 #include <cmath>
 using namespace std;
 
-const int k_size = 3;
-const unsigned char k_itValue = 8;
+extern int k_size;
+extern unsigned char k_itValue;
+extern bool k_translate;
 
 enum Heuristic {
 	mandist,
 	linconf,
+	unicost,
 };
 
 enum Moves
@@ -106,8 +109,7 @@ class State
 	void		display() const;
 	void		displaySteps(const bool disp=false, const bool isFirst=true) const;
         virtual const int       singleTileDistance(int tile) const = 0;
-		virtual State	*moveTo(Moves &move) {cout << "here"; return NULL;}
+		virtual State	*moveTo(Moves &move) {return NULL;}
+		virtual const bool isSolution() const {return getHeuristicScore() == 0;}
 
 };
-
-/* list<int, vector<State*> > visited; */

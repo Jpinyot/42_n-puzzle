@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 15:26:40 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/06 18:44:40 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/14 17:12:22 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,6 @@ class Shuffler{
 
 		void shuffle(int n_moves);
 		void display() const {solution_->display();}
+		void displaySteps(bool full=false) const {solution_->displaySteps(full);}
 		const vector<unsigned char> getPuzzle() const {return solution_->getPuzzle();}
 };

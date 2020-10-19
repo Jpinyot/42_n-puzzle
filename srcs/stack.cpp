@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:50:54 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/06 11:48:46 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/14 15:53:46 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,26 @@ void Stack::popTop()
     if (top_ != NULL) {
         top_ = top_->getNext();
     }
+}
+
+void GreedyStack::addState(State *state)
+{
+    State *currState = top_;
+    State *prevState = NULL;
+
+    while (currState != NULL) {
+        if (state->getHeuristicScore() < currState->getHeuristicScore())
+            break;
+        prevState = currState;
+        currState = currState->getNext();
+    }
+
+    state->setNext(currState);
+
+    if (prevState == NULL)
+        top_ = state;
+    else
+        prevState->setNext(state);
 }
 
 void Stack::display() const

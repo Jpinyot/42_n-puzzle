@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algorithms.h                                       :+:      :+:    :+:   */
+/*   argparse.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 11:05:42 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/19 09:08:32 by mfiguera         ###   ########.fr       */
+/*   Created: 2020/10/07 18:11:00 by mfiguera          #+#    #+#             */
+/*   Updated: 2020/10/19 09:03:07 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
+
+#include <map>
+#include <iostream>
+#include <tuple>
+#include <fstream>
+#include "algorithms.h"
 #include "state.h"
-#include "stack.h"
-#include "closedStack.h"
 
-const int k_infinite = 9999999;
-
-enum Algorithms {
-	a,
-	ida,
-	greedy
-};
-
-int astar(State *firstState, bool display);
-int idastar(State *firstState, bool display);
-int greedyastar(State *firstState, bool display);
+tuple<string, Algorithms, Heuristic, char*, bool, int, bool> parse_args(int ac, char **av);

@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:55:50 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/06 10:51:27 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/15 19:41:02 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,19 @@ const int	maxDigits(int size) {
 	return (c + 1);
 }
 
+void displayPuzzle(const vector<unsigned char> puzzle_out)
+{
+	int fill = maxDigits(k_size);
+
+	for(int i = 0; i < puzzle_out.size(); i++) {
+		cout << setfill(' ') << setw(fill) << static_cast<int>(puzzle_out[i]);
+		if ((i+1) % k_size == 0) {
+			cout << '\n';
+		}
+	}
+	cout << "\n";	
+}
+
 void State::display() const
 {
 	char move;
@@ -104,15 +117,17 @@ void State::display() const
 			move = '-';
 	}
 	int fill = maxDigits(k_size);
+
+	vector<unsigned char> puzzle_out;
+	if (k_translate) {
+		puzzle_out = InputParser::translatePuzzleBack(puzzle_, k_size);
+	} else {
+		puzzle_out = puzzle_;
+	}
+
 	string str = "-------------------------------------------\n";
 	cout << setfill('-') << setw((round((fill * k_size) / 2)) + 1) << move << str.substr(str.size() - floor((fill * k_size / 2)));
-	for(int i = 0; i < puzzle_.size(); i++) {
-		cout << setfill(' ') << setw(fill) << static_cast<int>(puzzle_[i]);
-		if ((i+1) % k_size == 0) {
-			cout << '\n';
-		}
-	}
-	cout << "\n";
+	displayPuzzle(puzzle_out);
 }
 
 void State::displaySteps(const bool disp, const bool isFirst) const
@@ -168,10 +183,10 @@ const bool State::isSolvable() const
 	}
 
 	const bool isEven = invCount % 2 == 0;
-	if (k_size % 2 == 1){
+	if (k_size % 2 == 1) {
 		return (isEven);
 	} else {
-		const bool isEvenItPos = getItPos() % 2 == 0;
+		const bool isEvenItPos = (k_size - getItPos() / k_size) % 2 == 1;
 		return (isEvenItPos ^ isEven);
 	}
 }
