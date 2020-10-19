@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 18:02:53 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/15 18:38:07 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/19 08:47:48 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ Args:\n\
 	PUZZLE		path to map file. If not provided map is randomly generated\n\
 	-s, --size S	size of the generated map -- Default=3\n\
 	-h, --help	display help and exit\n\
+	-g, --greedy	solve using greedy algo\n\
 	-a, --astar	solve using A* algorithm\n\
 	-ida, --idastar	solve using IDA* algorithm -- Default\n\
 	--notranslate	map is not curled\n\
