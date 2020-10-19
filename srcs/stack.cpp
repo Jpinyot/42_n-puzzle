@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:50:54 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/14 15:53:46 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/19 11:25:42 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void GreedyStack::addState(State *state)
     State *prevState = NULL;
 
     while (currState != NULL) {
-        if (state->getHeuristicScore() < currState->getHeuristicScore())
+        if (state->getHeuristicScore() + multiplier_ * state->getMoveCount() < currState->getHeuristicScore() + multiplier_ * state->getMoveCount())
             break;
         prevState = currState;
         currState = currState->getNext();

@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/30 11:45:15 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/14 15:53:02 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/19 13:00:36 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,16 @@ class UnsortedStack: public Stack
 
 class GreedyStack: public Stack
 {
-    public:
-        GreedyStack():
-            Stack()
-        {;}
+    private:
+        const float multiplier_;
 
-        GreedyStack(State *state):
-            Stack(state)
+    public:
+        GreedyStack(float multi=0):
+            Stack(), multiplier_(multi)
+        {;}
+        
+        GreedyStack(State *state, float multi=0):
+            Stack(state), multiplier_(multi)
         {;}
 
         ~GreedyStack()
