@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 11:55:44 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/16 17:51:57 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/28 11:59:14 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ const vector<unsigned char> getTranslationStr(unsigned char size)
 
 	retStr[0] = itPos;
 
-	while (!(i == itPos % size && j == itPos / size)) {
+	while (c < size*size) {
 		retStr[c++] = j*size + i;
 		switch (currMove)
 		{
@@ -167,7 +167,7 @@ const vector<unsigned char> getTranslationStr(unsigned char size)
 
 vector<unsigned char>	inverse(vector<unsigned char>vec) {
 	vector<unsigned char> ret(vec.size());
-	for (int i; i < vec.size(); i++) {
+	for (int i = 0; i < vec.size(); i++) {
 		ret[vec[i]] = i;
 	}
 	return ret;
