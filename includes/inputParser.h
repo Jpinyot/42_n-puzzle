@@ -6,11 +6,12 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 11:46:13 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/16 18:49:18 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/28 13:03:13 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
+#include "state.h"
 #include <vector>
 #include <math.h>
 

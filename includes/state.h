@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 11:14:12 by mfiguera          #+#    #+#             */
-/*   Updated: 2020/10/19 09:58:53 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/28 12:57:06 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <iostream>
 #include <iomanip>
 #include <cmath>
+#define calculateItPos(s) floor(s * s / 2) + (s - 1) % 2 + (1 - s % 2) * (s / 2 - 2)
 using namespace std;
 
 extern int k_size;

@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/28 17:28:02 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/19 10:00:34 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/28 13:06:35 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ int	main(int ac, char **av)
 	if (file != NULL) {
 		InputParser parser = InputParser(file);
 		k_size = parser.getSize();
-		k_itValue = (floor(k_size * k_size / 2) + (k_size - 1) % 2 * 1) * k_translate;
+		k_itValue = (calculateItPos(k_size)) * k_translate;
 		if (k_translate)
 			puzzle = parser.getTranslatedPuzzle();
 		else
 			puzzle = parser.getPuzzle();
 	} else {
-		k_itValue = (floor(k_size * k_size / 2) + (k_size - 1) % 2 * 1) * k_translate;
+		k_itValue = (calculateItPos(k_size)) * k_translate;
 		Shuffler shuffler = Shuffler(k_size);
 		shuffler.shuffle(shuffleIter);
 		puzzle = shuffler.getPuzzle();

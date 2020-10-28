@@ -6,7 +6,7 @@
 /*   By: mfiguera <mfiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 11:55:44 by jpinyot           #+#    #+#             */
-/*   Updated: 2020/10/28 11:59:14 by mfiguera         ###   ########.fr       */
+/*   Updated: 2020/10/28 12:57:00 by mfiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ const vector<unsigned char> getTranslationStr(unsigned char size)
 	int i_max = size - 1, j_max = size - 1;
 	int i_min = 0, j_min = 1;
 	int c = 1;
-	int itPos = floor(size * size / 2) + (size - 1) % 2 * 1;
+	int itPos = calculateItPos(size);
 
 	Directions currMove = R;
 
